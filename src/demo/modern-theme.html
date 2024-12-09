@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player Test Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <div id="AudioPlayerWrapper" class="flex flex-row max-w-7xl mx-auto"></div>
+    <script type="module">
+        import AudioPlayer from '../AudioPlayer.js'
+        document.addEventListener('DOMContentLoaded', () => {
+            AudioPlayer.create('AudioPlayerWrapper', {}).then(player => {});
+        })
+    </script>
+</body>
+</html>
