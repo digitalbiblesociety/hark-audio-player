@@ -6,7 +6,7 @@
 
 <div align="center">
 
-![GitHub License](https://img.shields.io/github/license/digitalbiblesociety/browserbible-3?color=gold)
+![GitHub License](https://img.shields.io/github/license/digitalbiblesociety/hark-audio-player?color=gold)
 ![Static Badge](https://img.shields.io/badge/HARKv1-Holy_Audio_Resource_Kit-gold)
 
 </div>
