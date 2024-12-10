@@ -13,32 +13,22 @@ import { handleBookChange } from "./AudioPlayerBibleList.mjs";
 export default class AudioPlayer {
   constructor(containerId, options) {
     this.container = document.getElementById(containerId);
-    this.bookListGrid = null;
-    this.mediaPlayerWrap = null;
     this.providers = options.providers ?? ["hark"];
     this.bibles = [];
-    this.engineBibles = null;
-    this.currentBible = null;
+    this.currentBible = {};
     this.currentBooks = [];
-    this.currentBook = null;
+    this.currentBook = {};
     this.currentChapter = { number: 0 };
     this.audio = document.createElement("audio");
     this.currentType = "hark";
-
     this.isDragging = false;
-
     this.class = mergeClasses(options.classes);
     this.icons = mergeIcons(options.icons);
     this.art = mergeArt(options.art);
-
     this.results = [];
     this.query = "";
-    this.engineBooks = null;
     this.view = "bible";
     this.idPrefix = options?.idPrefix ?? "audio-player";
-
-    this.bookSelect = null;
-    this.chapterSelect = null;
     this.views = {
         bible: {player: "none", bibleListContainer: "block", bookListContainer: "none", chapterListContainer: "none"},
         book: {player: "block", bibleListContainer: "none", bookListContainer: "block", chapterListContainer: "none"},
@@ -61,11 +51,11 @@ export default class AudioPlayer {
     initBookList(player);
     playerContainer.append(player.bookListContainer,player.chapterListContainer,player.bibleListContainer);
     player.container.appendChild(playerContainer);
-    this.setPlayerView(player);
+    this.setDefaultView(player);
     return player;
   }
 
-  static async setPlayerView(player) {
+  static async setDefaultView(player) {
     const url = new URL(window.location);
     if (url.searchParams.get("bibleId")) {
       await handleBibleButtonClick(player, player.bibles.find((bible) => bible.id == url.searchParams.get("bibleId")));
@@ -79,46 +69,31 @@ export default class AudioPlayer {
       initBibleList(player);
     }
 
-    const currentView = player.views[player.view] || views.bible;
-    player.player.style.display = currentView.player;
-    player.bibleListContainer.style.display = currentView.bibleListContainer;
-    player.bookListContainer.style.display = currentView.bookListContainer;
-    player.chapterListContainer.style.display = currentView.chapterListContainer;
+    setView(player)
   }
 
   render() {
     if (this.view === "bible") {
       initBibleList(this);
-      this.bibleListContainer.style.display = "block";
-      this.bookListContainer.style.display = "none";
-      this.chapterListContainer.style.display = "none";
-      if (this.player && !this.currentChapter) {
-        this.player.style.display = "none";
-      }
     } else if (this.view === "book") {
-      this.bibleListContainer.style.display = "none";
-      this.chapterListContainer.style.display = "none";
-      this.bookListContainer.style.display = "block";
       updateBookList(this);
-
-      if (this.player) {
-        this.player.style.display = "block";
-      }
     } else if (this.view === "chapter") {
-      this.bibleListContainer.style.display = "none";
-      this.chapterListContainer.style.display = "block";
-      this.bookListContainer.style.display = "none";
       chapterList(this);
-
-      if (this.player) {
-        this.player.style.display = "block";
-      }
     }
+    setView(this)
   }
 
   setData(newData) {
     Object.assign(this, newData);
   }
+}
+
+function setView(player) {
+    const currentView = player.views[player.view] || views.bible;
+    player.player.style.display = currentView.player;
+    player.bibleListContainer.style.display = currentView.bibleListContainer;
+    player.bookListContainer.style.display = currentView.bookListContainer;
+    player.chapterListContainer.style.display = currentView.chapterListContainer;
 }
 
 function createMediaPlayer(ctx) {
