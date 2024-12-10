@@ -89,7 +89,6 @@ export async function prevChapter(ctx) {
     if ((ctx.currentChapter.number - 1) > 1) {
         handleChapterChange(ctx, ctx.currentBook, (ctx.currentChapter.number - 1))
     } else {
-        //console.log('Already at the last chapter.');
         const index = ctx.currentBooks.data.findIndex(book => book.book_id === ctx.currentBook.book_id);
         if(ctx.currentBooks.data[index - 1]) {
             handleBookChange(ctx, ctx.currentBooks.data[index - 1].book_id)
@@ -102,7 +101,6 @@ export async function nextChapter(ctx) {
     if (ctx.currentChapter.number < ctx.currentBook.chapters.length - 1) {
         handleChapterChange(ctx, ctx.currentBook, (ctx.currentChapter.number + 1))
     } else {
-        //console.log('Already at the last chapter.');
         const index = ctx.currentBooks.data.findIndex(book => book.book_id === ctx.currentBook.book_id);
         if(ctx.currentBooks.data[index + 1]) {
             handleBookChange(ctx, ctx.currentBooks.data[index + 1].book_id)
@@ -122,7 +120,7 @@ function createSkipButton(ctx, direction) {
         onclick: () => {
             ctx.audio.currentTime += skipTime;
             if (ctx.audio.currentTime < 0) ctx.audio.currentTime = 0;
-            if (ctx.audio.currentTime > ctx.audio.duration) ctx.audio.currentTime = ctx.audio.duration; // Prevent exceeding duration
+            if (ctx.audio.currentTime > ctx.audio.duration) ctx.audio.currentTime = ctx.audio.duration;
         }
     });
 }

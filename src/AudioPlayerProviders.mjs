@@ -2,6 +2,19 @@ const BASE_API_URL = 'https://arc.dbs.org';
 const BASE_CONTENT_URL = 'https://content.dbs.org';
 const BASE_DBP_URL = 'https://4.dbt.io/api/bibles';
 
+export async function loadProviders(player) {
+    const providerFunctions = {
+        hark: harkList,
+        dbp: dbpList,
+    };
+      
+    for (const provider of player.providers) {
+        if (providerFunctions[provider]) {
+          player.bibles = player.bibles.concat(await providerFunctions[provider]());
+        }
+    }
+}
+
 export async function harkList(country_id = 'all', provider = 'all') {
     const baseBibles = await fetch(`${BASE_API_URL}/api/bibles`).then(response => response.json());
 

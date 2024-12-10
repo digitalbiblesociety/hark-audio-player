@@ -1,5 +1,5 @@
 import { mergeClasses, mergeIcons, mergeArt } from "./AudioPlayerStyles.mjs";
-import { harkList } from "./AudioPlayerProviders.mjs";
+import { loadProviders } from "./AudioPlayerProviders.mjs";
 import { elem } from "./AudioPlayerHelpers.mjs";
 import { createAudioElement } from "./AudioPlayerMedia.mjs";
 import {
@@ -39,45 +39,27 @@ export default class AudioPlayer {
 
     this.bookSelect = null;
     this.chapterSelect = null;
+    this.views = {
+        bible: {player: "none", bibleListContainer: "block", bookListContainer: "none", chapterListContainer: "none"},
+        book: {player: "block", bibleListContainer: "none", bookListContainer: "block", chapterListContainer: "none"},
+        chapter: {player: "block", bibleListContainer: "none", bookListContainer: "none", chapterListContainer: "block"},
+    };
   }
 
   static async create(containerId, options) {
     const player = new AudioPlayer(containerId, options);
-    if (player.providers.includes("hark")) {
-      player.bibles = player.bibles.concat(await harkList());
-    }
-    if (player.providers.includes("dbp")) {
-      player.bibles = player.bibles.concat(await dbpList());
-    }
+    await loadProviders(player)
     player.container.innerHTML = "";
-    const playerContainer = elem("div", {
-      id: `${player.idPrefix}-player-container`,
-      className: player.class.playerContainer,
-    });
-    player.bibleListContainer = elem("div", {
-      id: `${player.idPrefix}-bible-list-container`,
-      className: player.class.bibleListContainer,
-    });
-    player.bookListContainer = elem("div", {
-      id: `${player.idPrefix}-book-list-container`,
-      className: player.class.bookListContainer,
-    });
-    player.chapterListContainer = elem("div", {
-      id: `${player.idPrefix}-chapter-list-container`,
-      className: player.class.chapterListContainer,
-    });
-    player.bibleBlock = elem("div", {
-      id: `${player.idPrefix}-bible-block`,
-      className: player.class.bibleBlock,
-    });
+    const idp = player.idPrefix;
+    const playerContainer = elem("div", {id: `${idp}-player-container`,className: player.class.playerContainer});
+    player.bibleListContainer = elem("div", {id: `${idp}-bible-list-container`,className: player.class.bibleListContainer});
+    player.bookListContainer = elem("div", {id: `${idp}-book-list-container`,className: player.class.bookListContainer});
+    player.chapterListContainer = elem("div", {id: `${idp}-chapter-list-container`,className: player.class.chapterListContainer});
+    player.bibleBlock = elem("div", {id: `${idp}-bible-block`,className: player.class.bibleBlock});
     player.player = createMediaPlayer(player);
-    playerContainer.appendChild(player.bibleBlock);
-    playerContainer.appendChild(player.audio);
-    playerContainer.appendChild(player.player);
+    playerContainer.append(player.bibleBlock, player.audio, player.player);
     initBookList(player);
-    playerContainer.appendChild(player.bookListContainer);
-    playerContainer.appendChild(player.chapterListContainer);
-    playerContainer.appendChild(player.bibleListContainer);
+    playerContainer.append(player.bookListContainer,player.chapterListContainer,player.bibleListContainer);
     player.container.appendChild(playerContainer);
     this.setPlayerView(player);
     return player;
@@ -86,12 +68,7 @@ export default class AudioPlayer {
   static async setPlayerView(player) {
     const url = new URL(window.location);
     if (url.searchParams.get("bibleId")) {
-      await handleBibleButtonClick(
-        player,
-        player.bibles.find(
-          (bible) => bible.id == url.searchParams.get("bibleId"),
-        ),
-      );
+      await handleBibleButtonClick(player, player.bibles.find((bible) => bible.id == url.searchParams.get("bibleId")));
       player.view = "book";
     }
     if (url.searchParams.get("bookId")) {
@@ -102,43 +79,19 @@ export default class AudioPlayer {
       initBibleList(player);
     }
 
-    const views = {
-      bible: {
-        player: "none",
-        bibleListContainer: "block",
-        bookListContainer: "none",
-        chapterListContainer: "none",
-      },
-      book: {
-        player: "block",
-        bibleListContainer: "none",
-        bookListContainer: "block",
-        chapterListContainer: "none",
-      },
-      chapter: {
-        player: "block",
-        bibleListContainer: "none",
-        bookListContainer: "none",
-        chapterListContainer: "block",
-      },
-    };
-
-    const currentView = views[player.view] || views.bible;
+    const currentView = player.views[player.view] || views.bible;
     player.player.style.display = currentView.player;
     player.bibleListContainer.style.display = currentView.bibleListContainer;
     player.bookListContainer.style.display = currentView.bookListContainer;
-    player.chapterListContainer.style.display =
-      currentView.chapterListContainer;
+    player.chapterListContainer.style.display = currentView.chapterListContainer;
   }
 
   render() {
     if (this.view === "bible") {
       initBibleList(this);
-
       this.bibleListContainer.style.display = "block";
       this.bookListContainer.style.display = "none";
       this.chapterListContainer.style.display = "none";
-
       if (this.player && !this.currentChapter) {
         this.player.style.display = "none";
       }
@@ -148,7 +101,6 @@ export default class AudioPlayer {
       this.bookListContainer.style.display = "block";
       updateBookList(this);
 
-      // Show media player
       if (this.player) {
         this.player.style.display = "block";
       }
@@ -158,7 +110,6 @@ export default class AudioPlayer {
       this.bookListContainer.style.display = "none";
       chapterList(this);
 
-      // Show media player
       if (this.player) {
         this.player.style.display = "block";
       }
@@ -167,7 +118,6 @@ export default class AudioPlayer {
 
   setData(newData) {
     Object.assign(this, newData);
-    // If necessary, re-render or update the UI here
   }
 }
 

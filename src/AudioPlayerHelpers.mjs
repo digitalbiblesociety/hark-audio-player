@@ -3,10 +3,8 @@ export function elem(tag, props = {}) {
 
     for (const [key, val] of Object.entries(props)) {
         if (key === 'style' && typeof val === 'object') {
-            // Assign styles individually
             Object.assign(el.style, val);
         } else {
-            // Assign other props directly
             el[key] = val;
         }
     }

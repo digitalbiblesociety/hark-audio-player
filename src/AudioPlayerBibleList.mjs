@@ -129,9 +129,8 @@ export function updateCurrentBibleBlock(ctx, bible) {
 if (ctx.currentChapter && ctx.currentChapter.timestamps && Array.isArray(ctx.currentChapter.timestamps)) {
     const verseSelect = elem('select', { className: ctx.class.selectVerse });
 
-    // Create an option for each verse timestamp
     ctx.currentChapter.timestamps.forEach((timestamp, index) => {
-        const verseNumber = index + 1; // Verses are typically 1-based
+        const verseNumber = index + 1;
         const option = elem('option', {
             value: verseNumber,
             innerText: `${verseNumber}`
@@ -139,7 +138,6 @@ if (ctx.currentChapter && ctx.currentChapter.timestamps && Array.isArray(ctx.cur
         verseSelect.appendChild(option);
     });
 
-    // Add a listener to handle verse changes (you'll need to define handleVerseChange)
     verseSelect.addEventListener('change', (event) => {
         const selectedVerse = parseInt(event.target.value);
         const verseIndex = selectedVerse - 1;
@@ -147,7 +145,6 @@ if (ctx.currentChapter && ctx.currentChapter.timestamps && Array.isArray(ctx.cur
             const tsStr = ctx.currentChapter.timestamps[verseIndex];
             const verseTime = parseTimestampToSeconds(tsStr);
             ctx.audio.currentTime = verseTime;
-            // ctx.audio.play();
         }
     });
 
@@ -158,14 +155,10 @@ if (ctx.currentChapter && ctx.currentChapter.timestamps && Array.isArray(ctx.cur
 }
 
 if (ctx.verseSelect) {
-    let lastSelectedVerse = null;  // Keep track of which verse is currently selected
+    let lastSelectedVerse = null;
     ctx.audio.addEventListener('timeupdate', () => {
         const currentTime = ctx.audio.currentTime;
         const verseTimes = ctx.currentChapter.timestamps;
-
-        // Find the current verse index:
-        // The current verse is the greatest index where verseTimes[index] <= currentTime.
-        // If currentTime is before the first verse, index will be -1 (no verse selected).
         let currentVerseIndex = -1;
         for (let i = 0; i < verseTimes.length; i++) {
             if (currentTime >= parseTimestampToSeconds(verseTimes[i])) {
