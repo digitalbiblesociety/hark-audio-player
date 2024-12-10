@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player Test Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+    <div id="AudioPlayerWrapper" class="flex flex-row max-w-7xl mx-auto"></div>
+    <script type="module">
+        import AudioPlayer from '../AudioPlayer.js'
+        document.addEventListener('DOMContentLoaded', () => {
+            AudioPlayer.create('AudioPlayerWrapper', {
+                classes: {
+                    bibleButton: {
+                        wrapper: 'flex flex-col text-white bg-[#21495E] hover:bg-[#DEAB6C] shadow-[2px_2px_0px_rgba(0,0,0,1)] active:bg-[#21495E] rounded-md',
+                        languageWrap: 'flex flex-row w-full justify-between items-center px-2 rounded-t-md bg-[#DEAB6C] hover:bg-[#DEAB6C] active:bg-[#DEAB6C]',
+                        language: 'text-sm font-bold text-black truncate',
+                        iso: 'font-mono font-bold mt-1 text-xs text-gray-800',
+                        titleWrap: 'py-1 h-full w-full flex flex-col-reverse justify-center items-center',
+                        title: 'truncate text-center text-sm font-medium text-stone-200',
+                        vernacular: 'line-clamp-2 text-lg font-bold text-stone-100',
+                    }
+                }
+            }).then(player => {});
+        })
+    </script>
+</body>
+</html>
