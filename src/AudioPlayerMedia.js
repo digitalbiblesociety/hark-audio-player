@@ -10,9 +10,9 @@ export function createAudioElement(ctx) {
     navRow.append(
         createBookNavigationButton(ctx, 'prev'),
         createChapterNavigationButton(ctx, 'prev'),
-        createSkipButton(ctx, 'back'),
+        createSkipButton(ctx, 'prev'),
         createPlayPauseButton(ctx),
-        createSkipButton(ctx, 'forward'),
+        createSkipButton(ctx, 'next'),
         createChapterNavigationButton(ctx, 'next'),
         createBookNavigationButton(ctx, 'next')
     );
@@ -90,18 +90,14 @@ export async function nextChapter(ctx) {
     }
 }
 
-function createSkipButton(ctx, direction) {
-    const isForward = direction === 'forward';
-    const icon = isForward ? ctx.icons.skipForward : ctx.icons.skipBackward;
-    const skipTime = isForward ? 15 : -15;
-
+function createSkipButton(ctx, dir) {
     return elem('button', {
-        className: isForward ? ctx.class.skipForwardButton : ctx.class.skipBackButton,
-        innerHTML: icon,
+        id: `${dir}SkipButton`,
+        className: ctx.class[`${dir}SkipButton`],
+        innerHTML: ctx.icons[`${dir}Skip`],
         onclick: () => {
-            ctx.audio.currentTime += skipTime;
-            if (ctx.audio.currentTime < 0) ctx.audio.currentTime = 0;
-            if (ctx.audio.currentTime > ctx.audio.duration) ctx.audio.currentTime = ctx.audio.duration;
+            ctx.audio.currentTime + (dir == "next" ? 15 : -15);
+            ctx.audio.currentTime = Math.min(Math.max(ctx.audio.currentTime, 0), ctx.audio.duration);
         }
     });
 }

@@ -41,3 +41,4 @@ export function createPlaybackRateControls(ctx) {
     playbackRateWrapperElem.append(decrementIcon, decrementButton, playbackRateElem, incrementIcon, incrementButton);
     return playbackRateWrapperElem;
 }
+
