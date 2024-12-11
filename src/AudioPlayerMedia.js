@@ -59,34 +59,26 @@ function createChapterNavigationButton(ctx, dir) {
     return elem('button', {
         className: ctx.class[`${dir}ChapterButton`],
         innerHTML: ctx.icons[`${dir}Chapter`],
-        onclick: () => {
-            const action = dir === 'prev' ? prevChapter : nextChapter;
-            action(ctx);
-        }
+        onclick: () => changeChapter(ctx, dir)
     });
 }
 
-export async function prevChapter(ctx) {
-    if ((ctx.currentChapter.number - 1) > 1) {
-        handleChapterChange(ctx, ctx.currentBook, (ctx.currentChapter.number - 1))
-    } else {
-        const index = ctx.currentBooks.data.findIndex(book => book.book_id === ctx.currentBook.book_id);
-        if(ctx.currentBooks.data[index - 1]) {
-            handleBookChange(ctx, ctx.currentBooks.data[index - 1].book_id)
-            handleChapterChange(ctx, ctx.currentBooks.data[index - 1], 1)
-        }
-    }
-}
+async function changeChapter(ctx, dir) {
+    const chapterChange = (dir === 'prev') ? -1 : 1;
+    const targetChapter = ctx.currentChapter.number + chapterChange;
 
-export async function nextChapter(ctx) {
-    if (ctx.currentChapter.number < ctx.currentBook.chapters.length - 1) {
-        handleChapterChange(ctx, ctx.currentBook, (ctx.currentChapter.number + 1))
-    } else {
-        const index = ctx.currentBooks.data.findIndex(book => book.book_id === ctx.currentBook.book_id);
-        if(ctx.currentBooks.data[index + 1]) {
-            handleBookChange(ctx, ctx.currentBooks.data[index + 1].book_id)
-            handleChapterChange(ctx, ctx.currentBooks.data[index + 1], 1)
-        }
+    const inCurrentBook = dir === 'prev' ? (targetChapter > 0) : (targetChapter < ctx.currentBook.chapters.length + 1);
+    if (inCurrentBook) {
+        handleChapterChange(ctx, ctx.currentBook, targetChapter);
+        return
+    }
+
+    const currentIndex = ctx.currentBooks.data.findIndex(book => book.book_id === ctx.currentBook.book_id);
+    const targetIndex = currentIndex + chapterChange;
+    const targetBook = ctx.currentBooks.data[targetIndex];
+    if (targetBook) {
+        handleBookChange(ctx, targetBook.book_id);
+        handleChapterChange(ctx, targetBook, 1);
     }
 }
 
