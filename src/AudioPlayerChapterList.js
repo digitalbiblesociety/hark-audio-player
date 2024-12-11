@@ -1,5 +1,5 @@
-import { elem } from "./AudioPlayerHelpers.mjs";
-import { setCurrentChapter } from "./AudioPlayerProviders.mjs";
+import { elem } from "./AudioPlayerHelpers.js";
+import { setCurrentChapter } from "./AudioPlayerProviders.js";
 
 export function chapterList(ctx) {
     ctx.chapterListContainer.innerHTML = '';

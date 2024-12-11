@@ -1,4 +1,4 @@
-import { elem, formatTime } from "./AudioPlayerHelpers.mjs";
+import { elem, formatTime } from "./AudioPlayerHelpers.js";
 
 export function createVolumeAndSleepControls(ctx) {
     const volumeRow = elem('div', { className: ctx.class.volumeRow });

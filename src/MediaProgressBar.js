@@ -1,4 +1,4 @@
-import { elem, formatTime, parseTimestampToSeconds } from "./AudioPlayerHelpers.mjs";
+import { elem, formatTime, parseTimestampToSeconds } from "./AudioPlayerHelpers.js";
 
 export function createProgressBar(ctx) {
     function seekAudio(event, ctx, progressWrapper) {

@@ -18,7 +18,9 @@ This project is a headless javascript audio bible player open sourced under [GPL
 - Sharable links / state [x]
 - vernacular number support []
 - custom api endpoints []
+- add keyboard shortcuts, space-bar to play
 - 3 demo styles []
     - [base style](./src/demo/modern-theme.html)
     - [brutalist style *in progress*]('./src/demo/brutalist-theme.html')
+    - [Deep Blue]('./src/demo/blue-theme.html')
     - pen and ink style *in progress*

@@ -1,4 +1,4 @@
-import { elem } from "./AudioPlayerHelpers.mjs";
+import { elem } from "./AudioPlayerHelpers.js";
 
 export function createPlaybackRateControls(ctx) {
     const MIN_RATE = ctx.options?.playbackRate?.min ?? 0.5;
@@ -35,6 +35,9 @@ export function createPlaybackRateControls(ctx) {
         onclick: () => changeRate(STEP),
     });
 
-    playbackRateWrapperElem.append(decrementButton, playbackRateElem, incrementButton);
+    const decrementIcon = elem('div', {className: ctx.class.decrementIcon, innerHTML: ctx.icons.speedSlow})
+    const incrementIcon = elem('div', {className: ctx.class.incrementIcon, innerHTML: ctx.icons.speedFast})
+
+    playbackRateWrapperElem.append(decrementIcon, decrementButton, playbackRateElem, incrementIcon, incrementButton);
     return playbackRateWrapperElem;
 }

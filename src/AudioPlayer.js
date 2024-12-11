@@ -1,14 +1,14 @@
-import { mergeClasses, mergeIcons, mergeArt } from "./AudioPlayerStyles.mjs";
-import { loadProviders } from "./AudioPlayerProviders.mjs";
-import { elem } from "./AudioPlayerHelpers.mjs";
-import { createAudioElement } from "./AudioPlayerMedia.mjs";
+import { mergeClasses, mergeIcons, mergeArt } from "./AudioPlayerStyles.js";
+import { loadProviders } from "./AudioPlayerProviders.js";
+import { elem } from "./AudioPlayerHelpers.js";
+import { createAudioElement } from "./AudioPlayerMedia.js";
 import {
   initBibleList,
   handleBibleButtonClick,
   initBookList,
   updateBookList,
-} from "./AudioPlayerBibleList.mjs";
-import { handleBookChange } from "./AudioPlayerBibleList.mjs";
+} from "./AudioPlayerBibleList.js";
+import { handleBookChange } from "./AudioPlayerBibleList.js";
 
 export default class AudioPlayer {
   constructor(containerId, options) {

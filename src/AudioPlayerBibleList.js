@@ -1,7 +1,7 @@
-import { elem, parseTimestampToSeconds } from './AudioPlayerHelpers.mjs'
-import { fuzzySearch } from './AudioPlayerSearch.mjs';
-import {selectBible, setCurrentChapter} from  './AudioPlayerProviders.mjs'
-import { handleChapterChange, chapterList } from './AudioPlayerChapterList.mjs';
+import { elem, parseTimestampToSeconds } from './AudioPlayerHelpers.js'
+import { fuzzySearch } from './AudioPlayerSearch.js';
+import {selectBible, setCurrentChapter} from  './AudioPlayerProviders.js'
+import { handleChapterChange, chapterList } from './AudioPlayerChapterList.js';
 
 export function initBibleList(ctx) {
     ctx.bibleListContainer.innerHTML = '';

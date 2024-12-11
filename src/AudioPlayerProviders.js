@@ -17,7 +17,6 @@ export async function loadProviders(player) {
 
 export async function harkList(country_id = 'all', provider = 'all') {
     const baseBibles = await fetch(`${BASE_API_URL}/api/bibles`).then(response => response.json());
-
     let bibles = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/index.txt`).then(response => response.text());
 
     let output = [];
@@ -111,15 +110,11 @@ export async function harkSelect(id) {
     });
 
     let timingFiles = [];
-    try {
-        const response = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/${id}/timingfiles/_index.txt`);
-        if (response.ok) {
-            timingFiles = (await response.text()).split("\n");
-        } else {
-            console.warn('Timing files not found or inaccessible.');
-        }
-    } catch (error) {
-        console.warn('Failed to fetch timing files:', error.message);
+    const response = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/${id}/timingfiles/_index.txt`);
+    if (response.ok) {
+        timingFiles = (await response.text()).split("\n");
+    } else {
+        console.warn('timing files could not be found');
     }
 
     for (const book of booksMap.values()) {
@@ -224,7 +219,7 @@ export async function setCurrentChapter(ctx, book, chapter) {
         url.searchParams.set('book', book.book_id);
         url.searchParams.set('c', safeChapter);
 
-        if (ctx.currentBooks.timestamps) {
+        if (Array.isArray(ctx.currentBooks.timestamps) && ctx.currentBooks.timestamps.length > 0) {
             const timestampRegex = /Verse (\d+)	(\d+:\d+:\d+\.\d+)/gm;
             let timestampsText = await fetch(`https://content.dbs.org/bibles/audio-new/${ctx.currentBooks.bible_folder}/timingfiles/${ctx.currentBook.book_id}_${safeChapter.toString().padStart(3, '0')}.txt`).then(function (response) {
                 return response.text();

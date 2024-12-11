@@ -1,10 +1,9 @@
-import { elem } from "./AudioPlayerHelpers.mjs";
-import { setCurrentChapter } from "./AudioPlayerProviders.mjs";
-import { createPlaybackRateControls } from './MediaPlaybackRate.mjs'
-import { createVolumeAndSleepControls } from './MediaSleepTimer.mjs'
-import { handleChapterChange } from "./AudioPlayerChapterList.mjs";
-import { handleBookChange } from "./AudioPlayerBibleList.mjs";
-import { createProgressBar } from './MediaProgressBar.mjs'
+import { elem } from "./AudioPlayerHelpers.js";
+import { createPlaybackRateControls } from './MediaPlaybackRate.js'
+import { createVolumeAndSleepControls } from './MediaSleepTimer.js'
+import { handleChapterChange } from "./AudioPlayerChapterList.js";
+import { handleBookChange } from "./AudioPlayerBibleList.js";
+import { createProgressBar } from './MediaProgressBar.js'
 
 export function createAudioElement(ctx) {
     const container = document.createDocumentFragment();
@@ -72,14 +71,16 @@ export function createAudioElement(ctx) {
         nextChapterButton,
         nextBookButton
     );
-    controlsContainer.append(navRow);
+
     controlsContainer.append(createProgressBar(ctx));
-    const { volumeRow, sleepTimerButton } = createVolumeAndSleepControls(ctx);
     controlsContainer.append(createPlaybackRateControls(ctx));
+    controlsContainer.append(navRow);
+    const { volumeRow, sleepTimerButton } = createVolumeAndSleepControls(ctx);
+
     controlsContainer.appendChild(volumeRow);
     volumeRow.appendChild(sleepTimerButton);
     volumeRow.appendChild(sleepTimerButton);
-    container.appendChild(volumeRow);
+    controlsContainer.appendChild(volumeRow);
     container.appendChild(controlsContainer);
 
     return container;
