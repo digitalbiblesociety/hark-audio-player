@@ -2,6 +2,7 @@ import { elem, formatTime } from "./AudioPlayerHelpers.js";
 
 export function createVolumeAndSleepControls(ctx) {
     const volumeRow = elem('div', { className: ctx.class.volumeRow });
+
     const volumeInput = elem('input', {
         type: 'range',
         min: '0',
@@ -12,7 +13,10 @@ export function createVolumeAndSleepControls(ctx) {
         value: ctx.audio.volume,
         'aria-label': 'Volume Control'
     });
-    volumeInput.addEventListener('input', () => {ctx.audio.volume = parseFloat(volumeInput.value)});
+    volumeInput.addEventListener('input', () => {
+        ctx.audio.volume = parseFloat(volumeInput.value);
+    });
+
     const volumeLabel = elem('label', {
         htmlFor: 'volume-control',
         className: ctx.class.volumeLabel,
@@ -26,9 +30,11 @@ export function createVolumeAndSleepControls(ctx) {
         innerHTML: ctx.icons.sleepTimer,
         'aria-label': 'Sleep Timer'
     });
+
     let sleepTimer = null;
     let elapsedTime = 0;
     const sleepDuration = 1 * 60 * 1000;
+
     const sleepTimerDuration = elem('span', {
         className: ctx.class.sleepTimerDuration,
         textContent: formatTime(sleepDuration / 1000),
@@ -36,6 +42,7 @@ export function createVolumeAndSleepControls(ctx) {
     });
 
     sleepTimerButton.appendChild(sleepTimerDuration);
+
     sleepTimerButton.addEventListener('click', () => {
         if (sleepTimer) {
             clearInterval(sleepTimer);
@@ -75,5 +82,7 @@ export function createVolumeAndSleepControls(ctx) {
         }
     }
 
-    return { volumeRow, sleepTimerButton };
+    volumeRow.appendChild(sleepTimerButton);
+
+    return volumeRow;
 }
