@@ -1,8 +1,7 @@
 import { elem } from "./AudioPlayerHelpers.js";
 import { createPlaybackRateControls } from './MediaPlaybackRate.js'
 import { createVolumeAndSleepControls } from './MediaSleepTimer.js'
-import { handleChapterChange } from "./AudioPlayerChapterList.js";
-import { handleBookChange } from "./AudioPlayerBibleList.js";
+import { handleChapterChange, handleBookChange } from "./AudioPlayerChapterList.js";
 import { createProgressBar } from './MediaProgressBar.js'
 
 export function createAudioElement(ctx) {

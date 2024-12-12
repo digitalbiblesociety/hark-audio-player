@@ -1,5 +1,170 @@
-import { elem } from "./AudioPlayerHelpers.js";
 import { setCurrentChapter } from "./AudioPlayerProviders.js";
+import { elem, parseTimestampToSeconds } from './AudioPlayerHelpers.js'
+import { createBibleBlockButtons } from "./AudioPlayerNavigation.js";
+
+
+export function updateCurrentBibleBlock(ctx, bible) {
+    ctx.bibleBlock.innerHTML = '';
+    ctx.bibleBlock.className = ctx.class.bibleBlock;
+    const bibleBlockInfoWrap = createBibleBlockInfoWrap(ctx, bible);
+    const chapterBookSelectWrapper = elem('div', { className: ctx.class.selectBookChapterWrap });
+    chapterBookSelectWrapper.append(createBookSelector(ctx), createChapterSelector(ctx));
+    createVerseSelector(ctx, chapterBookSelectWrapper);
+    bibleBlockInfoWrap.append(createBibleBlockButtons(ctx));
+    ctx.bibleBlock.append(bibleBlockInfoWrap,chapterBookSelectWrapper);
+    updateBookList(ctx);
+}
+
+function createBibleBlockInfoWrap(ctx, bible) {
+    const bibleBlockInfoWrap = elem('div', { className: ctx.class.bibleBlockInfoWrap });
+    const bibleBlockLanguageGroup = elem('div', { className: ctx.class.bibleBlockLanguageGroup });
+    bibleBlockLanguageGroup.append(
+        elem('div', { className: ctx.class.bibleBlockIso, innerText: bible.iso }),
+        elem('div', { innerText: bible.cn })
+    );
+    bibleBlockInfoWrap.append(bibleBlockLanguageGroup);
+    const bibleBlockTitleGroup = elem('div', { className: ctx.class.bibleBlockTitleGroup });
+    bibleBlockTitleGroup.appendChild(elem('div', { className: ctx.class.bibleBlockTitle, innerText: bible.tt }));
+    if (bible.tv && bible.tv !== bible.tt) {
+        bibleBlockTitleGroup.appendChild(elem('div', { className: ctx.class.bibleBlockVernacular, innerText: bible.tv }));
+    }
+    bibleBlockInfoWrap.appendChild(bibleBlockTitleGroup);
+    return bibleBlockInfoWrap;
+}
+
+export function updateBookList(ctx) {
+    const bookListGrid = ctx.bookListGrid;
+    bookListGrid.innerHTML = '';
+    if (ctx.resultsBooks && ctx.resultsBooks.length && ctx.query !== '') {
+        ctx.resultsBooks.forEach(result => {
+            bookListGrid.appendChild(createBookButton(ctx, result.item));
+        });
+    } else if (ctx.currentBooks && ctx.query === '') {
+        if (ctx.currentBooks['data']) {
+            ctx.currentBooks['data'].forEach(book => {
+                bookListGrid.appendChild(createBookButton(ctx, book));
+            });
+        }
+    }
+}
+
+export function createBookButton(ctx, book) {
+    const button = elem('button', {
+        className: `${book.book_id} ${ctx.class.bookListButton} ${((ctx.currentBook.book_id == book.book_id) ? ctx.class.bookListButtonActive : '')}`,
+        ariaLabel: book.name,
+        onclick: () => handleBookChange(ctx, book.book_id)
+    });
+    button.dataset.bookId = book.book_id;
+    const contentContainer = elem('div');
+    contentContainer.append(
+        elem('h2', { className: ctx.class.bookListTitle, textContent: book.name }),
+        elem('h3', { className: ctx.class.bookListId, textContent: book.book_id })
+    );
+    button.appendChild(contentContainer);
+    return button;
+}
+
+export function handleBookChange(ctx, bookId, chapter = 1) {
+    const selectedBook = ctx.currentBooks.data.find(book => book.book_id === bookId);
+    if (!selectedBook) return;
+
+    setCurrentChapter(selectedBook, chapter);
+    const url = new URL(window.location);
+    url.searchParams.set('bookId', selectedBook.book_id);
+    window.history.replaceState({}, '', url);
+
+    ctx.query = '';
+    ctx.chapterListContainer.style.display = "block";
+    ctx.view = "chapter";
+    ctx.currentBook = selectedBook;
+
+    chapterList(ctx);
+    updateCurrentBibleBlock(ctx, ctx.currentBible);
+}
+
+function createBookSelector(ctx) {
+    const bookSelect = elem('select', { className: ctx.class.selectBook });
+    if (ctx.currentBooks && ctx.currentBooks.data) {
+        ctx.currentBooks.data.forEach(book => {
+            const option = elem('option', {
+                value: book.book_id,
+                innerText: book.name,
+                selected: (book.book_id === ctx.currentBook.book_id)
+            });
+            bookSelect.appendChild(option);
+        });
+    }
+    bookSelect.addEventListener('change', (event) => {
+        handleBookChange(ctx, event.target.value);
+    });
+    ctx.bookSelect = bookSelect;
+    return bookSelect;
+}
+
+function createChapterSelector(ctx) {
+    const chapterSelect = elem('select', { className: ctx.class.selectChapter });
+    if (ctx.currentBook && ctx.currentBook.chapters) {
+        ctx.currentBook.chapters.forEach(chapter => {
+            const option = elem('option', {
+                value: chapter,
+                innerText: chapter,
+                selected: (chapter == ctx.currentChapter.number)
+            });
+            chapterSelect.appendChild(option);
+        });
+    }
+    chapterSelect.addEventListener('change', (event) => 
+        handleChapterChange(ctx, ctx.currentBook, parseInt(event.target.value))
+    );
+    ctx.chapterSelect = chapterSelect;
+    return chapterSelect;
+}
+
+function createVerseSelector(ctx, chapterBookSelectWrapper) {
+    if (!ctx.currentChapter || !ctx.currentChapter.timestamps || ctx.currentChapter.timestamps.length == 0) return; 
+    const verseSelect = elem('select', { className: ctx.class.selectVerse });
+    ctx.currentChapter.timestamps.forEach((timestamp, index) => {
+        const verseNumber = index + 1;
+        const option = elem('option', {
+            value: verseNumber,
+            innerText: `${verseNumber}`
+        });
+        verseSelect.appendChild(option);
+    });
+    verseSelect.addEventListener('change', (event) => {
+        const selectedVerse = parseInt(event.target.value, 10);
+        const verseIndex = selectedVerse - 1;
+        if (ctx.currentChapter.timestamps && ctx.currentChapter.timestamps[verseIndex]) {
+            const tsStr = ctx.currentChapter.timestamps[verseIndex];
+            const verseTime = parseTimestampToSeconds(tsStr);
+            ctx.audio.currentTime = verseTime;
+        }
+    });
+    const verseColonSeparator = elem('div', {innerText: ':',className: ctx.class.selectVerseSeparator});
+    chapterBookSelectWrapper.append(verseColonSeparator,verseSelect);
+    ctx.verseSelect = verseSelect;
+    addVerseHighlightOnTimeUpdate(ctx);
+}
+
+function addVerseHighlightOnTimeUpdate(ctx) {
+    let lastSelectedVerse = null;
+    ctx.audio.addEventListener('timeupdate', () => {
+        const currentTime = ctx.audio.currentTime;
+        const verseTimes = ctx.currentChapter.timestamps;
+        let currentVerseIndex = -1;
+        for (let i = 0; i < verseTimes.length; i++) {
+            if (currentTime >= parseTimestampToSeconds(verseTimes[i])) {
+                currentVerseIndex = i;
+            } else {
+                break;
+            }
+        }
+        if (currentVerseIndex !== -1 && currentVerseIndex !== lastSelectedVerse) {
+            lastSelectedVerse = currentVerseIndex;
+            ctx.verseSelect.value = currentVerseIndex + 1;
+        }
+    });
+}
 
 export function chapterList(ctx) {
     ctx.chapterListContainer.innerHTML = '';

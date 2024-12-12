@@ -6,9 +6,8 @@ import {
   initBibleList,
   handleBibleButtonClick,
   initBookList,
-  updateBookList,
 } from "./AudioPlayerBibleList.js";
-import { handleBookChange } from "./AudioPlayerBibleList.js";
+import { handleBookChange, updateBookList } from "./AudioPlayerChapterList.js";
 
 export default class AudioPlayer {
   constructor(containerId, options) {

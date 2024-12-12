@@ -35,10 +35,7 @@ export function createPlaybackRateControls(ctx) {
         onclick: () => changeRate(STEP),
     });
 
-    const decrementIcon = elem('div', {className: ctx.class.decrementIcon, innerHTML: ctx.icons.speedSlow})
-    const incrementIcon = elem('div', {className: ctx.class.incrementIcon, innerHTML: ctx.icons.speedFast})
-
-    playbackRateWrapperElem.append(decrementIcon, decrementButton, playbackRateElem, incrementIcon, incrementButton);
+    playbackRateWrapperElem.append(decrementButton, playbackRateElem, incrementButton);
     return playbackRateWrapperElem;
 }
 
