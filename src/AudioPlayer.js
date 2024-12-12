@@ -7,7 +7,7 @@ import {
   handleBibleButtonClick,
   initBookList,
 } from "./AudioPlayerBibleList.js";
-import { handleBookChange, updateBookList } from "./AudioPlayerChapterList.js";
+import { chapterList, handleBookChange, updateBookList } from "./AudioPlayerChapterList.js";
 
 export default class AudioPlayer {
   constructor(containerId, options) {
@@ -46,7 +46,8 @@ export default class AudioPlayer {
     player.chapterListContainer = elem("div", {id: `${idp}-chapter-list-container`,className: player.class.chapterListContainer});
     player.bibleBlock = elem("div", {id: `${idp}-bible-block`,className: player.class.bibleBlock});
     player.player = createMediaPlayer(player);
-    playerContainer.append(player.bibleBlock, player.audio, player.player);
+    player.player.prepend(player.bibleBlock)
+    playerContainer.append(player.audio, player.player);
     initBookList(player);
     playerContainer.append(player.bookListContainer,player.chapterListContainer,player.bibleListContainer);
     player.container.appendChild(playerContainer);
