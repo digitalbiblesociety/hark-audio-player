@@ -8,7 +8,7 @@ export function initBibleList(ctx) {
     const container = elem('div', { className: ctx.class.searchWrapper });
     const input = elem('input', {
         type: 'search',
-        placeholder: 'Filter Audio Bibles',
+        placeholder: `Filter (${ctx.bibles.length}) Audio Bibles`,
         autocomplete: 'off',
         className: ctx.class.searchInput,
         oninput: () => {
