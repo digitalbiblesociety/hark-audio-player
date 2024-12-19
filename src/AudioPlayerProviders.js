@@ -13,53 +13,22 @@ export async function loadProviders(player) {
           player.bibles = player.bibles.concat(await providerFunctions[provider]());
         }
     }
+    for (let i = 0; i < player.bibles.length; i++) {
+        let customTitle = player.titles[player.bibles[i].id];
+        if(customTitle) {
+            player.bibles[i].tt = customTitle.tt;
+            player.bibles[i].tv = customTitle.tv;
+        }
+    }
 }
 
 export async function harkList(country_id = 'all', provider = 'all') {
-    const baseBibles = await fetch(`${BASE_API_URL}/api/bibles`).then(response => response.json());
-    let bibles = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/index.txt`).then(response => response.text());
-
-    let output = [];
-
-    bibles = bibles.split('\n');
-    let unmatchedBibles = [];
-    bibles.forEach(bible => {
-        let bible_id = bible.split('_')[0];
-        if (bible_id.includes('-')) {
-            bible_id = bible.split('-')[0];
-        }
-        let found = false;
-
-        for (let i = 0; i < baseBibles.length; i++) {
-            const baseBible = baseBibles[i];
-            if (bible_id === baseBible.id) {
-                output.push({
-                    id: bible,
-                    abbr: baseBible.id,
-                    iso: baseBible.iso,
-                    ln: baseBible.ln,
-                    tt: baseBible.tt,
-                    tv: baseBible.tv,
-                    ci: baseBible.ci,
-                    cn: baseBible.cn,
-                    tp: "hark"
-                });
-                found = true;
-                break; // Exit loop once match is found
-            }
-        }
-
-        if (!found) {
-            unmatchedBibles.push(bible_id); // Add unmatched bible_id to array
-        }
-    });
-
-    if (unmatchedBibles.length > 0) {
-        //console.log("Unmatched bible_ids:", unmatchedBibles);
-    } else {
-        //console.log("All bible_ids matched in output.");
-    }
-
+    const bibles = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/index.json`).then(response => response.json());
+    const output = bibles.map(bible => ({
+        ...bible,
+        tp: "hark",
+        dl: (bible.dl) ? `${BASE_CONTENT_URL}/bibles/audio-new/${bible.id}.zip` : ""
+    }));
     if (country_id !== 'all') {
         output = output.filter(bible => bible.ci === country_id);
     }
@@ -130,7 +99,6 @@ export async function harkSelect(id) {
 }
 
 export async function dbpList(country_id) {
-
     let initial_path = `https://4.dbt.io/api/bibles?v=4&key=${key}&media=audio`;
     if (country_id) {
         initial_path += '&country=' + country_id;

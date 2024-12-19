@@ -2,11 +2,7 @@ import { mergeClasses, mergeIcons, mergeArt } from "./AudioPlayerStyles.js";
 import { loadProviders } from "./AudioPlayerProviders.js";
 import { elem } from "./AudioPlayerHelpers.js";
 import { createAudioElement } from "./AudioPlayerMedia.js";
-import {
-  initBibleList,
-  handleBibleButtonClick,
-  initBookList,
-} from "./AudioPlayerBibleList.js";
+import { initBibleList, handleBibleButtonClick, initBookList } from "./AudioPlayerBibleList.js";
 import { chapterList, handleBookChange, updateBookList } from "./AudioPlayerChapterList.js";
 
 export default class AudioPlayer {
@@ -26,6 +22,7 @@ export default class AudioPlayer {
     this.art = mergeArt(options.art);
     this.results = [];
     this.query = "";
+    this.titles = options?.titles ?? [];
     this.view = "bible";
     this.idPrefix = options?.idPrefix ?? "audio-player";
     this.views = {
