@@ -91,7 +91,7 @@ export async function harkSelect(id) {
     }
 
     return {
-        bible_id: id.split('_')[0],
+        bible_id: id,
         bible_folder: id,
         timestamps: timingFiles,
         data: Array.from(booksMap.values())
@@ -149,7 +149,7 @@ export async function selectBible(ctx, id) {
     const books = await harkSelect(id);
     ctx.currentBooks = books;
 
-    const selectedBible = ctx.bibles.find(bible => bible.abbr === ctx.currentBooks.bible_id);
+    const selectedBible = ctx.bibles.find(bible => bible.id === ctx.currentBooks.bible_id);
     ctx.currentBible = selectedBible;
     const url = new URL(window.location);
     url.searchParams.set('id', ctx.currentBible.id);

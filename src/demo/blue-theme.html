@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Player Test Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,container-queries"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
@@ -388,13 +388,15 @@
                 titles: customized_titles,
                 classes: {
                     bibleButton: {
-                        wrapper: 'flex flex-col text-white bg-[#21495E] hover:bg-[#DEAB6C] shadow-[2px_2px_0px_rgba(0,0,0,1)] active:bg-[#21495E] rounded-md',
+                        wrapper: 'relative flex flex-col text-white bg-[#21495E] hover:bg-[#DEAB6C] shadow-[2px_2px_0px_rgba(0,0,0,1)] active:bg-[#21495E] rounded-md',
+                        button: 'flex flex-col h-full w-full',
                         languageWrap: 'flex flex-row w-full justify-between items-center px-2 rounded-t-md bg-[#DEAB6C]',
                         language: 'text-sm font-bold text-white truncate',
                         iso: 'font-mono font-bold mt-1 text-xs text-gray-100',
                         titleWrap: 'py-1 h-full w-full flex flex-col-reverse justify-center items-center font-bold',
-                        title: 'truncate text-center text-sm font-medium text-stone-200 font-bold',
-                        vernacular: 'line-clamp-2 text-lg text-stone-100',
+                        title: 'truncate text-ellipsis pl-4 pr-8 text-center text-sm font-medium text-stone-200 font-bold',
+                        vernacular: 'truncate w-full pl-4 pr-8 py-1 text-ellipsis mx-8 text-lg text-stone-100',
+                        download: 'absolute text-white right-0 bottom-0 rounded-tl size-8 flex justify-center items-center bg-[#DEAB6C]'
                     }
                 }
             }).then(player => {});
