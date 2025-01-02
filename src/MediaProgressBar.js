@@ -14,8 +14,10 @@ export function createProgressBar(ctx) {
         textContent: formatTime(ctx.audio.currentTime)
     });
 
-    const progressWrapper = elem('div', { id: 'progress-wrapper', className: ctx.class?.progress?.wrapper });
+    const progressBarContainer = elem('div', { id: 'progress-barContainer', className: ctx.class?.progress?.barContainer });
+    const progressWrapper = elem('div', { id: 'progress-barWrapper', className: ctx.class?.progress?.barWrapper });
     const progressBarInner = elem('div', { id: 'progress-bar', className: ctx.class?.progress?.barInner, style: { width: '0%' } });
+
     const timestampWrapper = elem('div', {id: 'timestamps-wrapper', className:ctx.class?.progress?.timestamps})
 
     const circleTip = elem('div', { 
@@ -65,26 +67,38 @@ export function createProgressBar(ctx) {
     ctx.audio.addEventListener('loadedmetadata', () => {
         timestampWrapper.innerHTML = '';
         durationDisplay.textContent = formatTime(ctx.audio.duration);
-
+      
         if (ctx.currentChapter.timestamps && Array.isArray(ctx.currentChapter.timestamps)) {
-    
-            ctx.currentChapter.timestamps.forEach(tsStr => {
-                const tsSeconds = parseTimestampToSeconds(tsStr);
-                if (tsSeconds <= ctx.audio.duration && tsSeconds >= 0) {
-                    const tickPercent = (tsSeconds / ctx.audio.duration) * 100;
-                    const tick = elem('div', {
-                        className: `progress-tick ${ctx?.class?.progress?.tick}`,
-                        style: { left: `${tickPercent}%` }
-                    });
-    
-                    timestampWrapper.appendChild(tick);
-                }
-            });
-        }
-    });
+          const sortedTimestamps = ctx.currentChapter.timestamps.map(parseTimestampToSeconds).filter(ts => ts >= 0 && ts <= ctx.audio.duration).sort((a, b) => a - b);
+          const margin = .25;
+      
+          for (let i = 0; i < sortedTimestamps.length - 1; i++) {
+            const current = sortedTimestamps[i];
+            const next = sortedTimestamps[i + 1];
+            const gapPercent = ((next - current) / ctx.audio.duration) * 100;
+            const adjustedWidth = Math.max(0, gapPercent - margin);
+            const adjustedLeft = ((current / ctx.audio.duration) * 100) + margin / 2;
+            const tickWrapper = elem('div',{className: ctx.class.tickWrapper,style:{position: 'absolute', left: `${adjustedLeft}%`, width: `${adjustedWidth}%`}});
+      
+            const tick = elem('div', {className: `progress-tick ${ctx?.class?.progress?.tick} w-full h-full`});
+            tick.addEventListener('click', () => {ctx.audio.currentTime = current;});
+      
+            const verseLabel = elem('div', {className: ctx.class.progress.tickLabel});
+            verseLabel.textContent = `${i + 1}`;
 
-    progressWrapper.append(timestampWrapper)
-    progressContainer.append(currentTimeDisplay, progressWrapper, durationDisplay);
+            tickWrapper.appendChild(tick);
+            tickWrapper.appendChild(verseLabel);
+            timestampWrapper.appendChild(tickWrapper);
+          }
+        }
+      });
+      
+    
+    
+    progressBarContainer.append(currentTimeDisplay)
+    progressBarContainer.append(progressWrapper)
+    progressBarContainer.append(durationDisplay)
+    progressContainer.append(progressBarContainer, timestampWrapper);
 
     return progressContainer;
 }
