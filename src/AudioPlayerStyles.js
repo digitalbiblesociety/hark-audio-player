@@ -45,16 +45,16 @@ const defaultClasses = {
   nextSkipButton: 'flex justify-center items-center text-stone-400 hover:text-blue-600 dark:text-white dark:hover:text-blue-400',
 
   progress: {
-    container: 'flex flex-col mx-auto w-full max-w-md justify-around px-1 pt-4 bg-stone-100 text-xs',
-    barContainer: 'flex flex-row justify-between',
+    container: 'relative flex flex-col mx-auto w-full max-w-md justify-around px-1 pt-4 bg-stone-100 text-xs',
+    barContainer: 'flex flex-row justify-between relative z-10',
     barWrapper: 'mx-auto min-w-80 mx-3 w-3/4 sm:w-5/6 h-3 rounded-lg relative border bg-gradient-to-br shadow-inner border-stone-300 from-white to-stone-200 dark:from-neutral-50 dark:to-stone-400 border-stone-500',
     barInner: 'h-3 w-0 bg-blue-600 rounded-md',
     circleTip: 'absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-5 h-5 bg-blue-600 rounded-full border border-blue-500',
     currentTimeDisplay: 'text-black',
     durationDisplay: 'text-black',
-    timestamps: 'flex w-full h-4 relative block my-4',
-    tick: 'absolute top-0 h-full bg-stone-400',
-    tickWrapper: 'group relative h-full',
+    timestamps: 'flex w-5/6 mx-auto h-8 absolute inset-x-2 z-0 block my-4',
+    tick: 'absolute top-0 h-full',
+    tickWrapper: 'group relative h-full bg-stone-400 rounded-sm',
     tickLabel: 'verse-label hidden group-hover:block absolute left-1/2 -translate-x-1/2 top-full mt-1 px-2 py-1 text-xs bg-gray-200 text-gray-900 rounded-lg shadow border whitespace-nowrap'
   },
   

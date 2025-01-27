@@ -24,6 +24,7 @@ export default class AudioPlayer {
     this.query = "";
     this.titles = options?.titles ?? [];
     this.view = "bible";
+    this.numeralFormatter = new Intl.NumberFormat()
     this.idPrefix = options?.idPrefix ?? "audio-player";
     this.views = {
         bible: {player: "none", bibleListContainer: "block", bookListContainer: "none", chapterListContainer: "none"},

@@ -78,7 +78,7 @@ export function createProgressBar(ctx) {
             const gapPercent = ((next - current) / ctx.audio.duration) * 100;
             const adjustedWidth = Math.max(0, gapPercent - margin);
             const adjustedLeft = ((current / ctx.audio.duration) * 100) + margin / 2;
-            const tickWrapper = elem('div',{className: ctx.class.tickWrapper,style:{position: 'absolute', left: `${adjustedLeft}%`, width: `${adjustedWidth}%`}});
+            const tickWrapper = elem('div',{className: ctx.class.progress.tickWrapper,style:{position: 'absolute', left: `${adjustedLeft}%`, width: `${adjustedWidth}%`}});
       
             const tick = elem('div', {className: `progress-tick ${ctx?.class?.progress?.tick} w-full h-full`});
             tick.addEventListener('click', () => {ctx.audio.currentTime = current;});

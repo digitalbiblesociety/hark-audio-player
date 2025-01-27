@@ -148,7 +148,8 @@ export async function selectBible(ctx, id) {
     ctx.query = '';
     const books = await harkSelect(id);
     ctx.currentBooks = books;
-
+    ctx.numeralFormatter = (ctx.currentBible.nm) ? new Intl.NumberFormat(ctx.currentBible.nm) : new Intl.NumberFormat()
+    
     const selectedBible = ctx.bibles.find(bible => bible.id === ctx.currentBooks.bible_id);
     ctx.currentBible = selectedBible;
     const url = new URL(window.location);
@@ -194,8 +195,8 @@ export async function setCurrentChapter(ctx, book, chapter) {
             }).catch((error) => {
                 console.error('Error:', error);
             })
-            let verseTimestamps = [];
 
+            let verseTimestamps = [];
             let match;
             while ((match = timestampRegex.exec(timestampsText)) !== null) {
                 // Extract verse number and timestamp from the regex match
@@ -206,6 +207,7 @@ export async function setCurrentChapter(ctx, book, chapter) {
 
             //await currentBook = book;
             ctx.currentChapter.timestamps = verseTimestamps;
+            //ctx.currentChapter.sentiments = verseSentiments
         }
     }
 }

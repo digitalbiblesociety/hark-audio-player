@@ -9,7 +9,6 @@ test.describe('Audio Player Tests', () => {
 
     const bibleButton = bibleListContainer.locator('button').first();
     await bibleButton.click();
-
   });
 
   test('should display initial current time and duration', async ({ page }) => {

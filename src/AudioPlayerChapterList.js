@@ -107,7 +107,7 @@ function createChapterSelector(ctx) {
         ctx.currentBook.chapters.forEach(chapter => {
             const option = elem('option', {
                 value: chapter,
-                innerText: chapter,
+                innerText: ctx.numeralFormatter.format(chapter), 
                 selected: (chapter == ctx.currentChapter.number)
             });
             chapterSelect.appendChild(option);
@@ -127,7 +127,7 @@ function createVerseSelector(ctx, chapterBookSelectWrapper) {
         const verseNumber = index + 1;
         const option = elem('option', {
             value: verseNumber,
-            innerText: `${verseNumber}`
+            innerText: ctx.numeralFormatter.format(parseInt(verseNumber))
         });
         verseSelect.appendChild(option);
     });
@@ -178,7 +178,7 @@ export function chapterList(ctx) {
         const chapterButton = elem('button', {
             className: `${ctx.class.chapterButton} ${(ctx.currentChapter.number == chapterNumber) ? ' ' + ctx.class.chapterButtonActive : ''}`,
             ariaLabel: `Play Chapter ${chapterNumber}`,
-            textContent: chapterNumber,
+            textContent: ctx.numeralFormatter.format(chapterNumber),
             onclick: () => handleChapterChange(ctx, ctx.currentBook, chapterNumber)
         });
 

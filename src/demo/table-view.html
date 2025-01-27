@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player Test Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        td em {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-stone-800">
+
+
+
+<div class="flex flex-row max-w-7xl mx-auto" id="FuzzyTableWrapper"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuzzytable@latest/dist/FuzzyTable.js"></script>
+<script>
+
+
+(async function() {
+    const BASE_API_URL = 'https://arc.dbs.org';
+const BASE_CONTENT_URL = 'https://content.dbs.org';
+    const locale = 'en';
+
+    // Fetch base Bibles data
+    let baseBibles = [];
+    try {
+        const response = await fetch(`${BASE_API_URL}/api/bibles`);
+        baseBibles = await response.json();
+    } catch (error) {
+        console.error("Error fetching base Bibles:", error);
+        return;
+    }
+
+    let bibles = [];
+    try {
+        const response = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/index.txt`);
+        const text = await response.text();
+        bibles = text.split('\n');
+    } catch (error) {
+        console.error("Error fetching Bibles index:", error);
+        return;
+    }
+
+    const output = [];
+    const unmatchedBibles = [];
+
+    bibles.forEach(bible => {
+        let bibleId = bible.split('_')[0];
+        if (bibleId.includes('-')) {
+            bibleId = bible.split('-')[0];
+        }
+
+        const matchedBible = baseBibles.find(baseBible => bibleId === baseBible.id);
+        if (matchedBible) {
+            output.push({
+                id: bible,
+                abbr: matchedBible.id,
+                iso: matchedBible.iso,
+                ln: matchedBible.ln,
+                tt: matchedBible.tt,
+                tv: matchedBible.tv,
+                ci: matchedBible.ci,
+                cn: matchedBible.cn,
+                tp: "hark"
+            });
+        } else {
+            unmatchedBibles.push(bible);
+        }
+    });
+
+    // Initialize FuzzyTable
+    const fuzzyWrapper = document.getElementById("FuzzyTableWrapper");
+    if (fuzzyWrapper) {
+        const filters = fuzzyWrapper.dataset.filters 
+            ? JSON.parse(fuzzyWrapper.dataset.filters, regexReviver) 
+            : null;
+
+        new FuzzyTable("FuzzyTableWrapper", output, [
+            { id: "ln", name: 'Language', subtitle: "iso", link: { base: `/${locale}/languages/`, id: 'iso' } },
+            { id: "tt", name: 'Title', subtitle: "tv", link: { base: `/${locale}/audio/listen?bibleId=`, id: 'id' } },
+            { id: "cn", name: 'Country', link: { base: `/${locale}/countries/`, id: 'ci' }, icon: { base: '/img/flags.svg#', id: 'ci', class: "h-5 w-5 drop-shadow-md inline-flex mr-2 float-left" } },
+            { id: "id", name: "ID", class: "hidden" }
+        ], {filters: []});
+    } else {
+        console.warn("FuzzyTableWrapper element not found.");
+    }
+})();
+</script>
+
+</body>
+</html>
