@@ -5,118 +5,95 @@ const defaultClasses = {
   chapterListContainer: "relative w-full max-w-4xl mx-auto",
   bibleListGrid: "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
 
-  bibleBlockInfoWrap:
-    "flex flex-row justify-between gap-4 max-w-md w-full mx-auto bg-stone-100 border border-stone-200 mt-12 p-3",
-  bibleBlock:
-    "flex flex-col justify-between text-sm text-center md:text-base lg:text-lg font-semibold text-black",
-  bibleBlockTitleGroup: "flex-shrink truncate",
-  bibleBlockVernacular: "truncate text-sm mb-1",
-  bibleBlockTitle: "truncate text-2xl font-semibold",
-  bibleBlockLanguageGroup: "",
-  bibleBlockIso: "text-sm",
-  bibleBlockButtonGroup: "flex flex-col justify-between",
+  bibleBlock: {
+    wrapper: `flex flex-col justify-between text-sm text-center md:text-base lg:text-lg font-semibold text-black`,
+    infoWrap: "flex flex-row justify-between gap-4 max-w-md w-full mx-auto bg-stone-100 border border-stone-200 mt-12 p-3",
+    titleGroup: "flex-shrink truncate",
+    vernacular: "truncate text-sm mb-1",
+    title: "truncate text-2xl font-semibold",
+    languageGroup: "",
+    iso: "text-sm",
+    buttonGroup: "flex flex-col justify-between",
+  },
 
   container: "audio-player-container mx-auto max-w-7xl w-full",
   audio: "",
   controlsContainer: "controls-container flex flex-col",
-  navRow:
-    "flex flex-row items-center justify-center gap-4 py-4 bg-stone-100 border border-stone-200 w-full max-w-md mx-auto",
+  navRow: "flex flex-row items-center justify-center gap-4 py-4 bg-stone-100 border border-stone-200 w-full max-w-md mx-auto",
   prevBookButton: "prev-book-button flex justify-center items-center",
+  nextBookButton: "next-book-button flex justify-center transform -scale-x-100 items-center",
   prevChapterButton: "prev-chapter-button flex justify-center items-center",
+  nextChapterButton: "next-chapter-button flex justify-center transform -scale-x-100 items-center",
   playPauseButton: "play-pause-button flex justify-center items-center",
   playPauseIcon: "icon-play",
-  nextChapterButton:
-    "next-chapter-button flex justify-center transform -scale-x-100 items-center",
-  nextBookButton:
-    "next-book-button flex justify-center transform -scale-x-100 items-center",
   controlRow2: "grid grid-cols-5 mb-1",
-  leftControls:
-    "flex flex-row justify-center items-center col-span-2 space-x-6",
+  leftControls: "flex flex-row justify-center items-center col-span-2 space-x-6",
 
   playbackRate: {
-    wrapper:
-      "flex mx-auto w-full max-w-md justify-center px-8 py-2 bg-stone-100 text-xs",
+    wrapper: "flex mx-auto w-full max-w-md justify-center px-8 py-2 bg-stone-100 text-xs",
     display: "mx-1 text-stone-400 text-sm",
     increase: "w-6 h-6 border-2 rounded-2xl text-stone-500",
     decrease: "w-6 h-6 border-2 rounded-2xl text-stone-500",
     disabled: "opacity-50",
   },
 
-  rightControls:
-    "flex flex-row justify-center items-center col-span-2 space-x-6",
+  rightControls: "flex flex-row justify-center items-center col-span-2 space-x-6",
   playSpeedControl: "flex flex-row justify-center items-center text-xs",
   decrementIcon: "size-6",
   incrementIcon: "size-6",
-  decreaseSpeedButton:
-    "w-6 h-6 border-2 rounded-2xl hover:border-blue-600 dark:hover:border-white text-stone-500 dark:hover:text-white",
-  increaseSpeedButton:
-    "w-6 h-6 border-2 rounded-2xl hover:border-blue-600 dark:hover:border-white text-stone-500 dark:hover:text-white",
-  prevSkipButton:
-    "flex justify-center items-center text-stone-600 hover:text-blue-600",
-  nextSkipButton:
-    "flex justify-center items-center transform -scale-x-100 text-stone-600 hover:text-blue-600",
+  decreaseSpeedButton: `w-6 h-6 border-2 rounded-2xl hover:border-blue-600 dark:hover:border-white text-stone-500 dark:hover:text-white`,
+  increaseSpeedButton: `w-6 h-6 border-2 rounded-2xl hover:border-blue-600 dark:hover:border-white text-stone-500 dark:hover:text-white`,
+  prevSkipButton: `flex justify-center items-center text-stone-600 hover:text-blue-600`,
+  nextSkipButton: `flex justify-center items-center transform -scale-x-100 text-stone-600 hover:text-blue-600`,
 
   progress: {
-    container:
-      "relative flex flex-col mx-auto w-full max-w-md justify-around px-1 pt-4 bg-stone-100 text-xs",
+    container: "relative flex flex-col mx-auto w-full max-w-md justify-around px-1 pt-4 bg-stone-100 text-xs",
     barContainer: "flex flex-row justify-between relative z-10",
-    barWrapper:
-      "mx-auto min-w-80 mx-3 w-3/4 sm:w-5/6 h-3 rounded-lg relative border bg-gradient-to-br shadow-inner border-stone-300 from-white to-stone-200 dark:from-neutral-50 dark:to-stone-400 border-stone-500",
+    barWrapper: "mx-auto min-w-80 mx-3 w-3/4 sm:w-5/6 h-3 rounded-lg relative border bg-gradient-to-br shadow-inner border-stone-300 from-white to-stone-200 dark:from-neutral-50 dark:to-stone-400 border-stone-500",
     barInner: "h-3 w-0 bg-blue-600 rounded-md",
-    circleTip:
-      "absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-5 h-5 bg-blue-600 rounded-full border border-blue-500",
+    circleTip: "absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-5 h-5 bg-blue-600 rounded-full border border-blue-500",
     currentTimeDisplay: "text-black",
     durationDisplay: "text-black",
     timestamps: "flex w-5/6 mx-auto h-8 absolute inset-x-2 z-0 block my-4",
     tick: "absolute top-0 h-full",
     tickWrapper: "group relative h-full bg-stone-400 rounded-sm",
-    tickLabel:
-      "verse-label hidden group-hover:block absolute left-1/2 -translate-x-1/2 top-full mt-1 px-2 py-1 text-xs bg-gray-200 text-gray-900 rounded-lg shadow border whitespace-nowrap",
+    tickLabel: "verse-label hidden group-hover:block absolute left-1/2 -translate-x-1/2 top-full mt-1 px-2 py-1 text-xs bg-gray-200 text-gray-900 rounded-lg shadow border whitespace-nowrap",
   },
 
   mediaPlayerWrap: "w-full flex flex-col justify-center",
   mediaPlayerHeader: "",
   mediaPlayerBody: "",
-  mediaPlayerNavRow:
-    "grid grid-cols-5 px-2 text-stone-700 dark:text-stone-300 divide-x divide-stone-500 dark:divide-stone-600",
+  mediaPlayerNavRow: "grid grid-cols-5 px-2 text-stone-700 dark:text-stone-300 divide-x divide-stone-500 dark:divide-stone-600",
   bibleListNavButton: "",
   bookListNavButton: "",
   chapterListNavButton: "",
 
-  volumeRow:
-    "flex mx-auto w-full max-w-md justify-center items-center px-8 bg-stone-100 text-xs",
+  volumeRow: "flex mx-auto w-full max-w-md justify-center items-center px-8 bg-stone-100 text-xs",
   volumeControl: "volume-control w-full",
   volumeInput: "w-full",
   volumeLabel: "flex flex-row pl-2 mx-4 w-1/2",
 
-  selectBookChapterWrap:
-    "relative bg-stone-100 flex flex-row gap-2 w-full max-w-md mx-auto",
-  selectBook:
-    "inline-flex items-center gap-x-1.5 bg-stone-100 hover:bg-stone-200 px-3 py-2 w-full",
-  selectChapter:
-    "inline-flex items-center text-center bg-stone-100 w-12 hover:bg-stone-200 border-none appearance-none",
+  selectBookChapterWrap: "relative bg-stone-100 flex flex-row gap-2 w-full max-w-md mx-auto",
+  selectBook: "inline-flex items-center gap-x-1.5 bg-stone-100 hover:bg-stone-200 px-3 py-2 w-full",
+  selectChapter: "inline-flex items-center text-center bg-stone-100 w-12 hover:bg-stone-200 border-none appearance-none",
   selectVerseSeparator: "inline-flex items-center bg-stone-100",
-  selectVerse:
-    "inline-flex items-center text-center bg-stone-100 w-12 hover:bg-stone-200 border-none appearance-none",
+  selectVerse: "inline-flex items-center text-center bg-stone-100 w-12 hover:bg-stone-200 border-none appearance-none",
 
   bibleButton: {
     wrapper: "relative bg-stone-100 border border-stone-200 rounded min-h-20",
     button: "flex flex-row bg-stone-100 h-full w-full hover:bg-stone-200",
-    languageWrap:
-      "py-1 bg-stone-200 h-full w-24 flex flex-col justify-center items-center",
+    languageWrap: "py-1 bg-stone-200 h-full w-24 flex flex-col justify-center items-center",
     language: "text-sm font-medium text-stone-900",
     iso: "truncate font-mono mt-1 text-sm text-stone-500",
     titleWrap: "py-1 h-full w-full flex flex-col justify-center items-center",
     title: "line-clamp-2 text-center text-sm font-medium text-stone-900",
     vernacular: "text-sm text-stone-500 max-w-64",
-    download:
-      "absolute text-stone-500 right-0 bottom-0 rounded-tl size-8 flex justify-center items-center bg-stone-200 hover:bg-stone-300",
+    download: "absolute text-stone-500 right-0 bottom-0 rounded-tl size-8 flex justify-center items-center bg-stone-200 hover:bg-stone-300",
   },
 
   bibleDownloadDialog: {
     wrapper: "p-4 shadow-lg text-center",
-    button_download:
-      "px-5 py-2 mx-1 bg-blue-500 text-white rounded cursor-pointer",
+    button_download: "px-5 py-2 mx-1 bg-blue-500 text-white rounded cursor-pointer",
     cancel: "px-5 py-2 mx-1 bg-red-600 text-white rounded cursor-pointer",
     audio_copyright: "block text-stone-600",
     text_copyright: "block text-stone-600 text-sm",
@@ -124,21 +101,21 @@ const defaultClasses = {
 
   sleepTimerButton: "sleep-timer-button group block py-1.5 px-1",
   sleepTimerDuration: "text-xs pl-1 pt-2 inline-block timer-display",
-  sleepTimerWrap:
-    "flex flex-row justify-center align-start text-stone-400 hover:text-blue-600",
+  sleepTimerWrap: "flex flex-row justify-center align-start text-stone-400 hover:text-blue-600",
   searchWrapper: "mx-auto flex items-center w-1/3 my-3",
-  searchInput:
-    "px-4 py-2 w-full max-w-7xl mx-auto bg-white border border-stone-200",
+  searchInput: "px-4 py-2 w-full max-w-7xl mx-auto bg-white border border-stone-200",
 
   searchInputContainer: "flex w-full max-w-xl mx-auto my-4",
-  bookListContainer: "w-full",
-  bookListGrid: "grid grid-cols-3 md:grid-cols-4 gap-2",
-  bookListButton: "bg-stone-100 border rounded md:rounded-lg",
-  bookListButtonActive: "bg-stone-100 border border-stone-300",
-  bookListTitle: "font-medium text-sm lg:text-base",
-  bookListId: "w-full flex justify-end opacity-60 text-sm mr-8",
-  chapterButton:
-    "bg-stone-100/90 w-12 h-12 m-2 border border-stone-700 rounded text-lg hover:bg-stone-300",
+  bookList: {
+    container: "w-full",
+    grid: "grid grid-cols-3 md:grid-cols-4 gap-2",
+    button: "bg-stone-100 border rounded md:rounded-lg",
+    buttonActive: "bg-stone-100 border border-stone-300",
+    title: "font-medium text-sm lg:text-base",
+    id: "w-full flex justify-end opacity-60 text-sm mr-8",
+  },
+
+  chapterButton: "bg-stone-100/90 w-12 h-12 m-2 border border-stone-700 rounded text-lg hover:bg-stone-300",
   chapterButtonActive: "bg-stone-500 text-stone-100",
 };
 

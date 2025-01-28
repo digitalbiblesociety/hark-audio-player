@@ -40,9 +40,9 @@ export default class AudioPlayer {
     const idp = player.idPrefix;
     const playerContainer = elem("div", {id: `${idp}-player-container`,className: player.class.playerContainer});
     player.bibleListContainer = elem("div", {id: `${idp}-bible-list-container`,className: player.class.bibleListContainer});
-    player.bookListContainer = elem("div", {id: `${idp}-book-list-container`,className: player.class.bookListContainer});
+    player.bookListContainer = elem("div", {id: `${idp}-book-list-container`,className: player.class.bookList.container});
     player.chapterListContainer = elem("div", {id: `${idp}-chapter-list-container`,className: player.class.chapterListContainer});
-    player.bibleBlock = elem("div", {id: `${idp}-bible-block`,className: player.class.bibleBlock});
+    player.bibleBlock = elem("div", {id: `${idp}-bible-block`,className: player.class.bibleBlock.wrapper});
     player.player = createMediaPlayer(player);
     player.player.prepend(player.bibleBlock)
     playerContainer.append(player.audio, player.player);

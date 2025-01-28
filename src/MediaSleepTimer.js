@@ -74,6 +74,10 @@ function createSleepTimer(ctx, volumeInput) {
     }
   });
 
+  ctx.audio.addEventListener("loadedmetadata", () => {
+    sleepTimerDuration.textContent = formatTime(ctx, sleepDuration / 1000);
+  });
+
   function updateSleepTimerUI(remainingTime) {
     const percentageElapsed = elapsedTime / sleepDuration;
     const dashArray = 2 * Math.PI * 9;

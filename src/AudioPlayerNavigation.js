@@ -3,7 +3,7 @@ import { elem } from "./AudioPlayerHelpers.js";
 export function createBibleBlockButtons(ctx) {
     let bibleBlockButtonGroup = elem('div', {
         id: `${ctx.idPrefix}-bible-block`,
-        className: ctx.class.bibleBlockButtonGroup });
+        className: ctx.class.bibleBlock.buttonGroup });
     const buttons = [
         {
             condition: true,
@@ -14,7 +14,7 @@ export function createBibleBlockButtons(ctx) {
         {
             condition: ctx.view === "book",
             innerHTML: ctx.icons.books,
-            className: ctx.class.bookListNavButton,
+            className: ctx.class.bookList.navButton,
             onclick: () => {ctx.view = 'chapter';ctx.render()}
         },
         {

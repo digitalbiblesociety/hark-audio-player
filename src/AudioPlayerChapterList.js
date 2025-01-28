@@ -5,7 +5,7 @@ import { createBibleBlockButtons } from "./AudioPlayerNavigation.js";
 
 export function updateCurrentBibleBlock(ctx, bible) {
     ctx.bibleBlock.innerHTML = '';
-    ctx.bibleBlock.className = ctx.class.bibleBlock;
+    ctx.bibleBlock.className = ctx.class.bibleBlock.wrapper;
     const bibleBlockInfoWrap = createBibleBlockInfoWrap(ctx, bible);
     const chapterBookSelectWrapper = elem('div', { className: ctx.class.selectBookChapterWrap });
     chapterBookSelectWrapper.append(createBookSelector(ctx), createChapterSelector(ctx));
@@ -16,17 +16,17 @@ export function updateCurrentBibleBlock(ctx, bible) {
 }
 
 function createBibleBlockInfoWrap(ctx, bible) {
-    const bibleBlockInfoWrap = elem('div', { className: ctx.class.bibleBlockInfoWrap });
-    const bibleBlockLanguageGroup = elem('div', { className: ctx.class.bibleBlockLanguageGroup });
+    const bibleBlockInfoWrap = elem('div', { className: ctx.class.bibleBlock.infoWrap });
+    const bibleBlockLanguageGroup = elem('div', { className: ctx.class.bibleBlock.languageGroup });
     bibleBlockLanguageGroup.append(
-        elem('div', { className: ctx.class.bibleBlockIso, innerText: bible.iso }),
+        elem('div', { className: ctx.class.bibleBlock.iso, innerText: bible.iso }),
         elem('div', { innerText: bible.cn })
     );
     bibleBlockInfoWrap.append(bibleBlockLanguageGroup);
-    const bibleBlockTitleGroup = elem('div', { className: ctx.class.bibleBlockTitleGroup });
-    bibleBlockTitleGroup.appendChild(elem('div', { className: ctx.class.bibleBlockTitle, innerText: bible.tt }));
+    const bibleBlockTitleGroup = elem('div', { className: ctx.class.bibleBlock.titleGroup });
+    bibleBlockTitleGroup.appendChild(elem('div', { className: ctx.class.bibleBlock.title, innerText: bible.tt }));
     if (bible.tv && bible.tv !== bible.tt) {
-        bibleBlockTitleGroup.appendChild(elem('div', { className: ctx.class.bibleBlockVernacular, innerText: bible.tv }));
+        bibleBlockTitleGroup.appendChild(elem('div', { className: ctx.class.bibleBlock.vernacular, innerText: bible.tv }));
     }
     bibleBlockInfoWrap.appendChild(bibleBlockTitleGroup);
     return bibleBlockInfoWrap;
@@ -50,15 +50,15 @@ export function updateBookList(ctx) {
 
 export function createBookButton(ctx, book) {
     const button = elem('button', {
-        className: `${book.book_id} ${ctx.class.bookListButton} ${((ctx.currentBook.book_id == book.book_id) ? ctx.class.bookListButtonActive : '')}`,
+        className: `${book.book_id} ${ctx.class.bookList.button} ${((ctx.currentBook.book_id == book.book_id) ? ctx.class.bookListButtonActive : '')}`,
         ariaLabel: book.name,
         onclick: () => handleBookChange(ctx, book.book_id)
     });
     button.dataset.bookId = book.book_id;
     const contentContainer = elem('div');
     contentContainer.append(
-        elem('h2', { className: ctx.class.bookListTitle, textContent: book.name }),
-        elem('h3', { className: ctx.class.bookListId, textContent: book.book_id })
+        elem('h2', { className: ctx.class.bookList.title, textContent: book.name }),
+        elem('h3', { className: ctx.class.bookList.id, textContent: book.book_id })
     );
     button.appendChild(contentContainer);
     return button;
@@ -107,13 +107,13 @@ function createChapterSelector(ctx) {
         ctx.currentBook.chapters.forEach(chapter => {
             const option = elem('option', {
                 value: chapter,
-                innerText: ctx.numeralFormatter.format(chapter), 
+                innerText: ctx.numeralFormatter.format(chapter),
                 selected: (chapter == ctx.currentChapter.number)
             });
             chapterSelect.appendChild(option);
         });
     }
-    chapterSelect.addEventListener('change', (event) => 
+    chapterSelect.addEventListener('change', (event) =>
         handleChapterChange(ctx, ctx.currentBook, parseInt(event.target.value))
     );
     ctx.chapterSelect = chapterSelect;
@@ -121,7 +121,7 @@ function createChapterSelector(ctx) {
 }
 
 function createVerseSelector(ctx, chapterBookSelectWrapper) {
-    if (!ctx.currentChapter || !ctx.currentChapter.timestamps || ctx.currentChapter.timestamps.length == 0) return; 
+    if (!ctx.currentChapter || !ctx.currentChapter.timestamps || ctx.currentChapter.timestamps.length == 0) return;
     const verseSelect = elem('select', { className: ctx.class.selectVerse });
     ctx.currentChapter.timestamps.forEach((timestamp, index) => {
         const verseNumber = index + 1;

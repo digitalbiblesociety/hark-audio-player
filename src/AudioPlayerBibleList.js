@@ -46,7 +46,7 @@ function createBibleButton(ctx, bible) {
     const bibleListButtonLanguage = elem('div', { className: ctx.class.bibleButton.languageWrap });
     bibleListButtonLanguage.appendChild(elem('h2', { className: ctx.class.bibleButton.language, textContent: bible.ln }));
     bibleListButtonLanguage.appendChild(elem('small', { className: ctx.class.bibleButton.iso, textContent: bible.iso }));
-    
+
     const bibleListButtonTitle = elem('div', { className: ctx.class.bibleButton.titleWrap });
     bibleListButtonTitle.appendChild(elem('h4', { className: ctx.class.bibleButton.title, textContent: bible.tt}));
 
@@ -105,7 +105,7 @@ export async function handleBibleDownload(ctx, bible) {
 }
 
 export async function handleBibleButtonClick(ctx, bible) {
-    
+
     if (bible.tp === "hark") {
         ctx.view = "book";
         ctx.currentBible = bible;
@@ -137,8 +137,6 @@ export function initBookList(ctx) {
     const searchInputContainer = elem('div', { className: ctx.class.searchInputContainer });
     searchInputContainer.appendChild(searchInput);
     ctx.bookListContainer.appendChild(searchInputContainer);
-    ctx.bookListContainer.appendChild((ctx.bookListGrid = elem('div', { className: ctx.class.bookListGrid })));
+    ctx.bookListContainer.appendChild((ctx.bookListGrid = elem('div', { className: ctx.class.bookList.grid })));
     updateBookList(ctx);
 }
-
-
