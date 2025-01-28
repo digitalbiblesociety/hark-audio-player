@@ -10,10 +10,10 @@ export function elem(tag, props = {}) {
     return el;
 }
 
-export function formatTime(timeInSeconds) {
+export function formatTime(ctx, timeInSeconds) {
     const minutes = (timeInSeconds / 60) | 0;
     const seconds = (timeInSeconds % 60) | 0;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    return `${ctx.numeralFormatter.format(minutes)}:${seconds < 10 ? ctx.numeralFormatter.format(0) : ''}${ctx.numeralFormatter.format(seconds)}`;
 }
 
 export const parseTimestampToSeconds = (timestampStr) => {
