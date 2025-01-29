@@ -1,9 +1,36 @@
 const defaultClasses = {
-  playerHeader: "",
   playerContainer: "w-full mx-auto max-w-7xl",
+  controlsContainer: "controls-container flex flex-col",
+  mediaPlayerWrap: "w-full flex flex-col justify-center",
+
   bibleListContainer: "",
-  chapterListContainer: "relative w-full max-w-4xl mx-auto",
   bibleListGrid: "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
+  bibleListNavButton: "bible-list-nav",
+  
+  selectBookChapterWrap: "relative bg-stone-100 flex flex-row gap-2 w-full max-w-md mx-auto",
+  selectBook: "inline-flex items-center gap-x-1.5 bg-stone-100 hover:bg-stone-200 px-3 py-2 w-full",
+  selectChapter: "inline-flex items-center text-center bg-stone-100 w-12 hover:bg-stone-200 border-none appearance-none",
+  selectVerseSeparator: "inline-flex items-center bg-stone-100",
+  selectVerse: "inline-flex items-center text-center bg-stone-100 w-12 hover:bg-stone-200 border-none appearance-none",
+  
+  controls: {
+    navRow: "flex flex-row items-center justify-center gap-4 py-4 bg-stone-100 border border-stone-200 w-full max-w-md mx-auto",
+    prevBookButton: "prev-book-button flex justify-center items-center",
+    nextBookButton: "next-book-button flex justify-center transform -scale-x-100 items-center",
+    prevChapterButton: "prev-chapter-button flex justify-center items-center",
+    nextChapterButton: "next-chapter-button flex justify-center transform -scale-x-100 items-center",
+    playPauseButton: "play-pause-button flex justify-center items-center",
+    playPauseIcon: "icon-play",
+    prevSkipButton: `flex justify-center items-center text-stone-600 hover:text-blue-600`,
+    nextSkipButton: `flex justify-center items-center transform -scale-x-100 text-stone-600 hover:text-blue-600`,
+  },
+
+  chapterList: {
+    navButton: "chapter-list-nav",
+    container: "relative w-full max-w-4xl mx-auto",
+    button: "bg-stone-100/90 w-12 h-12 m-2 border border-stone-700 rounded text-lg hover:bg-stone-300",
+    buttonActive: "bg-stone-500 text-stone-100",
+  },
 
   bibleBlock: {
     wrapper: `flex flex-col justify-between text-sm text-center md:text-base lg:text-lg font-semibold text-black`,
@@ -16,19 +43,6 @@ const defaultClasses = {
     buttonGroup: "flex flex-col justify-between",
   },
 
-  container: "audio-player-container mx-auto max-w-7xl w-full",
-  audio: "",
-  controlsContainer: "controls-container flex flex-col",
-  navRow: "flex flex-row items-center justify-center gap-4 py-4 bg-stone-100 border border-stone-200 w-full max-w-md mx-auto",
-  prevBookButton: "prev-book-button flex justify-center items-center",
-  nextBookButton: "next-book-button flex justify-center transform -scale-x-100 items-center",
-  prevChapterButton: "prev-chapter-button flex justify-center items-center",
-  nextChapterButton: "next-chapter-button flex justify-center transform -scale-x-100 items-center",
-  playPauseButton: "play-pause-button flex justify-center items-center",
-  playPauseIcon: "icon-play",
-  controlRow2: "grid grid-cols-5 mb-1",
-  leftControls: "flex flex-row justify-center items-center col-span-2 space-x-6",
-
   playbackRate: {
     wrapper: "flex mx-auto w-full max-w-md justify-center px-8 py-2 bg-stone-100 text-xs",
     display: "mx-1 text-stone-400 text-sm",
@@ -36,15 +50,6 @@ const defaultClasses = {
     decrease: "w-6 h-6 border-2 rounded-2xl text-stone-500",
     disabled: "opacity-50",
   },
-
-  rightControls: "flex flex-row justify-center items-center col-span-2 space-x-6",
-  playSpeedControl: "flex flex-row justify-center items-center text-xs",
-  decrementIcon: "size-6",
-  incrementIcon: "size-6",
-  decreaseSpeedButton: `w-6 h-6 border-2 rounded-2xl hover:border-blue-600 dark:hover:border-white text-stone-500 dark:hover:text-white`,
-  increaseSpeedButton: `w-6 h-6 border-2 rounded-2xl hover:border-blue-600 dark:hover:border-white text-stone-500 dark:hover:text-white`,
-  prevSkipButton: `flex justify-center items-center text-stone-600 hover:text-blue-600`,
-  nextSkipButton: `flex justify-center items-center transform -scale-x-100 text-stone-600 hover:text-blue-600`,
 
   progress: {
     container: "relative flex flex-col mx-auto w-full max-w-md justify-around px-1 pt-4 bg-stone-100 text-xs",
@@ -60,24 +65,11 @@ const defaultClasses = {
     tickLabel: "verse-label hidden group-hover:block absolute left-1/2 -translate-x-1/2 top-full mt-1 px-2 py-1 text-xs bg-gray-200 text-gray-900 rounded-lg shadow border whitespace-nowrap",
   },
 
-  mediaPlayerWrap: "w-full flex flex-col justify-center",
-  mediaPlayerHeader: "",
-  mediaPlayerBody: "",
-  mediaPlayerNavRow: "grid grid-cols-5 px-2 text-stone-700 dark:text-stone-300 divide-x divide-stone-500 dark:divide-stone-600",
-  bibleListNavButton: "",
-  bookListNavButton: "",
-  chapterListNavButton: "",
-
-  volumeRow: "flex mx-auto w-full max-w-md justify-center items-center px-8 bg-stone-100 text-xs",
-  volumeControl: "volume-control w-full",
-  volumeInput: "w-full",
-  volumeLabel: "flex flex-row pl-2 mx-4 w-1/2",
-
-  selectBookChapterWrap: "relative bg-stone-100 flex flex-row gap-2 w-full max-w-md mx-auto",
-  selectBook: "inline-flex items-center gap-x-1.5 bg-stone-100 hover:bg-stone-200 px-3 py-2 w-full",
-  selectChapter: "inline-flex items-center text-center bg-stone-100 w-12 hover:bg-stone-200 border-none appearance-none",
-  selectVerseSeparator: "inline-flex items-center bg-stone-100",
-  selectVerse: "inline-flex items-center text-center bg-stone-100 w-12 hover:bg-stone-200 border-none appearance-none",
+  volume: {
+    row: "flex mx-auto w-full max-w-md justify-center items-center px-8 bg-stone-100 text-xs",
+    input: "w-full",
+    label: "flex flex-row pl-2 mx-4 w-1/2",
+  },
 
   bibleButton: {
     wrapper: "relative bg-stone-100 border border-stone-200 rounded min-h-20",
@@ -99,14 +91,20 @@ const defaultClasses = {
     text_copyright: "block text-stone-600 text-sm",
   },
 
-  sleepTimerButton: "sleep-timer-button group block py-1.5 px-1",
-  sleepTimerDuration: "text-xs pl-1 pt-2 inline-block timer-display",
-  sleepTimerWrap: "flex flex-row justify-center align-start text-stone-400 hover:text-blue-600",
-  searchWrapper: "mx-auto flex items-center w-1/3 my-3",
-  searchInput: "px-4 py-2 w-full max-w-7xl mx-auto bg-white border border-stone-200",
+  sleepTimer: {
+    button: "sleep-timer-button group block py-1.5 px-1",
+    duration: "text-xs pl-1 pt-2 inline-block timer-display",
+    wrap: "flex flex-row justify-center align-start text-stone-400 hover:text-blue-600",
+  },
 
-  searchInputContainer: "flex w-full max-w-xl mx-auto my-4",
+  search: {
+    wrapper: "mx-auto flex items-center w-1/3 my-3",
+    input: "px-4 py-2 w-full max-w-7xl mx-auto bg-white border border-stone-200",
+    inputContainer: "flex w-full max-w-xl mx-auto my-4",
+  },
+
   bookList: {
+    navButton: "book-list-nav",
     container: "w-full",
     grid: "grid grid-cols-3 md:grid-cols-4 gap-2",
     button: "bg-stone-100 border rounded md:rounded-lg",
@@ -114,15 +112,9 @@ const defaultClasses = {
     title: "font-medium text-sm lg:text-base",
     id: "w-full flex justify-end opacity-60 text-sm mr-8",
   },
-
-  chapterButton: "bg-stone-100/90 w-12 h-12 m-2 border border-stone-700 rounded text-lg hover:bg-stone-300",
-  chapterButtonActive: "bg-stone-500 text-stone-100",
 };
 
 /**
- * Merges custom CSS class definitions with a set of default classes. If a key in the custom classes starts
- * with an underscore, it will overwrite the corresponding default class after removing the underscore.
- * Keys without an underscore will simply merge by replacing the existing default with the custom class.
  *
  * @param {Object} customClasses - An object containing custom class definitions. Keys starting with
  *                 an underscore indicate classes that should overwrite default classes.

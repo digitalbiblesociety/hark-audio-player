@@ -1,38 +1,35 @@
 import { elem, formatTime } from "./AudioPlayerHelpers.js";
 
 export function createVolumeAndSleepControls(ctx) {
-  const volumeRow = elem("div", { className: ctx.class.volumeRow });
+  const volumeRow = elem("div", { className: ctx.class.volume.row });
   const volumeInput = elem("input", {
     type: "range",
     min: "0",
     max: "1",
     step: "0.01",
-    className: ctx.class.volumeInput,
+    className: ctx.class.volume.input,
     id: "volume-control",
     value: ctx.audio.volume,
     "aria-label": "Volume Control",
   });
-
-  volumeInput.addEventListener("input", () => {
-    ctx.audio.volume = parseFloat(volumeInput.value);
-  });
+  volumeInput.addEventListener("input", () => ctx.audio.volume = parseFloat(volumeInput.value));
 
   const volumeLabel = elem("label", {
     htmlFor: "volume-control",
-    className: ctx.class.volumeLabel,
+    className: ctx.class.volume.label,
     innerHTML: ctx.icons.volumeIcon,
   });
   volumeLabel.appendChild(volumeInput);
   volumeRow.appendChild(volumeLabel);
-
   const sleepTimerButton = createSleepTimer(ctx, volumeInput);
   volumeRow.appendChild(sleepTimerButton);
+
   return volumeRow;
 }
 
 function createSleepTimer(ctx, volumeInput) {
   const sleepTimerButton = elem("button", {
-    className: ctx.class.sleepTimerButton,
+    className: ctx.class.sleepTimer.button,
     innerHTML: ctx.icons.sleepTimer,
     "aria-label": "Sleep Timer",
   });
@@ -40,7 +37,7 @@ function createSleepTimer(ctx, volumeInput) {
   let elapsedTime = 0;
   const sleepDuration = 1 * 60 * 1000;
   const sleepTimerDuration = elem("span", {
-    className: ctx.class.sleepTimerDuration,
+    className: ctx.class.sleepTimer.duration,
     textContent: formatTime(ctx, sleepDuration / 1000),
     "aria-live": "polite",
   });

@@ -20,7 +20,7 @@ export function createBibleBlockButtons(ctx) {
         {
             condition: ctx.view === "chapter",
             innerHTML: ctx.icons.chapters,
-            className: ctx.class.chapterListNavButton,
+            className: ctx.class.chapterList.navButton,
             onclick: () => {ctx.view = 'book';ctx.render()}
         }
     ];

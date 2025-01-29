@@ -5,12 +5,12 @@ import { updateCurrentBibleBlock, updateBookList } from './AudioPlayerChapterLis
 
 export function initBibleList(ctx) {
     ctx.bibleListContainer.innerHTML = '';
-    const container = elem('div', { className: ctx.class.searchWrapper });
+    const container = elem('div', { className: ctx.class.search.wrapper });
     const input = elem('input', {
         type: 'search',
         placeholder: `Filter (${ctx.bibles.length}) Audio Bibles`,
         autocomplete: 'off',
-        className: ctx.class.searchInput,
+        className: ctx.class.search.input,
         oninput: () => {
             ctx.query = input.value;
             ctx.results = fuzzySearch(ctx.query, ctx.bibles, ['tt','tv','ln'])
@@ -134,7 +134,7 @@ export function initBookList(ctx) {
             updateBookList(ctx);
         }
     });
-    const searchInputContainer = elem('div', { className: ctx.class.searchInputContainer });
+    const searchInputContainer = elem('div', { className: ctx.class.search.inputContainer });
     searchInputContainer.appendChild(searchInput);
     ctx.bookListContainer.appendChild(searchInputContainer);
     ctx.bookListContainer.appendChild((ctx.bookListGrid = elem('div', { className: ctx.class.bookList.grid })));

@@ -8,7 +8,7 @@ import {
 import { createProgressBar } from "./MediaProgressBar.js";
 
 export function createAudioElement(ctx) {
-  const navRow = elem("div", { className: ctx.class.navRow });
+  const navRow = elem("div", { className: ctx.class.controls.navRow });
   navRow.append(
     createBookNavigationButton(ctx, "prev"),
     createChapterNavigationButton(ctx, "prev"),
@@ -32,7 +32,7 @@ export function createAudioElement(ctx) {
 
 function createPlayPauseButton(ctx) {
   const playPauseButton = elem("button", {
-    className: ctx.class.playPauseButton,
+    className: ctx.class.controls.playPauseButton,
     onclick: () => (ctx.audio.paused ? ctx.audio.play() : ctx.audio.pause()),
   });
 
@@ -52,7 +52,7 @@ function createPlayPauseButton(ctx) {
 
 function createBookNavigationButton(ctx, dir) {
   return elem("button", {
-    className: ctx.class[`${dir}BookButton`],
+    className: ctx.class.controls[`${dir}BookButton`],
     innerHTML: ctx.icons[`Book`],
     onclick: () => {
       const index = ctx.currentBooks.data.findIndex(
@@ -69,7 +69,7 @@ function createBookNavigationButton(ctx, dir) {
 
 function createChapterNavigationButton(ctx, dir) {
   return elem("button", {
-    className: ctx.class[`${dir}ChapterButton`],
+    className: ctx.class.controls[`${dir}ChapterButton`],
     innerHTML: ctx.icons[`Chapter`],
     onclick: () => changeChapter(ctx, dir),
   });
@@ -102,7 +102,7 @@ async function changeChapter(ctx, dir) {
 function createSkipButton(ctx, dir) {
   return elem("button", {
     id: `${dir}SkipButton`,
-    className: ctx.class[`${dir}SkipButton`],
+    className: ctx.class.controls[`${dir}SkipButton`],
     innerHTML: ctx.icons[`Skip`],
     onclick: () => {
       ctx.audio.currentTime + (dir == "next" ? 15 : -15);

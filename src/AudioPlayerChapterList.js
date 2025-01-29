@@ -176,7 +176,7 @@ export function chapterList(ctx) {
     ctx.currentBook.chapters.forEach(chapterNumber => {
 
         const chapterButton = elem('button', {
-            className: `${ctx.class.chapterButton} ${(ctx.currentChapter.number == chapterNumber) ? ' ' + ctx.class.chapterButtonActive : ''}`,
+            className: `${ctx.class.chapterList.button} ${(ctx.currentChapter.number == chapterNumber) ? ' ' + ctx.class.chapterList.buttonActive : ''}`,
             ariaLabel: `Play Chapter ${chapterNumber}`,
             textContent: ctx.numeralFormatter.format(chapterNumber),
             onclick: () => handleChapterChange(ctx, ctx.currentBook, chapterNumber)
