@@ -9,19 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
 /* Gospels */
-[data-book-id="MAT"], [data-book-id="MRK"], [data-book-id="LUK"], [data-book-id="JHN"] {
-  background-color: #0044ff;
-}
+[data-book-id="MAT"], [data-book-id="MRK"], [data-book-id="LUK"], [data-book-id="JHN"] { background-color: #0044ff; }
 /* History */
 [data-book-id="JOS"], [data-book-id="JDG"], [data-book-id="RUT"], [data-book-id="1SA"], [data-book-id="2SA"],
 [data-book-id="1KI"], [data-book-id="2KI"], [data-book-id="1CH"], [data-book-id="2CH"], [data-book-id="EZR"],
-[data-book-id="NEH"], [data-book-id="EST"] {
-  background-color: #8800ff;
-}
+[data-book-id="NEH"], [data-book-id="EST"] { background-color: #8800ff; }
 /* Law */
-[data-book-id="GEN"], [data-book-id="EXO"], [data-book-id="LEV"], [data-book-id="NUM"], [data-book-id="DEU"] {
-  background-color: #00ff44;
-}
+[data-book-id="GEN"], [data-book-id="EXO"], [data-book-id="LEV"], [data-book-id="NUM"], [data-book-id="DEU"] { background-color: #00ff44; }
 /* Letters (General) */
 [data-book-id="HEB"], [data-book-id="JAS"], [data-book-id="1PE"], [data-book-id="2PE"], [data-book-id="1JN"],
 [data-book-id="2JN"], [data-book-id="3JN"], [data-book-id="JUD"] { background-color: #ffcc00; }
@@ -50,37 +44,37 @@
         document.addEventListener('DOMContentLoaded', () => {
             AudioPlayer.create('AudioPlayerWrapper', {
                 classes: {
-                    playerContainer: "w-full mx-auto max-w-7xl bg-black text-white border-4 border-white shadow-[10px_10px_0px_rgba(255,255,255,1)]",
-                    controlsContainer: "controls-container flex flex-col bg-black border-t-4 my-4 border-white p-4",
+                    playerContainer: "w-full mx-auto max-w-7xl bg-black text-white border-4 border-white",
+                    controlsContainer: "controls-container flex flex-col bg-black border-t-4 my-4 border-white",
                     mediaPlayerWrap: "w-full flex flex-col justify-center bg-black text-white border-b-4 border-white p-4",
-                    bibleListContainer: "bg-black p-6 border-4 border-white shadow-[8px_8px_0px_rgba(255,255,255,1)]",
+                    bibleListContainer: "bg-black p-6 border-4 border-white",
                     bibleListGrid: "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 border-t-4 border-white p-4",
-                    bibleListNavButton: "absolute bottom-0 bible-list-nav uppercase text-white bg-black border-4 border-white px-4 py-2 hover:bg-white hover:text-black transition-none",
-                    selectBookChapterWrap: "relative bg-black flex flex-row gap-2 w-full mx-auto border-4 border-white p-2",
-                    selectBook: "inline-flex items-center gap-x-1.5 bg-black text-white border-4 border-white px-4 py-2 uppercase hover:bg-white hover:text-black transition-none",
+                    bibleListNavButton: "bible-list-nav uppercase text-white bg-black border-4 border-white px-4 py-2 hover:bg-white hover:text-black transition-none",
+                    selectBookChapterWrap: "relative bg-black flex flex-row gap-2 w-full mx-auto border-4 border-white border-t-transparent p-2",
+                    selectBook: "inline-flex flex-grow items-center gap-x-2 bg-black text-white border-4 border-white px-4 py-2 uppercase hover:bg-white hover:text-black transition-none",
                     selectChapter: "inline-flex items-center text-center bg-black text-white border-4 border-white w-12 uppercase hover:bg-white hover:text-black transition-none",
-                    selectVerseSeparator: "inline-flex items-center bg-black text-white border-4 border-white p-2",
+                    selectVerseSeparator: "inline-flex items-center bg-black text-white p-2",
                     selectVerse: "inline-flex items-center text-center bg-black text-white border-4 border-white w-12 uppercase hover:bg-white hover:text-black transition-none",
                     controls: {
-                      navRow: "flex flex-row items-center justify-center gap-4 py-4 bg-black text-white border-4 border-white w-full mx-auto shadow-[5px_5px_0px_rgba(255,255,255,1)]",
-                      prevBookButton: "prev-book-button flex justify-center items-center bg-black text-white border-4 border-white px-4 py-2 hover:bg-white hover:text-black transition-none",
-                      nextBookButton: "next-book-button flex justify-center transform -scale-x-100 items-center bg-black text-white border-4 border-white px-4 py-2 hover:bg-white hover:text-black transition-none",
-                      prevChapterButton: "prev-chapter-button flex justify-center items-center bg-black text-white border-4 border-white px-4 py-2 hover:bg-white hover:text-black transition-none",
-                      nextChapterButton: "next-chapter-button flex justify-center transform -scale-x-100 items-center bg-black text-white border-4 border-white px-4 py-2 hover:bg-white hover:text-black transition-none",
-                      playPauseButton: "play-pause-button flex justify-center items-center bg-black text-white border-4 border-white px-6 py-3 text-xl font-bold hover:bg-white hover:text-black transition-none",
+                      navRow: "flex flex-row items-center justify-center gap-4 py-4 bg-black text-white border-4 border-white w-full mx-auto",
+                      prevBookButton: "prev-book-button flex justify-center items-center bg-black text-white border-4 border-white px-1 md:px-4 py-2 hover:bg-white hover:text-black transition-none",
+                      nextBookButton: "next-book-button flex justify-center transform -scale-x-100 items-center bg-black text-white border-4 border-white px-1 md:px-4 py-2 hover:bg-white hover:text-black transition-none",
+                      prevChapterButton: "prev-chapter-button flex justify-center items-center bg-black text-white border-4 border-white px-1 md:px-4 py-2 hover:bg-white hover:text-black transition-none",
+                      nextChapterButton: "next-chapter-button flex justify-center transform -scale-x-100 items-center bg-black text-white border-4 border-white px-1 md:px-4 py-2 hover:bg-white hover:text-black transition-none",
+                      playPauseButton: "play-pause-button flex justify-center items-center bg-black text-white border-4 border-white px-1 md:px-6 py-3 text-xl font-bold hover:bg-white hover:text-black transition-none",
                       playPauseIcon: "icon-play text-white text-3xl",
-                      prevSkipButton: "flex justify-center items-center text-white border-4 border-white px-4 py-2 hover:bg-white hover:text-black transition-none",
-                      nextSkipButton: "flex justify-center items-center transform -scale-x-100 text-white border-4 border-white px-4 py-2 hover:bg-white hover:text-black transition-none",
+                      prevSkipButton: "flex justify-center items-center text-white border-4 border-white px-1 md:px-4 py-2 hover:bg-white hover:text-black transition-none",
+                      nextSkipButton: "flex justify-center items-center transform -scale-x-100 text-white border-4 border-white px-1 md:px-4 py-2 hover:bg-white hover:text-black transition-none",
                     },
                     chapterList: {
                       navButton: "chapter-list-nav uppercase text-white bg-black border-4 border-white px-4 py-2 hover:bg-white hover:text-black transition-none",
-                      container: "relative w-full max-w-4xl mx-auto bg-black border-4 border-white p-4 shadow-[8px_8px_0px_rgba(255,255,255,1)]",
+                      container: "relative flex items-center justify-center w-full max-w-4xl mx-auto",
                       button: "bg-black text-white w-12 h-12 m-2 border-4 border-white text-lg uppercase font-bold hover:bg-white hover:text-black transition-none",
                       buttonActive: "bg-white text-black border-4 border-white",
                     },
                     bibleBlock: {
                       wrapper: "flex flex-col justify-between text-sm text-center md:text-base lg:text-lg font-bold text-white bg-black",
-                      infoWrap: "relative flex flex-row justify-between gap-4 w-full mx-auto bg-black text-white border-4 border-white mt-12 p-4 shadow-[5px_5px_0px_rgba(255,255,255,1)]",
+                      infoWrap: "relative flex flex-row justify-between items-center gap-4 w-full mx-auto bg-black text-white border-4 border-white mt-12 p-4",
                       titleGroup: "flex-shrink truncate uppercase text-xl",
                       vernacular: "truncate text-sm mb-1 text-white/80",
                       title: "truncate text-3xl font-extrabold tracking-widest",
@@ -89,16 +83,16 @@
                       buttonGroup: "flex flex-col justify-between",
                     },
                     playbackRate: {
-                      wrapper: "flex mx-auto w-full justify-center px-8 py-2 bg-black text-white border-4 border-white shadow-[4px_4px_0px_rgba(255,255,255,1)]",
-                      display: "mx-1 text-white/60 text-sm uppercase",
+                      wrapper: "flex mx-auto w-full justify-center px-8 py-2 bg-black text-white border-4 border-white border-y-transparent",
+                      display: "mx-1 text-white text-xl uppercase flex justify-center items-center text-center size-12 border-4 border-white",
                       increase: "w-8 h-8 border-4 border-white bg-black text-white font-bold uppercase hover:bg-white hover:text-black transition-none",
                       decrease: "w-8 h-8 border-4 border-white bg-black text-white font-bold uppercase hover:bg-white hover:text-black transition-none",
                       disabled: "opacity-50 border-white/50 text-white/50",
                     },
                     progress: {
-                      container: "relative flex flex-col mx-auto w-full justify-around px-2 pt-4 bg-black text-white border-4 border-white shadow-[5px_5px_0px_rgba(255,255,255,1)]",
-                      barContainer: "flex flex-row justify-between relative z-10 border-4 border-white bg-black p-2",
-                      barWrapper: "mx-auto w-3/4 sm:w-5/6 h-4 relative border-4 border-white bg-white shadow-[inset_-4px_-4px_0px_rgba(0,0,0,1)]",
+                      container: "relative flex flex-col mx-auto w-full justify-around px-2 pt-4 bg-black text-white border-4 border-white",
+                      barContainer: "flex flex-row justify-between relative z-10 bg-black p-2",
+                      barWrapper: "mx-auto w-3/4 sm:w-5/6 h-4 relative bg-white",
                       barInner: "h-4 w-0 bg-blue-600",
                       circleTip: "absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-blue-600 border-4 border-white",
                       currentTimeDisplay: "text-white font-bold",
@@ -111,39 +105,39 @@
                     volume: {
                       row: "flex mx-auto w-full justify-center items-center px-8 bg-black text-white border-4 border-white",
                       input: "w-full bg-black border-4 border-white text-white font-bold uppercase",
-                      label: "flex flex-row pl-2 mx-4 w-1/2 text-white uppercase font-bold",
+                      label: "flex flex-row pl-2 mx-4 w-full text-white uppercase font-bold",
                     },
                     bibleButton: {
-                      wrapper: "relative bg-black border-4 border-white p-3 min-h-24 shadow-[5px_5px_0px_rgba(255,255,255,1)]",
-                      button: "flex flex-row bg-black h-full w-full text-white border-4 border-white hover:bg-white hover:text-black transition-none",
-                      languageWrap: "py-2 bg-white text-black h-full w-28 flex flex-col justify-center items-center border-r-4 border-black",
+                      wrapper: "relative bg-black p-3 min-h-24",
+                      button: "flex flex-row bg-black h-full w-full text-white border-4 border-white transition-none",
+                      languageWrap: "relative py-2 bg-white text-black h-full w-28 flex flex-col justify-center items-center border-r-4 border-black",
                       language: "text-lg font-bold text-black uppercase",
-                      iso: "truncate font-mono mt-1 text-md text-black/70",
-                      titleWrap: "py-2 h-full w-full flex flex-col justify-center items-center text-white",
+                      iso: "absolute -bottom-2 left-0 truncate font-mono mt-1 text-sm text-black/50 font-bold",
+                      titleWrap: "py-2 h-full w-full flex flex-col justify-center items-center text-white hover:bg-white hover:text-black",
                       title: "line-clamp-2 text-center text-lg font-extrabold uppercase",
                       vernacular: "text-md text-white/70 max-w-64",
                       download: "absolute text-white right-0 bottom-0 border-4 border-white bg-black size-10 flex justify-center items-center hover:bg-white hover:text-black transition-none",
                     },
                     bibleDownloadDialog: {
-                      wrapper: "p-6 bg-black text-white border-4 border-white text-center shadow-[5px_5px_0px_rgba(255,255,255,1)]",
+                      wrapper: "p-6 bg-black text-white border-4 border-white text-center",
                       button_download: "px-6 py-3 mx-2 bg-blue-600 text-white border-4 border-white text-lg font-bold uppercase hover:bg-white hover:text-blue-600 transition-none",
                       cancel: "px-6 py-3 mx-2 bg-red-600 text-white border-4 border-white text-lg font-bold uppercase hover:bg-white hover:text-red-600 transition-none",
                       audio_copyright: "block text-white text-md",
                       text_copyright: "block text-white text-sm",
                     },
                     sleepTimer: {
-                      button: "sleep-timer-button block py-2 px-3 bg-black text-white border-4 border-white text-lg font-bold uppercase hover:bg-white hover:text-black transition-none",
+                      button: "hidden",
                       duration: "text-md pl-1 pt-2 inline-block font-bold text-white uppercase",
                       wrap: "flex flex-row justify-center items-center text-white border-4 border-white px-4 py-2 hover:bg-white hover:text-black transition-none",
                     },
                     search: {
-                      wrapper: "mx-auto flex items-center w-1/3 my-4 bg-black border-4 border-white p-4 shadow-[5px_5px_0px_rgba(255,255,255,1)]",
+                      wrapper: "mx-auto flex items-center w-1/3 my-4 bg-black p-4",
                       input: "px-4 py-3 w-full max-w-7xl mx-auto bg-black text-white border-4 border-white uppercase font-bold placeholder-white placeholder-opacity-50",
-                      inputContainer: "flex w-full max-w-xl mx-auto my-4 border-4 border-white bg-black shadow-[5px_5px_0px_rgba(255,255,255,1)]",
+                      inputContainer: "flex w-full max-w-xl mx-auto my-4 border-4 border-white bg-black",
                     },
                     bookList: {
-                      navButton: "absolute bottom-0 book-list-nav uppercase text-white bg-black border-4 border-white px-4 py-2 text-lg font-bold hover:bg-white hover:text-black transition-none",
-                      container: "w-full bg-black border-4 border-white p-4 shadow-[5px_5px_0px_rgba(255,255,255,1)]",
+                      navButton: "book-list-nav uppercase text-white bg-black border-4 border-white px-4 py-2 text-lg font-bold hover:bg-white hover:text-black transition-none",
+                      container: "w-full bg-black border-4 border-white p-4",
                       grid: "grid grid-cols-3 md:grid-cols-4 gap-3 border-4 border-white p-4",
                       button: "relative text-black border-4 border-white text-lg font-bold uppercase hover:text-black transition-none",
                       buttonActive: "text-black border-4 border-black text-lg font-bold uppercase",

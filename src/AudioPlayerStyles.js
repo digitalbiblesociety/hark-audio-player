@@ -108,7 +108,7 @@ const defaultClasses = {
     container: "w-full",
     grid: "grid grid-cols-3 md:grid-cols-4 gap-2",
     button: "bg-stone-100 border rounded md:rounded-lg",
-    buttonActive: "bg-stone-100 border border-stone-300",
+    buttonActive: "bg-stone-200 border border-stone-300",
     title: "font-medium text-sm lg:text-base",
     id: "w-full flex justify-end opacity-60 text-sm mr-8",
   },

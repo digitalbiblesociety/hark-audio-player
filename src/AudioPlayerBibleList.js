@@ -116,7 +116,7 @@ export async function handleBibleButtonClick(ctx, bible) {
         url.searchParams.set('bibleId', bible.id);
         window.history.replaceState({}, '', url);
     } else if (bible.tp === "dbl") {
-        // Handle 'dbl' type if necessary
+
     }
 }
 
@@ -124,7 +124,7 @@ export function initBookList(ctx) {
     const searchInput = elem('input', {
         type: 'search',
         placeholder: ctx.i18n?.filter_books ?? 'Filter Books',
-        className: ctx.class.searchInput,
+        className: ctx.class.search.input,
         ariaLabel: 'search',
         autocomplete: 'off',
         oninput: () => {

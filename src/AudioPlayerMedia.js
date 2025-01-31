@@ -37,7 +37,7 @@ function createPlayPauseButton(ctx) {
   });
 
   const playIcon = elem("span", {
-    className: ctx.class.playPauseIcon,
+    className: ctx.class.controls.playPauseIcon,
     innerHTML: ctx.icons.play,
   });
   playPauseButton.appendChild(playIcon);

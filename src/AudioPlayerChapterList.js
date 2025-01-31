@@ -50,7 +50,7 @@ export function updateBookList(ctx) {
 
 export function createBookButton(ctx, book) {
     const button = elem('button', {
-        className: `${book.book_id} ${ctx.class.bookList.button} ${((ctx.currentBook.book_id == book.book_id) ? ctx.class.bookListButtonActive : '')}`,
+        className: `${book.book_id} ${ctx.class.bookList.button} ${((ctx.currentBook.book_id == book.book_id) ? ctx.class.bookList.ButtonActive : '')}`,
         ariaLabel: book.name,
         onclick: () => handleBookChange(ctx, book.book_id)
     });
