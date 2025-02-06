@@ -28,11 +28,13 @@
     </style>
 </head>
 <body>
-    <div id="AudioPlayerWrapper" class="flex flex-row max-w-7xl mx-auto"></div>
+    <div id="AudioPlayerWrapper" class="max-w-7xl mx-auto"></div>
     <script type="module">
         import AudioPlayer from '../AudioPlayer.js'
         document.addEventListener('DOMContentLoaded', () => {
-            AudioPlayer.create('AudioPlayerWrapper', {}).then(player => {});
+            AudioPlayer.create('AudioPlayerWrapper', {
+                providers: ["hark"]
+            }).then(player => {});
         })
     </script>
 </body>

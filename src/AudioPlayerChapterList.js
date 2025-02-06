@@ -12,7 +12,6 @@ export function updateCurrentBibleBlock(ctx, bible) {
     createVerseSelector(ctx, chapterBookSelectWrapper);
     bibleBlockInfoWrap.append(createBibleBlockButtons(ctx));
     ctx.bibleBlock.append(bibleBlockInfoWrap,chapterBookSelectWrapper);
-    updateBookList(ctx);
 }
 
 function createBibleBlockInfoWrap(ctx, bible) {
@@ -45,6 +44,13 @@ export function updateBookList(ctx) {
                 bookListGrid.appendChild(createBookButton(ctx, book));
             });
         }
+    }
+
+    if(ctx.currentBible.audio_copyright) {
+        ctx.copyrightContainer.appendChild(elem('div', { className: ctx.class.copyright.copyrightAudio, innerText: ctx.currentBible?.audio_copyright }));
+    }
+    if(ctx.currentBible.text_copyright) {
+        ctx.copyrightContainer.appendChild(elem('div', { className: ctx.class.copyright.copyrightText, innerText: ctx.currentBible?.text_copyright }));
     }
 }
 

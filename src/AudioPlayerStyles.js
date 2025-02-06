@@ -40,7 +40,7 @@ const defaultClasses = {
     title: "truncate text-2xl font-semibold",
     languageGroup: "",
     iso: "text-sm",
-    buttonGroup: "flex flex-col justify-between",
+    buttonGroup: "flex flex-col justify-between"
   },
 
   playbackRate: {
@@ -112,6 +112,14 @@ const defaultClasses = {
     title: "font-medium text-sm lg:text-base",
     id: "w-full flex justify-end opacity-60 text-sm mr-8",
   },
+
+  copyright: {
+    container:"text-center my-12",
+    copyrightAudio: "text-sm text-stone-700",
+    copyrightText: "text-xs text-stone-500"
+  },
+
+
 };
 
 /**

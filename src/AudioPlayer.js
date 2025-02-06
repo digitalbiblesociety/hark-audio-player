@@ -42,13 +42,15 @@ export default class AudioPlayer {
     player.bibleListContainer = elem("div", {id: `${idp}-bible-list-container`,className: player.class.bibleListContainer});
     player.bookListContainer = elem("div", {id: `${idp}-book-list-container`,className: player.class.bookList.container});
     player.chapterListContainer = elem("div", {id: `${idp}-chapter-list-container`,className: player.class.chapterList.container});
+    player.copyrightContainer = elem("div", {id: `${idp}-copyright-container`,className: player.class.copyright.container});
     player.bibleBlock = elem("div", {id: `${idp}-bible-block`,className: player.class.bibleBlock.wrapper});
     player.player = createMediaPlayer(player);
     player.player.prepend(player.bibleBlock)
     playerContainer.append(player.audio, player.player);
     initBookList(player);
-    playerContainer.append(player.bookListContainer,player.chapterListContainer,player.bibleListContainer);
+    playerContainer.append(player.bookListContainer, player.chapterListContainer, player.bibleListContainer, player.copyrightContainer);
     player.container.appendChild(playerContainer);
+    console.log(player)
     this.setDefaultView(player);
     return player;
   }
@@ -73,6 +75,7 @@ export default class AudioPlayer {
   render() {
     if (this.view === "bible") {
       initBibleList(this);
+      this.copyrightContainer.innerHTML = ``
     } else if (this.view === "book") {
       updateBookList(this);
     } else if (this.view === "chapter") {
