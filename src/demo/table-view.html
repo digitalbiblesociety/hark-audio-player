@@ -23,7 +23,7 @@
 
 (async function() {
     const BASE_API_URL = 'https://arc.dbs.org';
-const BASE_CONTENT_URL = 'https://content.dbs.org';
+    const BASE_CONTENT_URL = 'https://content.dbs.org';
     const locale = 'en';
 
     // Fetch base Bibles data
@@ -110,7 +110,7 @@ const BASE_CONTENT_URL = 'https://content.dbs.org';
 
         new FuzzyTable("FuzzyTableWrapper", output, [
             { id: "ln", name: 'Language', subtitle: "iso", link: { base: `/${locale}/languages/`, id: 'iso' } },
-            { id: "tt", name: 'Title', subtitle: "tv", link: { base: `/${locale}/audio/listen?bibleId=`, id: 'id' } },
+            { id: "tt", name: 'Title', subtitle: "tv", link: { base: `https://listen.dbs.org/src/demo/modern-theme.html?bibleId=`, id: 'id' } },
             { id: "cn", name: 'Country', link: { base: `/${locale}/countries/`, id: 'ci' }, icon: { base: '/src/demo/flags.svg#', id: 'ci', class: "h-5 w-5 drop-shadow-md inline-flex mr-2 float-left" } },
             { id: "sc", name: 'Scope'},
             { id: "id", name: "ID", class: "hidden" }
