@@ -61,7 +61,7 @@ export function createBookButton(ctx, book) {
         onclick: () => handleBookChange(ctx, book.book_id)
     });
     button.dataset.bookId = book.book_id;
-    const contentContainer = elem('div');
+    const contentContainer = elem('div', { className: ctx.class.bookList.buttonContentWrapper});
     contentContainer.append(
         elem('h2', { className: ctx.class.bookList.title, textContent: book.name }),
         elem('h3', { className: ctx.class.bookList.id, textContent: book.book_id })
