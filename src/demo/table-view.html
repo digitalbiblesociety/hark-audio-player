@@ -109,9 +109,9 @@
 ]
 
         new FuzzyTable("FuzzyTableWrapper", output, [
-            { id: "ln", name: 'Language', subtitle: "iso", link: { base: `/${locale}/languages/`, id: 'iso' } },
+            { id: "ln", name: 'Language', subtitle: "iso", },
             { id: "tt", name: 'Title', subtitle: "tv", link: { base: `https://listen.dbs.org/src/demo/modern-theme.html?bibleId=`, id: 'id' } },
-            { id: "cn", name: 'Country', link: { base: `/${locale}/countries/`, id: 'ci' }, icon: { base: '/src/demo/flags.svg#', id: 'ci', class: "h-5 w-5 drop-shadow-md inline-flex mr-2 float-left" } },
+            { id: "cn", name: 'Country', icon: { base: '/src/demo/flags.svg#', id: 'ci', class: "h-5 w-5 drop-shadow-md inline-flex mr-2 float-left" } },
             { id: "sc", name: 'Scope'},
             { id: "id", name: "ID", class: "hidden" }
         ], {filters: filters});
