@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Player Test Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .ln,
+        td a {
+            font-weight: bold;
+        }
+        .ln em,
+        td em {
+            display: block;
+            font-style: normal;
+            font-weight: normal;
+        }
+        .active-button {
+            background-color: #E0B97E!important;
+            color:#11344A!important;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<div class="relative flex flex-row max-w-7xl mx-auto" id="FuzzyTableWrapper"></div>
+
+<script type="module">
+
+import FuzzyTable from "https://cdn.jsdelivr.net/npm/fuzzytable@0.1.94/dist/FuzzyTable.js"
+
+const defaultClasses = {
+    pagination: '',
+    sortArrow: '',
+    arrowUp: 'absolute right-2 top-1.5 text-sm',
+    arrowDown: 'absolute right-2 bottom-1.5 text-sm',
+    paginationButton: 'w-auto h-10 px-4 inline-flex justify-center items-center border dark:border-stone-900',
+    paginationButtonCurrent: 'text-lg font-bold text-[#11344A]',
+    paginationNav: 'relative z-0 flex mt-4 justify-center rounded-md -space-x-px text-[#f8f8f0]',
+    paginationDescription: 'hidden',
+    paginationDescriptionStart: 'text-[#11344A] text-xs',
+    paginationDescriptionEnd: 'text-[#11344A] text-xs',
+    paginationDescriptionTotal: 'text-[#11344A] text-xs',
+    paginationNav: 'hidden',
+    paginationTopArrow: 'relative inline-flex items-center px-2 h-12 focus:z-10 border-l border-[#24516E]',
+    topPaginationNav: 'relative flex items-center h-12 bg-[#11344A] text-sm border-[#24516E] text-white placeholder-white',
+    topPaginationCurrent: 'block w-auto text-sm font-bold text-center whitespace-no-wrap px-2',
+    downloadWrapper: '-order-2 border-r border-[#24516E]',
+    downloadButton: 'relative inline-flex items-center px-2 h-12 focus:z-10 bg-[#11344A] text-white',
+    downloadDropdown: 'absolute left-0 z-50 -mr-1 mt-2 w-56 bg-[#11344A] text-white origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none',
+    downloadDropdownButton: 'text-white w-full block px-4 py-2 text-sm text-left',
+    downloadDropdownInfo: 'text-center text-xs text-white py-2',
+    fieldsetWrap: 'block w-full bg-[#11344A] text-white text-center text-sm font-semibold p-3',
+    fieldsetFilterWrap: 'mb-4 p-2',
+    fieldset: 'mb-4 p-2 border-2 border-[#11344A]',
+    filterContainer: 'hidden sm:flex flex-col lg:w-1/5 mt-24 ltr:mr-4 rtl:ml-4',
+    filterButton: 'text-sm relative px-2 py-1 my-2 w-full flex items-center justify-center bg-[#E1EEF7] cursor-pointer shadow-sm',
+    filterButtonActive: 'active-button',
+    tableContainer: 'flex flex-col w-full z-10 max-w-7xl mx-auto',
+    tableColumn: 'whitespace-nowrap px-3 py-2 text-sm text-stone-800 border-x-2 border-[#11344A] relative truncate max-w-[240px]',
+    searchInput: 'bg-[#11344A] relative indent-6 block w-full h-12 px-4 text-sm text-stone-800 placeholder-white',
+    searchIcon: 'absolute block w-6 h-6 z-30 mt-3 mx-2 text-white',
+    searchWrapper: 'w-full h-12 flex-shrink',
+    sizeSelectContainer: '-order-2 h-12 w-24 relative',
+    sizeSelect: 'appearance-none w-full h-full bg-[#11344A] text-white text-center border-r border-[#24516E]',
+    tableHeader: 'absolute inset-0 bg-black flex flex-row mt-8 mb-0.5 h-12',
+    tableCellLink: 'text-[#11344A]',
+    tableCellSubtitle: 'font-normal',
+    table: 'w-full my-24',
+    thead: 'bg-[#11344A]',
+    tbody: 'divide-y divide-stone-200 bg-white border border-stone-500 dark:border-none',
+    th: 'relative px-1 py-3 rtl:pr-7 ltr:text-left rtl:text-right text-sm font-semibold text-stone-900 text-white cursor-pointer',
+    tr: 'even:bg-[#E1EEF7]',
+    td: 'whitespace-nowrap px-3 py-2 text-sm text-stone-800 relative truncate max-w-[240px]',
+};
+
+(async function() {
+    const BASE_API_URL = 'https://arc.dbs.org';
+    const BASE_CONTENT_URL = 'https://content.dbs.org';
+    const locale = 'en';
+
+    // Fetch base Bibles data
+    let baseBibles = [];
+    try {
+        const response = await fetch(`${BASE_API_URL}/api/bibles`);
+        baseBibles = await response.json();
+    } catch (error) {
+        console.error("Error fetching base Bibles:", error);
+        return;
+    }
+
+    let bibles = [];
+    try {
+        const response = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/index.txt`);
+        const text = await response.text();
+        bibles = text.split('\n');
+    } catch (error) {
+        console.error("Error fetching Bibles index:", error);
+        return;
+    }
+
+    const output = [];
+    const unmatchedBibles = [];
+
+    bibles.forEach(bible => {
+        let bibleId = bible.split('_')[0];
+        if (bibleId.includes('-')) {
+            bibleId = bible.split('-')[0];
+        }
+
+        let scope = ""
+        if (/_OT_/.test(bible)) scope = "Old Testament"
+        else if (/_NT_/.test(bible)) scope = "New Testament"
+        else if (/_FB_/.test(bible)) scope = "Full Bible"
+        else if (/_PO_/.test(bible)) scope = "Portions"
+
+        const matchedBible = baseBibles.find(baseBible => bibleId === baseBible.id);
+        if (matchedBible) {
+            output.push({
+                id: bible,
+                abbr: matchedBible.id,
+                iso: matchedBible.iso,
+                ln: matchedBible.ln,
+                tt: matchedBible.tt,
+                tv: matchedBible.tv,
+                ci: matchedBible.ci,
+                cn: matchedBible.cn,
+                sc: scope,
+                tp: "hark"
+            });
+        } else {
+            unmatchedBibles.push(bible);
+        }
+    });
+
+    // Initialize FuzzyTable
+    const fuzzyWrapper = document.getElementById("FuzzyTableWrapper");
+    if (fuzzyWrapper) {
+        let filters = [
+  {
+    name: "Continents", filterType: 'radio', filterColumn: "id", icon: { base: './continents.svg#', class: "absolute left-1 size-5 drop-shadow-md mr-2 text-[#11344A]" }, options: [
+      {code: 'WW', active: true, title: 'All', value: /.+/},
+      {code: 'AF', title:  'Africa', value: /AO|BF|BI|BJ|BW|CD|CF|CG|CI|CM|CV|DJ|DZ|EG|EH|ER|ET|GA|GH|GM|GN|GQ|GW|KE|KM|LR|LS|LY|MA|MG|ML|MR|MU|MW|MZ|NA|NE|NG|RE|RW|SC|SD|SH|SL|SN|SO|SS|ST|SZ|TD|TG|TN|TZ|UG|YT|ZA|ZM|ZW/},
+      {code: 'AS', title:  "Asia",value: /AE|AF|AM|AZ|BD|BH|BN|BT|CC|CN|CX|GE|HK|ID|IL|IN|IO|IQ|IR|JO|JP|KG|KH|KP|KR|KW|KZ|LA|LB|LK|MM|MN|MO|MV|MY|NP|OM|PH|PK|PS|QA|SA|SG|SY|TH|TJ|TM|TR|TW|UZ|VN|YE/},
+      {code: 'EU', title:  "Europe", value: /AD|AL|AT|AX|BA|BE|BG|BY|CH|CY|CZ|DE|DK|EE|ES|FI|FO|FR|GB|GG|GI|GR|HR|HU|IE|IM|IS|IT|JE|LI|LT|LU|LV|MC|MD|ME|MK|MT|NL|NO|PL|PT|RO|RS|RU|SE|SI|SJ|SK|SM|UA|VA|XK/},
+      {code: 'NA', title:  "North America", value: /AG|AI|AW|BB|BL|BM|BQ|BS|BZ|CA|CR|CU|CW|DM|DO|GD|GL|GP|GT|HN|HT|JM|KN|KY|LC|MF|MQ|MS|MX|NI|PA|PM|PR|SV|SX|TC|TT|US|VC|VG|VI/},
+      {code: 'SA', title:  "South America", value: /AR|BO|BR|CL|CO|EC|FK|GF|GY|PE|PY|SR|UY|VE/},
+      {code: 'OC', title:  "Oceania", value: /AS|AU|CK|FJ|FM|GU|KI|MH|MP|NC|NF|NR|NU|NZ|PF|PG|PN|PW|SB|TK|TL|TO|TV|UM|VU|WF|WS/}
+    ]
+  },
+{
+			name: "Scope",
+			filterColumn: "id",
+			filterType: "radio",
+			options: [
+				{code: '', active: true, title: 'All', value: /.+/},
+				{title: 'Old Testament',value: /_OT_/, code: "OT"},
+				{title: "New Testament",value: /_NT_/, code: "NT"},
+        {title: "Full Bible",value: /_FB_/, code: "FB"},
+			],
+}
+]
+
+        new FuzzyTable("FuzzyTableWrapper", output, [
+            { id: "ln", name: 'Language', subtitle: "iso", },
+            { id: "tt", name: 'Title', subtitle: "tv", link: { base: `https://listen.dbs.org/src/demo/modern-theme.html?bibleId=`, id: 'id' } },
+            { id: "cn", name: 'Country', icon: { base: '/src/demo/flags.svg#', id: 'ci', class: "h-5 w-5 drop-shadow-md inline-flex mr-2 float-left" } },
+            { id: "sc", name: 'Scope'},
+            { id: "id", name: "ID", class: "hidden" }
+        ], {filters: filters,classes:defaultClasses});
+    } else {
+        console.warn("FuzzyTableWrapper element not found.");
+    }
+})();
+</script>
+
+</body>
+</html>

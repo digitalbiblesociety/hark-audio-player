@@ -7,25 +7,11 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,container-queries"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <style>
-    .color-1 {background:#FFFFFF;}
-    .bg-blueish-300 {background:#E1EEF7;}
-    .color-3 {background:#11344A;}
-    .color-4 {background:#24516E;}
-    .color-5 {background:#E0B97E;}
-    .bg-blueish-500 {background:#9FB9C9;}
-    .color-7 {background:#FFFFFF;}
-    .bg-blueish-800 {background:#11344A;}
-    .text-blueish-800 {color:#11344A;}
-    .color-9 {background:#E1EEF7;}
-    .color-10 {background:#24516E;}
-    .color-12 {background:#9FB9C9;}
-    .color-13 {background:#E1EEF7;}
-    </style>
 </head>
 <body>
     <div id="AudioPlayerWrapper" class="flex flex-row max-w-7xl mx-auto"></div>
     <script type="module">
+      // 
         let customized_titles = {
             "AARBSE_DAVR_FB_N": {"tt": "Afar Bible","tv":"Nabuwwa Kee Malikwa"},
             "ACHBSU_DAVR_OT_N": {"tt": "Acholi Old Testament","tv":"Acoli Baibul 1985"},
@@ -410,34 +396,34 @@
   bibleListGrid: "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
   bibleListNavButton: "bible-list-nav",
   
-  selectBookChapterWrap: "relative bg-blueish-300 flex flex-row gap-2 w-full max-w-md mx-auto",
-  selectBook: "inline-flex items-center gap-x-1.5 bg-blueish-300 hover:bg-stone-200 px-3 py-2 w-full border-none appearance-none",
-  selectChapter: "inline-flex items-center text-center bg-blueish-300 text-blueish-800 w-12 hover:bg-stone-200 border-none appearance-none",
-  selectVerseSeparator: "inline-flex items-center bg-blueish-300",
-  selectVerse: "inline-flex items-center text-center bg-blueish-300 text-blueish-800 w-12 hover:bg-stone-200 border-none appearance-none",
+  selectBookChapterWrap: "relative bg-[#E1EEF7] flex flex-row gap-2 w-full max-w-md mx-auto",
+  selectBook: "inline-flex items-center gap-x-1.5 bg-[#E1EEF7] hover:bg-[#9FB9C9] px-3 py-2 w-full border-none appearance-none",
+  selectChapter: "inline-flex items-center text-center bg-[#E1EEF7] text-[#11344A] w-16 hover:bg-[#9FB9C9] border-none appearance-none",
+  selectVerseSeparator: "inline-flex items-center bg-[#E1EEF7]",
+  selectVerse: "inline-flex items-center text-center bg-[#E1EEF7] text-[#11344A] w-16 hover:bg-[#9FB9C9] border-none appearance-none",
   
   controls: {
-    navRow: "flex flex-row items-center justify-center gap-4 py-4 bg-blueish-300 border-y-4 border-white w-full max-w-md mx-auto",
-    prevBookButton: "prev-book-button flex justify-center items-center text-blueish-800",
-    nextBookButton: "next-book-button flex justify-center transform -scale-x-100 items-center text-blueish-800",
-    prevChapterButton: "prev-chapter-button flex justify-center items-center text-blueish-800",
-    nextChapterButton: "next-chapter-button flex justify-center transform -scale-x-100 items-center text-blueish-800",
-    playPauseButton: "play-pause-button flex justify-center items-center text-blueish-800",
-    playPauseIcon: "icon-play text-blueish-800",
-    prevSkipButton: `flex justify-center items-center text-blueish-800`,
-    nextSkipButton: `flex justify-center items-center transform -scale-x-100 text-blueish-800`,
+    navRow: "flex flex-row items-center justify-center gap-4 py-4 bg-[#E1EEF7] border-y-4 border-white w-full max-w-md mx-auto",
+    prevBookButton: "prev-book-button flex justify-center items-center text-[#11344A]",
+    nextBookButton: "next-book-button flex justify-center transform -scale-x-100 items-center text-[#11344A]",
+    prevChapterButton: "prev-chapter-button flex justify-center items-center text-[#11344A]",
+    nextChapterButton: "next-chapter-button flex justify-center transform -scale-x-100 items-center text-[#11344A]",
+    playPauseButton: "play-pause-button flex justify-center items-center text-[#11344A]",
+    playPauseIcon: "icon-play text-[#11344A]",
+    prevSkipButton: `flex justify-center items-center text-[#11344A]`,
+    nextSkipButton: `flex justify-center items-center transform -scale-x-100 text-[#11344A]`,
   },
 
   chapterList: {
     navButton: "chapter-list-nav",
     container: "relative w-full max-w-4xl mx-auto",
-    button: "bg-blueish-300 w-12 h-12 m-2 rounded text-lg hover:bg-stone-300",
-    buttonActive: "bg-blueish-800 text-stone-100",
+    button: "bg-[#E1EEF7] w-12 h-12 m-2 rounded text-lg hover:bg-[#9FB9C9]",
+    buttonActive: "border-[#11344A] border-2",
   },
 
   bibleBlock: {
     wrapper: `flex flex-col justify-between text-sm text-center md:text-base lg:text-lg font-semibold text-black`,
-    infoWrap: "flex flex-row bg-blueish-800 text-white justify-between gap-4 max-w-md w-full mx-auto mt-12 p-3",
+    infoWrap: "flex flex-row bg-[#11344A] text-white justify-between gap-4 max-w-md w-full mx-auto mt-12 p-3",
     titleGroup: "flex-shrink truncate",
     vernacular: "truncate text-sm mb-1",
     title: "truncate text-2xl font-semibold",
@@ -447,74 +433,74 @@
   },
 
   playbackRate: {
-    wrapper: "flex mx-auto w-full max-w-md justify-center px-8 py-2 bg-blueish-300 text-xs",
-    display: "mx-1 text-stone-400 text-sm",
-    increase: "w-6 h-6 border-2 rounded-2xl text-stone-500",
-    decrease: "w-6 h-6 border-2 rounded-2xl text-stone-500",
+    wrapper: "flex mx-auto w-full max-w-md justify-center px-8 pt-4 pb-4 bg-[#E1EEF7] text-xs",
+    display: "flex items-center justify-center mx-2 text-[#24516E] text-md font-bold",
+    increase: "w-6 h-6 border-2 rounded-2xl text-[#24516E] font-bold border-[#24516E]",
+    decrease: "w-6 h-6 border-2 rounded-2xl text-[#24516E] font-bold border-[#24516E]",
     disabled: "opacity-50",
   },
 
   progress: {
-    container: "relative flex flex-col mx-auto w-full max-w-md justify-around px-1 pt-4 bg-blueish-300 text-xs",
+    container: "relative flex flex-col mx-auto w-full max-w-md justify-around px-1 pt-4 bg-[#E1EEF7] text-xs",
     barContainer: "flex flex-row justify-between relative z-10",
-    barWrapper: "mx-auto min-w-80 mx-3 w-3/4 sm:w-5/6 h-3 rounded-lg relative bg-blueish-500 border bg-gradient-to-br shadow-inner border-stone-500",
-    barInner: "h-3 w-0 bg-blueish-800 rounded-md",
-    circleTip: "absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-5 h-5 bg-blueish-800 rounded-full border border-blue-500",
+    barWrapper: "mx-auto min-w-80 mx-3 w-3/4 sm:w-5/6 h-3 rounded-lg relative bg-[#9FB9C9] border bg-gradient-to-br shadow-inner border-[#11344A]",
+    barInner: "h-3 w-0 bg-[#11344A] rounded-md",
+    circleTip: "absolute top-1/2 transform -translate-y-1/2 -translate-x-1/2 w-5 h-5 bg-[#11344A] rounded-full border border-[#11344A]",
     currentTimeDisplay: "text-black",
     durationDisplay: "text-black",
     timestamps: "flex w-5/6 mx-auto h-8 absolute inset-x-2 z-0 block my-4",
     tick: "absolute top-0 h-full",
-    tickWrapper: "group relative h-full bg-stone-400 rounded-sm",
+    tickWrapper: "group relative h-full bg-[#9FB9C9] rounded-sm",
     tickLabel: "verse-label hidden group-hover:block absolute left-1/2 -translate-x-1/2 top-full mt-1 px-2 py-1 text-xs bg-gray-200 text-gray-900 rounded-lg shadow border whitespace-nowrap",
   },
 
   volume: {
-    row: "flex mx-auto w-full max-w-md justify-center items-center px-8 bg-blueish-300 text-xs",
-    input: "w-full",
+    row: "flex mx-auto w-full max-w-md justify-center items-center px-8 bg-[#E1EEF7] text-xs",
+    input: "w-full accent-[#24516E]",
     label: "flex flex-row pl-2 mx-4 w-1/2",
   },
 
   bibleButton: {
-    wrapper: "relative bg-blueish-300 border border-stone-200 rounded min-h-20",
-    button: "flex flex-row bg-blueish-300 h-full w-full hover:bg-stone-200",
-    languageWrap: "py-1 bg-stone-200 h-full w-24 flex flex-col justify-center items-center",
-    language: "text-sm font-medium text-stone-900",
-    iso: "truncate font-mono mt-1 text-sm text-stone-500",
+    wrapper: "relative bg-[#E1EEF7] border border-[#9FB9C9] rounded min-h-20",
+    button: "flex flex-row bg-[#E1EEF7] h-full w-full hover:bg-[#9FB9C9]",
+    languageWrap: "py-1 bg-[#11344A] h-full w-24 flex flex-col justify-center items-center",
+    language: "text-sm font-medium text-white",
+    iso: "truncate font-mono mt-1 text-sm text-white",
     titleWrap: "py-1 h-full w-full flex flex-col justify-center items-center",
-    title: "line-clamp-2 text-center text-sm font-medium text-stone-900",
-    vernacular: "text-sm text-stone-500 max-w-64",
-    download: "absolute text-stone-500 right-0 bottom-0 rounded-tl size-8 flex justify-center items-center bg-stone-200 hover:bg-stone-300",
+    title: "line-clamp-2 text-center text-sm font-medium text-[#11344A] font-bold",
+    vernacular: "text-sm text-[#24516E] max-w-64",
+    download: "absolute right-0 bottom-0 rounded-tl size-8 flex justify-center items-center bg-[#11344A] text-white",
   },
 
   bibleDownloadDialog: {
     wrapper: "p-4 shadow-lg text-center",
-    button_download: "px-5 py-2 mx-1 bg-blue-500 text-white rounded cursor-pointer",
+    button_download: "px-5 py-2 mx-1 bg-[#11344A] text-white rounded cursor-pointer",
     cancel: "px-5 py-2 mx-1 bg-red-600 text-white rounded cursor-pointer",
-    audio_copyright: "block text-stone-600",
-    text_copyright: "block text-stone-600 text-sm",
+    audio_copyright: "mt-8 block text-[#11344A]",
+    text_copyright: "mb-8 block text-[#11344A] text-sm",
   },
 
   sleepTimer: {
     button: "sleep-timer-button group block py-1.5 px-1",
     duration: "text-xs pl-1 pt-2 inline-block timer-display",
-    wrap: "flex flex-row justify-center align-start text-stone-400 hover:text-blue-600",
+    wrap: "flex flex-row justify-center align-start text-[#11344A]",
   },
 
   search: {
     wrapper: "mx-auto flex items-center w-1/3 my-3",
-    input: "px-4 py-2 w-full max-w-7xl mx-auto bg-white border-2 border-[#24516E]",
-    inputContainer: "flex w-full max-w-xl mx-auto my-4",
+    input: "px-4 py-2 w-full max-w-7xl mx-auto bg-white border-2 accent-[#24516E] border-[#24516E]",
+    inputContainer: "flex w-full max-w-lg mx-auto my-4",
   },
 
   bookList: {
     navButton: "book-list-nav",
     container: "w-full",
-    grid: "grid grid-cols-3 md:grid-cols-4 gap-2",
-    buttonContentWrapper: "flex p-2 flex-row items-center justify-center items-center",
-    button: "relative bg-blueish-300 text-blueish-800 border rounded md:rounded-lg",
+    grid: "grid grid-cols-3 md:grid-cols-4 gap-2 mx-2",
+    buttonContentWrapper: "relative flex p-2",
+    button: "relative bg-[#E1EEF7] text-[#11344A] border rounded md:rounded-lg",
     buttonActive: "bg-stone-200",
-    title: "flex flex-grow w-full text-right font-bold text-sm lg:text-base",
-    id: "w-full items-center opacity-60 text-blueish-800 text-sm mr-8",
+    title: "w-full text-center font-bold text-sm lg:text-base",
+    id: "absolute -right-6 top-2.5 opacity-60 text-[#11344A] text-sm mr-8 hidden md:block",
   },
 
   copyright: {
