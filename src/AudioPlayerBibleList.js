@@ -37,7 +37,6 @@ function updateBibleGrid(ctx) {
 
 function createBibleButton(ctx, bible) {
     const buttonWrap = elem('div', {className: ctx.class.bibleButton.wrapper});
-
     const button = elem('button', {className: ctx.class.bibleButton.button, onclick: () => handleBibleButtonClick(ctx, bible)});
     buttonWrap.appendChild(button)
     button.dataset.testId = bible.id;
@@ -48,6 +47,10 @@ function createBibleButton(ctx, bible) {
     bibleListButtonLanguage.appendChild(elem('small', { className: ctx.class.bibleButton.iso, textContent: bible.iso }));
 
     const bibleListButtonTitle = elem('div', { className: ctx.class.bibleButton.titleWrap });
+
+    const buttonIcon = elem('span', {innerHTML: ctx.icons.bibleButton, className: ctx.class.bibleButton.icon})
+    bibleListButtonTitle.appendChild(buttonIcon)
+
     bibleListButtonTitle.appendChild(elem('h4', { className: ctx.class.bibleButton.title, textContent: bible.tt}));
 
     if (bible.tt !== bible.tv && bible.tv) {
