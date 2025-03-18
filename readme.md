@@ -1,7 +1,7 @@
 # HARK Audio Bible Player 
 
 <p align="center">
-<img src="./src/demo/angel.svg" height="140px" width="140px">
+<img src="https://raw.githubusercontent.com/digitalbiblesociety/hark-audio-player/refs/heads/main/src/demo/angel.svg" height="140px" width="140px">
 </p>
 
 <div align="center">
