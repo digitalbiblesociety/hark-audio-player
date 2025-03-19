@@ -3,7 +3,7 @@ const BASE_CONTENT_URL = 'https://content.dbs.org';
 const BASE_DBP_URL = 'https://4.dbt.io/api/bibles';
 
 export async function loadProviders(player) {
-    const providerFunctions = {
+    let providerFunctions = {
         hark: harkList,
         dbp: dbpList,
     };
@@ -24,18 +24,14 @@ export async function loadProviders(player) {
 
 export async function harkList(country_id = 'all', provider = 'all') {
     const bibles = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/index.json`).then(response => response.json());
-    const output = bibles.map(bible => ({
+    const output = bibles
+    .map(bible => ({
         ...bible,
         tp: "hark",
         dl: (bible.dl) ? `${BASE_CONTENT_URL}/bibles/audio-new/${bible.id}.zip` : ""
-    }));
-    if (country_id !== 'all') {
-        output = output.filter(bible => bible.ci === country_id);
-    }
-
-    if (provider !== 'all') {
-        output = output.filter(bible => bible.id.includes(provider));
-    }
+    }))
+    .filter(bible => country_id === 'all' || bible.ci === country_id)
+    .filter(bible => provider === 'all' || bible.id.includes(provider));
 
     return output;
 }
