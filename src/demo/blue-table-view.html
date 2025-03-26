@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Player Test Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="../styles/audioplayer.css" rel="stylesheet" />
     <style>
-        .ln,
-        td a {
+        .ln, td a {
             font-weight: bold;
         }
-        .ln em,
-        td em {
+        .ln em, td em {
             display: block;
             font-style: normal;
             font-weight: normal;
@@ -34,6 +32,7 @@
 
 
 <div class="relative flex flex-row max-w-7xl mx-auto" id="FuzzyTableWrapper"></div>
+
 
 <script type="module">
 
@@ -71,7 +70,7 @@ const defaultClasses = {
     searchInput: 'bg-[#11344A] relative indent-6 block w-full h-12 px-4 text-sm text-white placeholder-white',
     searchIcon: 'absolute block w-6 h-6 z-30 mt-3 mx-2 text-white',
     searchWrapper: 'w-full h-12 flex-shrink',
-    sizeSelectContainer: '-order-2 h-12 w-24 relative',
+    sizeSelectContainer: '-order-2 h-12 w-24 relative flex items-center justify-center',
     sizeSelect: 'appearance-none w-full h-full bg-[#11344A] text-white text-center border-r border-[#24516E]',
     tableHeader: 'absolute inset-0 bg-black flex flex-row mt-8 mb-0.5 h-12',
     tableCellLink: 'text-[#11344A]',
