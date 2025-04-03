@@ -21,9 +21,12 @@
         .dl_tt a,
         .hr_tt a {
             display: block;
-            padding:6px 4px;
             background-color: #9FB9C9;
             color: #11344A;
+        }
+        th:nth-of-type(5) span,
+        th:nth-of-type(6) span {
+            display: none;
         }
     </style>
 </head>
@@ -74,7 +77,7 @@ const defaultClasses = {
     sizeSelect: 'appearance-none w-full h-full bg-[#11344A] text-white text-center border-r border-[#24516E]',
     tableHeader: 'absolute inset-0 bg-black flex flex-row mt-8 mb-0.5 h-12',
     tableCellLink: 'text-[#11344A]',
-    tableCellSubtitle: 'font-normal',
+    tableCellSubtitle: 'font-normal text-xs',
     table: 'w-full my-24',
     thead: 'bg-[#11344A]',
     tbody: 'divide-y divide-stone-200 bg-white border border-stone-500 dark:border-none',
@@ -130,12 +133,12 @@ const defaultClasses = {
 
         new FuzzyTable("FuzzyTableWrapper", bibles, [
             { id: "ln", name: 'Language', subtitle: "iso", },
-            { id: "tt", name: 'Title', subtitle: "tv", link: { base: `https://listen.dbs.org/src/demo/blue-theme.html?bibleId=`, id: 'id' } },
+            { id: "tt", name: 'Title', link: { base: `https://listen.dbs.org/src/demo/blue-theme.html?bibleId=`, id: 'id' } },
             { id: "cn", name: 'Country', icon: { base: '/src/demo/flags.svg#', id: 'ci', class: "h-5 w-5 drop-shadow-md inline-flex mr-2 float-left" } },
-            { id: "scope", name: 'Scope'},
+            { id: "text_copyright", subtitle:"audio_copyright", name: "Copyright"},
             { id: "dl_tt", name: 'Download', 
                 link: { base:'', id: 'dl_url' },
-                icon: { base: '/src/demo/actions.svg#', id: 'dl_tt', class: "h-5 w-5 drop-shadow-md  mr-2 float-left" } },
+                icon: { base: '/src/demo/actions.svg#', id: 'dl_tt', class: "h-5 w-5 drop-shadow-md mr-2 float-left" } },
             { id: "hr_tt", name: 'Listen', 
                 link: { base: `https://listen.dbs.org/src/demo/blue-theme.html?bibleId=`, id: 'id'},
                 icon: { base: '/src/demo/actions.svg#', id: 'hr_tt', class: "h-5 w-5 drop-shadow-md mr-2 float-left" } },
