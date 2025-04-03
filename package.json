@@ -1,12 +1,13 @@
 {
   "name": "hark-audio-player",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
-  "main": "./dist/AudioPlayer.min.js",
+  "main": "./dist/AudioPlayer.min.mjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-styles": "npx @tailwindcss/cli -i ./src/styles/input.css -o ./src/styles/audioplayer.css"
   },
   "keywords": [
     "audio-player",

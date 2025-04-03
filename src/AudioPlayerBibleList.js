@@ -13,7 +13,7 @@ export function initBibleList(ctx) {
         className: ctx.class.search.input,
         oninput: () => {
             ctx.query = input.value;
-            ctx.results = fuzzySearch(ctx.query, ctx.bibles, ['tt','tv','ln'])
+            ctx.results = fuzzySearch(ctx.query, ctx.bibles, ['tt','tv','ln','cn'])
             updateBibleGrid(ctx);
         }
     });
@@ -46,6 +46,8 @@ function createBibleButton(ctx, bible) {
     bibleListButtonLanguage.appendChild(elem('h2', { className: ctx.class.bibleButton.language, textContent: bible.ln }));
     bibleListButtonLanguage.appendChild(elem('small', { className: ctx.class.bibleButton.iso, textContent: bible.iso }));
 
+    const bibleListButtonCountry = elem('div', { className: ctx.class.bibleButton.country, textContent: bible.cn });
+
     const bibleListButtonTitle = elem('div', { className: ctx.class.bibleButton.titleWrap });
 
     const buttonIcon = elem('span', {innerHTML: ctx.icons.bibleButton, className: ctx.class.bibleButton.icon})
@@ -63,6 +65,7 @@ function createBibleButton(ctx, bible) {
 
     button.appendChild(bibleListButtonLanguage);
     button.appendChild(bibleListButtonTitle);
+    button.appendChild(bibleListButtonCountry);
 
     if(bible.dl) {
         const downloadButton = elem('button', {

@@ -407,11 +407,9 @@
   playerContainer: "w-full mx-auto max-w-7xl",
   controlsContainer: "controls-container flex flex-col",
   mediaPlayerWrap: "w-full flex flex-col justify-center",
-
   bibleListContainer: "",
   bibleListGrid: "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
-  bibleListNavButton: "bible-list-nav",
-  
+  bibleListNavButton: "bible-list-nav hover:pointer hover:bg-black",
   selectBookChapterWrap: "relative bg-[#E1EEF7] flex flex-row gap-2 w-full max-w-md mx-auto",
   selectBook: "inline-flex items-center gap-x-1.5 bg-[#E1EEF7] hover:bg-[#9FB9C9] px-3 py-2 w-full border-none appearance-none",
   selectChapter: "inline-flex items-center text-center bg-[#E1EEF7] text-[#11344A] w-16 hover:bg-[#9FB9C9] border-none appearance-none",
@@ -479,7 +477,8 @@
   bibleButton: {
     icon: "absolute left-2 text-[#11344A]",
     wrapper: "relative bg-[#E1EEF7] border border-[#9FB9C9] rounded min-h-20",
-    button: "flex flex-row bg-[#E1EEF7] h-full w-full hover:bg-[#9FB9C9]",
+    button: "relative flex flex-row bg-[#E1EEF7] h-full w-full hover:bg-[#9FB9C9]",
+    country: "absolute bottom-1 left-22 block text-sm text-[#11344A]",
     languageWrap: "py-1 bg-[#11344A] h-full w-24 flex flex-col justify-center items-center",
     language: "text-sm font-medium text-white",
     iso: "truncate font-mono mt-1 text-sm text-white",
