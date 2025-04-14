@@ -97,7 +97,7 @@ const defaultClasses = {
     
       return {
         ...bible,
-        dl_tt: (bible.dl) ? "Download" : '',
+        dl_tt: 'Download',
         dl_url: (bible.dl) ? `https://content.dbs.org/bibles/audio-new/${bible.id}.zip` : '',
         hr_tt: "Listen",
       };
@@ -136,12 +136,12 @@ const defaultClasses = {
             { id: "tt", name: 'Title', link: { base: `https://listen.dbs.org/src/demo/blue-theme.html?bibleId=`, id: 'id' } },
             { id: "cn", name: 'Country', icon: { base: '/src/demo/flags.svg#', id: 'ci', class: "h-5 w-5 drop-shadow-md inline-flex mr-2 float-left" } },
             { id: "text_copyright", subtitle:"audio_copyright", name: "Copyright"},
-            { id: "dl_tt", name: 'Download', 
+            { id: "", name: 'Download', 
                 link: { base:'', id: 'dl_url' },
-                icon: { base: '/src/demo/actions.svg#', id: 'dl_tt', class: "h-5 w-5 drop-shadow-md mr-2 float-left" } },
-            { id: "hr_tt", name: 'Listen', 
+                icon: { base: '/src/demo/actions.svg#', id: 'dl_tt', class: "h-5 w-5 drop-shadow-md block mx-auto" } },
+            { id: "", name: 'Listen', 
                 link: { base: `https://listen.dbs.org/src/demo/blue-theme.html?bibleId=`, id: 'id'},
-                icon: { base: '/src/demo/actions.svg#', id: 'hr_tt', class: "h-5 w-5 drop-shadow-md mr-2 float-left" } },
+                icon: { base: '/src/demo/actions.svg#', id: 'hr_tt', class: "h-5 w-5 drop-shadow-md block mx-auto" } },
             { id: "id", name: "ID", class: "hidden" }
         ], {filters: filters,classes:defaultClasses});
     } else {
