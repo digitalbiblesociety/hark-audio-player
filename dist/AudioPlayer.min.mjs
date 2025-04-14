@@ -65,7 +65,8 @@ const re = {
   bibleButton: {
     icon: "float-left",
     wrapper: "relative bg-stone-100 border border-stone-200 rounded min-h-20",
-    button: "flex flex-row bg-stone-100 h-full w-full hover:bg-stone-200",
+    button: "relative flex flex-row bg-stone-100 h-full w-full hover:bg-stone-200",
+    country: "absolute bottom-1 left-22 block text-sm text-stone-600",
     languageWrap: "py-1 bg-stone-200 h-full w-24 flex flex-col justify-center items-center",
     language: "text-sm font-medium text-stone-900",
     iso: "truncate font-mono mt-1 text-sm text-stone-500",
@@ -225,24 +226,24 @@ async function be(e) {
     66: "REV"
   }, o = await (await fetch(`${H}/bibles/audio-new/${e}/index.txt`)).text(), a = /* @__PURE__ */ new Map(), r = /^(\d+)_(\w+)_(\d+)\.mp3$/;
   o.split(`
-`).sort().forEach((c) => {
-    const d = c.match(r);
-    if (d) {
-      const [, u, p, f] = d, g = parseInt(f, 10), m = t[u];
-      a.has(m) || a.set(m, {
-        name: p,
-        book_number: u,
-        book_id: m,
+`).sort().forEach((i) => {
+    const u = i.match(r);
+    if (u) {
+      const [, p, d, h] = u, f = parseInt(h, 10), g = t[p];
+      a.has(g) || a.set(g, {
+        name: d,
+        book_number: p,
+        book_id: g,
         chapters: []
-      }), a.get(m).chapters.push(g);
+      }), a.get(g).chapters.push(f);
     }
   });
   let l = [];
-  const i = await fetch(`${H}/bibles/audio-new/${e}/timingfiles/_index.txt`);
-  i.ok ? l = (await i.text()).split(`
+  const c = await fetch(`${H}/bibles/audio-new/${e}/timingfiles/_index.txt`);
+  c.ok ? l = (await c.text()).split(`
 `) : console.warn("timing files could not be found");
-  for (const c of a.values())
-    c.chapters.sort((d, u) => d - u);
+  for (const i of a.values())
+    i.chapters.sort((u, p) => u - p);
   return {
     bible_id: e,
     bible_folder: e,
@@ -287,18 +288,18 @@ async function D(e, t, n) {
     }, e.audio.src = e.currentChapter.path;
     const l = new URL(window.location);
     if (l.searchParams.set("book", t.book_id), l.searchParams.set("c", o), Array.isArray(e.currentBooks.timestamps) && e.currentBooks.timestamps.length > 0) {
-      const i = /Verse (\d+)	(\d+:\d+:\d+\.\d+)/gm;
-      let c = await fetch(`https://content.dbs.org/bibles/audio-new/${e.currentBooks.bible_folder}/timingfiles/${e.currentBook.book_id}_${o.toString().padStart(3, "0")}.txt`).then(function(p) {
-        return p.text();
-      }).catch((p) => {
-        console.error("Error:", p);
-      }), d = [], u;
-      for (; (u = i.exec(c)) !== null; ) {
-        u[1];
-        const p = u[2];
-        d.push(p);
+      const c = /Verse (\d+)	(\d+:\d+:\d+\.\d+)/gm;
+      let i = await fetch(`https://content.dbs.org/bibles/audio-new/${e.currentBooks.bible_folder}/timingfiles/${e.currentBook.book_id}_${o.toString().padStart(3, "0")}.txt`).then(function(d) {
+        return d.text();
+      }).catch((d) => {
+        console.error("Error:", d);
+      }), u = [], p;
+      for (; (p = c.exec(i)) !== null; ) {
+        p[1];
+        const d = p[2];
+        u.push(d);
       }
-      e.currentChapter.timestamps = d;
+      e.currentChapter.timestamps = u;
     }
   }
 }
@@ -325,41 +326,41 @@ HTMLDialogElement.prototype.showModal = function() {
   };
 };
 function ve(e) {
-  var u, p, f, g, m, w, C, y, B, L, T, N;
-  const t = ((p = (u = e.options) == null ? void 0 : u.playbackRate) == null ? void 0 : p.min) ?? 0.5, n = ((g = (f = e.options) == null ? void 0 : f.playbackRate) == null ? void 0 : g.max) ?? 2.25, o = ((w = (m = e.options) == null ? void 0 : m.playbackRate) == null ? void 0 : w.step) ?? 0.25, a = (k, R) => {
+  var p, d, h, f, g, w, C, y, B, L, T, N;
+  const t = ((d = (p = e.options) == null ? void 0 : p.playbackRate) == null ? void 0 : d.min) ?? 0.5, n = ((f = (h = e.options) == null ? void 0 : h.playbackRate) == null ? void 0 : f.max) ?? 2.25, o = ((w = (g = e.options) == null ? void 0 : g.playbackRate) == null ? void 0 : w.step) ?? 0.25, a = (k, R) => {
     var M;
     k.className = `${k.baseClassName} ${R ? (M = e.class.playbackRate) == null ? void 0 : M.disabled : ""}`;
   }, r = (k) => {
     e.audio.playbackRate = Math.min(
       n,
       Math.max(t, e.audio.playbackRate + k)
-    ), c.textContent = e.numeralFormatter.format(
+    ), i.textContent = e.numeralFormatter.format(
       e.audio.playbackRate
-    ), a(i, e.audio.playbackRate === t), a(d, e.audio.playbackRate === n);
+    ), a(c, e.audio.playbackRate === t), a(u, e.audio.playbackRate === n);
   }, l = s("div", {
     className: (C = e.class.playbackRate) == null ? void 0 : C.wrapper
-  }), i = s("button", {
+  }), c = s("button", {
     baseClassName: (y = e.class.playbackRate) == null ? void 0 : y.decrease,
     className: (B = e.class.playbackRate) == null ? void 0 : B.decrease,
     textContent: "-",
     onclick: () => r(-o)
-  }), c = s("span", {
+  }), i = s("span", {
     className: (L = e.class.playbackRate) == null ? void 0 : L.display,
     textContent: e.numeralFormatter.format(e.audio.playbackRate)
-  }), d = s("button", {
+  }), u = s("button", {
     baseClassName: (T = e.class.playbackRate) == null ? void 0 : T.increase,
     className: (N = e.class.playbackRate) == null ? void 0 : N.increase,
     textContent: "+",
     onclick: () => r(o)
   });
   return e.audio.addEventListener("loadedmetadata", () => {
-    c.textContent = e.numeralFormatter.format(
+    i.textContent = e.numeralFormatter.format(
       e.audio.playbackRate
     );
   }), l.append(
-    i,
     c,
-    d
+    i,
+    u
   ), l;
 }
 function ke(e) {
@@ -396,21 +397,21 @@ function we(e, t) {
     "aria-live": "polite"
   });
   n.appendChild(l), n.addEventListener("click", () => {
-    o ? (clearInterval(o), o = null, t.value = 1, e.audio.volume = 1, a = 0, i(r)) : (a = 0, o = setInterval(() => {
+    o ? (clearInterval(o), o = null, t.value = 1, e.audio.volume = 1, a = 0, c(r)) : (a = 0, o = setInterval(() => {
       a += 1e3;
-      const c = r - a, d = c / r;
-      t.value = Math.max(0, d), e.audio.volume = parseFloat(t.value), i(c), a >= r && (clearInterval(o), o = null, e.audio.pause(), i(0));
+      const i = r - a, u = i / r;
+      t.value = Math.max(0, u), e.audio.volume = parseFloat(t.value), c(i), a >= r && (clearInterval(o), o = null, e.audio.pause(), c(0));
     }, 1e3));
   }), e.audio.addEventListener("loadedmetadata", () => {
     l.textContent = v(e, r / 1e3);
   });
-  function i(c) {
-    const d = a / r, u = 2 * Math.PI * 9;
-    l.textContent = v(e, c / 1e3);
-    const p = n.querySelector("svg circle:nth-child(2)");
-    p && p.setAttribute(
+  function c(i) {
+    const u = a / r, p = 2 * Math.PI * 9;
+    l.textContent = v(e, i / 1e3);
+    const d = n.querySelector("svg circle:nth-child(2)");
+    d && d.setAttribute(
       "stroke-dashoffset",
-      (1 - d) * u
+      (1 - u) * p
     );
   }
   return n;
@@ -527,16 +528,16 @@ function Te(e, t) {
   if (!e.currentChapter || !e.currentChapter.timestamps || e.currentChapter.timestamps.length == 0) return;
   const n = s("select", { className: e.class.selectVerse });
   e.currentChapter.timestamps.forEach((a, r) => {
-    const l = r + 1, i = s("option", {
+    const l = r + 1, c = s("option", {
       value: l,
       innerText: e.numeralFormatter.format(parseInt(l))
     });
-    n.appendChild(i);
+    n.appendChild(c);
   }), n.addEventListener("change", (a) => {
     const l = parseInt(a.target.value, 10) - 1;
     if (e.currentChapter.timestamps && e.currentChapter.timestamps[l]) {
-      const i = e.currentChapter.timestamps[l], c = V(i);
-      e.audio.currentTime = c;
+      const c = e.currentChapter.timestamps[l], i = V(c);
+      e.audio.currentTime = i;
     }
   });
   const o = s("div", { innerText: ":", className: e.class.selectVerseSeparator });
@@ -582,16 +583,16 @@ function $(e, t, n) {
   o.innerHTML = e.audio.paused ? e.icons.play : e.icons.pause, W(e);
 }
 function Me(e) {
-  var f, g, m, w, C, y, B, L, T, N, k, R, M, F, G, z;
-  function t(h, E, _) {
-    const S = _.getBoundingClientRect(), b = (h.clientX - S.left) / S.width;
-    E.audio.currentTime = Math.max(0, Math.min(b, 1)) * E.audio.duration;
+  var h, f, g, w, C, y, B, L, T, N, k, R, M, F, G, z;
+  function t(b, E, S) {
+    const _ = S.getBoundingClientRect(), m = (b.clientX - _.left) / _.width;
+    E.audio.currentTime = Math.max(0, Math.min(m, 1)) * E.audio.duration;
   }
   const n = s("div", {
-    className: (g = (f = e.class) == null ? void 0 : f.progress) == null ? void 0 : g.container
+    className: (f = (h = e.class) == null ? void 0 : h.progress) == null ? void 0 : f.container
   }), o = s("div", {
     id: "currentTime",
-    className: (w = (m = e.class) == null ? void 0 : m.progress) == null ? void 0 : w.currentTimeDisplay,
+    className: (w = (g = e.class) == null ? void 0 : g.progress) == null ? void 0 : w.currentTimeDisplay,
     textContent: v(e, e.audio.currentTime)
   }), a = s("div", {
     id: "progress-barContainer",
@@ -603,38 +604,38 @@ function Me(e) {
     id: "progress-bar",
     className: (N = (T = e.class) == null ? void 0 : T.progress) == null ? void 0 : N.barInner,
     style: { width: "0%" }
-  }), i = s("div", {
+  }), c = s("div", {
     id: "timestamps-wrapper",
     className: (R = (k = e.class) == null ? void 0 : k.progress) == null ? void 0 : R.timestamps
-  }), c = s("div", {
+  }), i = s("div", {
     className: (F = (M = e.class) == null ? void 0 : M.progress) == null ? void 0 : F.circleTip,
     style: { left: "0%" }
   });
-  r.append(l, c);
-  const d = (h) => {
-    e.isDragging && t(h, e, r);
-  }, u = () => {
-    e.isDragging && (e.isDragging = !1, document.body.style.userSelect = "", document.removeEventListener("mousemove", d), document.removeEventListener("mouseup", u));
+  r.append(l, i);
+  const u = (b) => {
+    e.isDragging && t(b, e, r);
+  }, p = () => {
+    e.isDragging && (e.isDragging = !1, document.body.style.userSelect = "", document.removeEventListener("mousemove", u), document.removeEventListener("mouseup", p));
   };
   r.addEventListener("mousedown", () => {
-    e.isDragging = !0, document.body.style.userSelect = "none", document.addEventListener("mousemove", d), document.addEventListener("mouseup", u);
-  }), r.addEventListener("click", (h) => {
-    t(h, e, r);
+    e.isDragging = !0, document.body.style.userSelect = "none", document.addEventListener("mousemove", u), document.addEventListener("mouseup", p);
+  }), r.addEventListener("click", (b) => {
+    t(b, e, r);
   });
-  const p = s("div", {
+  const d = s("div", {
     id: "currentDuration",
     className: (z = (G = e.class) == null ? void 0 : G.progress) == null ? void 0 : z.durationDisplay,
     textContent: v(e, e.audio.duration || 0)
   });
   return e.audio.addEventListener("timeupdate", () => {
-    const h = e.audio.currentTime / e.audio.duration * 100;
-    l.style.width = `${h}%`, c.style.left = `calc(${h}% - 3px)`, o.textContent = v(e, e.audio.currentTime);
+    const b = e.audio.currentTime / e.audio.duration * 100;
+    l.style.width = `${b}%`, i.style.left = `calc(${b}% - 3px)`, o.textContent = v(e, e.audio.currentTime);
   }), e.audio.addEventListener("loadedmetadata", () => {
-    var h, E;
-    if (i.innerHTML = "", currentTime.textContent = v(e, e.audio.currentTime), p.textContent = v(e, e.audio.duration), e.currentChapter.timestamps && Array.isArray(e.currentChapter.timestamps)) {
-      const _ = e.currentChapter.timestamps.map(V).filter((b) => b >= 0 && b <= e.audio.duration).sort((b, I) => b - I), S = 0.25;
-      for (let b = 0; b < _.length - 1; b++) {
-        const I = _[b], oe = (_[b + 1] - I) / e.audio.duration * 100, ae = Math.max(0, oe - S), se = I / e.audio.duration * 100 + S / 2, j = s("div", {
+    var b, E;
+    if (c.innerHTML = "", currentTime.textContent = v(e, e.audio.currentTime), d.textContent = v(e, e.audio.duration), e.currentChapter.timestamps && Array.isArray(e.currentChapter.timestamps)) {
+      const S = e.currentChapter.timestamps.map(V).filter((m) => m >= 0 && m <= e.audio.duration).sort((m, I) => m - I), _ = 0.25;
+      for (let m = 0; m < S.length - 1; m++) {
+        const I = S[m], oe = (S[m + 1] - I) / e.audio.duration * 100, ae = Math.max(0, oe - _), se = I / e.audio.duration * 100 + _ / 2, j = s("div", {
           className: e.class.progress.tickWrapper,
           style: {
             position: "absolute",
@@ -642,7 +643,7 @@ function Me(e) {
             width: `${ae}%`
           }
         }), O = s("div", {
-          className: `progress-tick ${(E = (h = e == null ? void 0 : e.class) == null ? void 0 : h.progress) == null ? void 0 : E.tick} w-full h-full`
+          className: `progress-tick ${(E = (b = e == null ? void 0 : e.class) == null ? void 0 : b.progress) == null ? void 0 : E.tick} w-full h-full`
         });
         O.addEventListener("click", () => {
           e.audio.currentTime = I;
@@ -650,10 +651,10 @@ function Me(e) {
         const Z = s("div", {
           className: e.class.progress.tickLabel
         });
-        Z.textContent = `${b + 1}`, j.appendChild(O), j.appendChild(Z), i.appendChild(j);
+        Z.textContent = `${m + 1}`, j.appendChild(O), j.appendChild(Z), c.appendChild(j);
       }
     }
-  }), a.append(o), a.append(r), a.append(p), n.append(a, i), n;
+  }), a.append(o), a.append(r), a.append(d), n.append(a, c), n;
 }
 function Ee(e) {
   const t = s("div", { className: e.class.controls.navRow });
@@ -661,7 +662,7 @@ function Ee(e) {
     U(e, "prev"),
     J(e, "prev"),
     K(e, "prev"),
-    _e(e),
+    Se(e),
     K(e, "next"),
     J(e, "next"),
     U(e, "next")
@@ -676,7 +677,7 @@ function Ee(e) {
     ke(e)
   ), n;
 }
-function _e(e) {
+function Se(e) {
   const t = s("button", {
     className: e.class.controls.playPauseButton,
     onclick: () => e.audio.paused ? e.audio.play() : e.audio.pause()
@@ -706,19 +707,19 @@ function J(e, t) {
   return s("button", {
     className: e.class.controls[`${t}ChapterButton`],
     innerHTML: e.icons.Chapter,
-    onclick: () => Se(e, t)
+    onclick: () => _e(e, t)
   });
 }
-async function Se(e, t) {
+async function _e(e, t) {
   const n = t === "prev" ? -1 : 1, o = e.currentChapter.number + n;
   if (t === "prev" ? o > 0 : o < e.currentBook.chapters.length + 1) {
     $(e, e.currentBook, o);
     return;
   }
   const l = e.currentBooks.data.findIndex(
-    (c) => c.book_id === e.currentBook.book_id
-  ) + n, i = e.currentBooks.data[l];
-  i && (A(e, i.book_id), $(e, i, 1));
+    (i) => i.book_id === e.currentBook.book_id
+  ) + n, c = e.currentBooks.data[l];
+  c && (A(e, c.book_id), $(e, c, 1));
 }
 function K(e, t) {
   return s("button", {
@@ -734,29 +735,49 @@ function K(e, t) {
   });
 }
 function ee(e, t, n) {
-  const o = e.toLowerCase(), l = Math.max(0.5, 0.9 - (o.length > 10 ? 0.15 : o.length * 0.05));
-  return t.reduce((i, c) => {
-    let d = 0, u = 0;
-    return n.forEach((p) => {
-      if (c[p]) {
-        const f = c[p].toString().toLowerCase(), m = Ie(o, f) / Math.max(o.length, f.length);
-        m <= l && (d += m, u++);
+  const o = e.toLowerCase(), l = Math.max(0.8, 0.95 - (o.length > 10 ? 0.15 : o.length * 0.05));
+  return t.reduce((c, i) => {
+    let u = 0, p = 0;
+    return n.forEach((d) => {
+      if (i[d]) {
+        const h = i[d].toString().toLowerCase(), f = Ie(o, h);
+        (f >= l || h.includes(o)) && (u += f, p++);
       }
-    }), u > 0 && i.push({ item: c, score: d / u }), i;
-  }, []).sort((i, c) => i.score - c.score);
+    }), p > 0 && c.push({ item: i, score: u / p }), c;
+  }, []).sort((c, i) => i.score - c.score);
 }
-function Ie(e, t) {
-  if (e === t) return 0;
-  const n = Array.from({ length: e.length + 1 }, (o, a) => a);
-  for (let o = 1; o <= t.length; o++) {
-    let a = n[0];
-    n[0] = o;
-    for (let r = 1; r <= e.length; r++) {
-      const l = n[r];
-      n[r] = Math.min(n[r] + 1, n[r - 1] + 1, a + (e[r - 1] !== t[o - 1])), a = l;
-    }
+function Ie(e, t, n = 0.1, o = 4) {
+  if (e === t) return 1;
+  if (e.length === 0 || t.length === 0) return 0;
+  const a = $e(e, t);
+  if (a.matches === 0) return 0;
+  const r = (a.matches / e.length + a.matches / t.length + (a.matches - a.transpositions / 2) / a.matches) / 3, l = Ae(e, t, o);
+  return r + l * n * (1 - r);
+}
+function $e(e, t) {
+  const n = Math.max(e.length, t.length), o = Math.floor(n / 2) - 1, a = new Array(t.length).fill(!1), r = [], l = [];
+  for (let i = 0; i < e.length; i++) {
+    const u = Math.max(0, i - o), p = Math.min(i + o + 1, t.length);
+    for (let d = u; d < p; d++)
+      if (!a[d] && e[i] === t[d]) {
+        r.push(e[i]), l.push(t[d]), a[d] = !0;
+        break;
+      }
   }
-  return n[e.length];
+  let c = 0;
+  for (let i = 0; i < r.length; i++)
+    r[i] !== l[i] && c++;
+  return {
+    matches: r.length,
+    transpositions: c
+  };
+}
+function Ae(e, t, n) {
+  const o = Math.min(n, e.length, t.length);
+  let a = 0;
+  for (let r = 0; r < o && e[r] === t[r]; r++)
+    a++;
+  return a;
 }
 function X(e) {
   e.bibleListContainer.innerHTML = "";
@@ -766,7 +787,7 @@ function X(e) {
     autocomplete: "off",
     className: e.class.search.input,
     oninput: () => {
-      e.query = n.value, e.results = ee(e.query, e.bibles, ["tt", "tv", "ln"]), Y(e);
+      e.query = n.value, e.results = ee(e.query, e.bibles, ["tt", "tv", "ln", "cn"]), Y(e);
     }
   });
   n.setAttribute("aria-label", "Search"), t.appendChild(n), e.bibleListContainer.appendChild(t);
@@ -777,32 +798,32 @@ function Y(e) {
   const t = e.bibleListGrid;
   t.innerHTML = "";
   const n = e.query ? e.results.map((a) => a.item) : e.bibles, o = document.createDocumentFragment();
-  n.forEach((a) => o.appendChild($e(e, a))), t.appendChild(o);
+  n.forEach((a) => o.appendChild(Re(e, a))), t.appendChild(o);
 }
-function $e(e, t) {
+function Re(e, t) {
   const n = s("div", { className: e.class.bibleButton.wrapper }), o = s("button", { className: e.class.bibleButton.button, onclick: () => te(e, t) });
   n.appendChild(o), o.dataset.testId = t.id, o.setAttribute("aria-label", t.tv ?? t.tt);
   const a = s("div", { className: e.class.bibleButton.languageWrap });
   a.appendChild(s("h2", { className: e.class.bibleButton.language, textContent: t.ln })), a.appendChild(s("small", { className: e.class.bibleButton.iso, textContent: t.iso }));
-  const r = s("div", { className: e.class.bibleButton.titleWrap }), l = s("span", { innerHTML: e.icons.bibleButton, className: e.class.bibleButton.icon });
-  if (r.appendChild(l), r.appendChild(s("h4", { className: e.class.bibleButton.title, textContent: t.tt })), t.tt !== t.tv && t.tv) {
+  const r = s("div", { className: e.class.bibleButton.country, textContent: t.cn }), l = s("div", { className: e.class.bibleButton.titleWrap }), c = s("span", { innerHTML: e.icons.bibleButton, className: e.class.bibleButton.icon });
+  if (l.appendChild(c), l.appendChild(s("h4", { className: e.class.bibleButton.title, textContent: t.tt })), t.tt !== t.tv && t.tv) {
     const i = s("p", {
       className: e.class.bibleButton.vernacular,
       textContent: t.tv
     });
-    r.appendChild(i);
+    l.appendChild(i);
   }
-  if (o.appendChild(a), o.appendChild(r), t.dl) {
+  if (o.appendChild(a), o.appendChild(l), o.appendChild(r), t.dl) {
     const i = s("button", {
       className: e.class.bibleButton.download,
       innerHTML: e.icons.download,
-      onclick: () => Ae(e, t)
+      onclick: () => He(e, t)
     });
     n.appendChild(i);
   }
   return n;
 }
-async function Ae(e, t) {
+async function He(e, t) {
   try {
     if (!t.dl) {
       console.log("Bible object does not contain a valid download URL");
@@ -816,8 +837,8 @@ async function Ae(e, t) {
     n.append(o, a);
     const r = s("button", { className: e.class.bibleDownloadDialog.button_download, textContent: `Download ${t.dl_size ?? ""}` });
     r.addEventListener("click", () => {
-      const i = document.body.appendChild(s("a", { href: t.dl, download: "" }));
-      i.click(), i.remove(), n.close(), n.remove();
+      const c = document.body.appendChild(s("a", { href: t.dl, download: "" }));
+      c.click(), c.remove(), n.close(), n.remove();
     }), n.appendChild(r);
     const l = s("button", { className: e.class.bibleDownloadDialog.cancel, textContent: "Cancel" });
     l.addEventListener("click", () => {
@@ -834,7 +855,7 @@ async function te(e, t) {
     n.searchParams.set("bibleId", t.id), window.history.replaceState({}, "", n);
   } else t.tp;
 }
-function Re(e) {
+function je(e) {
   var o;
   const t = s("input", {
     type: "search",
@@ -860,7 +881,7 @@ class ne {
     const o = new ne(t, n);
     await pe(o), o.container.innerHTML = "";
     const a = o.idPrefix, r = s("div", { id: `${a}-player-container`, className: o.class.playerContainer });
-    return o.bibleListContainer = s("div", { id: `${a}-bible-list-container`, className: o.class.bibleListContainer }), o.bookListContainer = s("div", { id: `${a}-book-list-container`, className: o.class.bookList.container }), o.chapterListContainer = s("div", { id: `${a}-chapter-list-container`, className: o.class.chapterList.container }), o.copyrightContainer = s("div", { id: `${a}-copyright-container`, className: o.class.copyright.container }), o.bibleBlock = s("div", { id: `${a}-bible-block`, className: o.class.bibleBlock.wrapper }), o.player = He(o), o.player.prepend(o.bibleBlock), r.append(o.audio, o.player), Re(o), r.append(o.bookListContainer, o.chapterListContainer, o.bibleListContainer, o.copyrightContainer), o.container.appendChild(r), console.log(o), this.setDefaultView(o), o;
+    return o.bibleListContainer = s("div", { id: `${a}-bible-list-container`, className: o.class.bibleListContainer }), o.bookListContainer = s("div", { id: `${a}-book-list-container`, className: o.class.bookList.container }), o.chapterListContainer = s("div", { id: `${a}-chapter-list-container`, className: o.class.chapterList.container }), o.copyrightContainer = s("div", { id: `${a}-copyright-container`, className: o.class.copyright.container }), o.bibleBlock = s("div", { id: `${a}-bible-block`, className: o.class.bibleBlock.wrapper }), o.player = Pe(o), o.player.prepend(o.bibleBlock), r.append(o.audio, o.player), je(o), r.append(o.bookListContainer, o.chapterListContainer, o.bibleListContainer, o.copyrightContainer), o.container.appendChild(r), console.log(o), this.setDefaultView(o), o;
   }
   static async setDefaultView(t) {
     const n = new URL(window.location);
@@ -877,7 +898,7 @@ function Q(e) {
   const t = e.views[e.view] || views.bible;
   e.player.style.display = t.player, e.bibleListContainer.style.display = t.bibleListContainer, e.bookListContainer.style.display = t.bookListContainer, e.chapterListContainer.style.display = t.chapterListContainer;
 }
-function He(e) {
+function Pe(e) {
   const t = s("div", {
     id: "media-player-wrap",
     className: e.class.mediaPlayerWrap
