@@ -47,12 +47,9 @@ function createBibleButton(ctx, bible) {
     bibleListButtonLanguage.appendChild(elem('small', { className: ctx.class.bibleButton.iso, textContent: bible.iso }));
 
     const bibleListButtonCountry = elem('div', { className: ctx.class.bibleButton.country, textContent: bible.cn });
-
     const bibleListButtonTitle = elem('div', { className: ctx.class.bibleButton.titleWrap });
-
     const buttonIcon = elem('span', {innerHTML: ctx.icons.bibleButton, className: ctx.class.bibleButton.icon})
     bibleListButtonTitle.appendChild(buttonIcon)
-
     bibleListButtonTitle.appendChild(elem('h4', { className: ctx.class.bibleButton.title, textContent: bible.tt}));
 
     if (bible.tt !== bible.tv && bible.tv) {
@@ -85,12 +82,16 @@ export async function handleBibleDownload(ctx, bible) {
             return;
         }
         const dialog = elem('dialog', {className: ctx.class.bibleDownloadDialog.wrapper});
+        const title = elem("div", { innerHTML: `
+        <p class="${ctx.class.bibleDownloadDialog.title}">${bible.tt}</p>
+        <p class="${ctx.class.bibleDownloadDialog.subtitle}">${bible.tv}</p>`
+        });
         const message = elem("div", {innerHTML: ctx?.download_text ?? `<div class="text-sm max-w-sm"></div>`});
         const copyright = elem("div", { innerHTML: `
             <p class="${ctx.class.bibleDownloadDialog.audio_copyright}">${bible.audio_copyright}</p>
             <p class="${ctx.class.bibleDownloadDialog.text_copyright}">${bible.text_copyright}</p>`
         });
-        dialog.append(message, copyright);
+        dialog.append(title, message, copyright);
         const downloadButton = elem("button",{className: ctx.class.bibleDownloadDialog.button_download,textContent: `Download ${bible.dl_size ?? ''}`});
         downloadButton.addEventListener("click", () => {
             const anchor = document.body.appendChild(elem('a', { href: bible.dl, download: '' }));
