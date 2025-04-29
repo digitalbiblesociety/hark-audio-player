@@ -67,7 +67,7 @@ const re = {
     wrapper: "relative bg-stone-100 border border-stone-200 rounded min-h-20",
     button: "relative flex flex-row bg-stone-100 h-full w-full hover:bg-stone-200",
     country: "absolute bottom-1 left-22 block text-sm text-stone-600",
-    languageWrap: "py-1 bg-stone-200 h-full w-24 flex flex-col justify-center items-center",
+    languageWrap: "py-1 bg-stone-200 h-full w-28 flex flex-col justify-center items-center",
     language: "text-sm font-medium text-stone-900",
     iso: "truncate font-mono mt-1 text-sm text-stone-500",
     titleWrap: "py-1 h-full w-full flex flex-col justify-center items-center",
@@ -150,10 +150,10 @@ async function pe(e) {
   }
 }
 async function me(e = "all", t = "all") {
-  return (await fetch(`${H}/bibles/audio-new/index.json`).then((a) => a.json())).map((a) => ({
+  return (await fetch(`${H}/bibles/audio-davar/index.json`).then((a) => a.json())).map((a) => ({
     ...a,
     tp: "hark",
-    dl: a.dl ? `${H}/bibles/audio-new/${a.id}.zip` : ""
+    dl: a.dl ? `${H}/bibles/audio-davar/${a.id}.zip` : ""
   })).filter((a) => e === "all" || a.ci === e).filter((a) => t === "all" || a.id.includes(t));
 }
 async function be(e) {
@@ -224,7 +224,7 @@ async function be(e) {
     64: "3JN",
     65: "JUD",
     66: "REV"
-  }, o = await (await fetch(`${H}/bibles/audio-new/${e}/index.txt`)).text(), a = /* @__PURE__ */ new Map(), r = /^(\d+)_(\w+)_(\d+)\.mp3$/;
+  }, o = await (await fetch(`${H}/bibles/audio-davar/${e}/index.txt`)).text(), a = /* @__PURE__ */ new Map(), r = /^(\d+)_(\w+)_(\d+)\.mp3$/;
   o.split(`
 `).sort().forEach((i) => {
     const u = i.match(r);
@@ -239,7 +239,7 @@ async function be(e) {
     }
   });
   let l = [];
-  const c = await fetch(`${H}/bibles/audio-new/${e}/timingfiles/_index.txt`);
+  const c = await fetch(`${H}/bibles/audio-davar/${e}/timingfiles/_index.txt`);
   c.ok ? l = (await c.text()).split(`
 `) : console.warn("timing files could not be found");
   for (const i of a.values())
@@ -271,16 +271,16 @@ async function fe(e, t) {
   e.currentBible = o, new URL(window.location).searchParams.set("id", e.currentBible.id), await ge(e, n.data[0], 1);
 }
 async function ge(e, t, n) {
-  e.currentBook = t, await D(e, t, n);
+  e.currentBook = t, await P(e, t, n);
 }
-async function D(e, t, n) {
+async function P(e, t, n) {
   var a;
   e.currentBook = t;
   let o = n;
   if ((a = t == null ? void 0 : t.chapters) != null && a.includes(n) || (o = 1), e.currentType === "hark") {
     const r = t.book_number === "19" ? 3 : 2;
     e.currentChapter = {
-      path: `https://content.dbs.org/bibles/audio-new/${e.currentBooks.bible_folder}/${t.book_number}_${t.name}_${o.toString().padStart(r, "0")}.mp3`,
+      path: `https://content.dbs.org/bibles/audio-davar/${e.currentBooks.bible_folder}/${t.book_number}_${t.name}_${o.toString().padStart(r, "0")}.mp3`,
       title: `${t.name} ${o}`,
       number: o,
       book_id: t.book_id,
@@ -289,7 +289,7 @@ async function D(e, t, n) {
     const l = new URL(window.location);
     if (l.searchParams.set("book", t.book_id), l.searchParams.set("c", o), Array.isArray(e.currentBooks.timestamps) && e.currentBooks.timestamps.length > 0) {
       const c = /Verse (\d+)	(\d+:\d+:\d+\.\d+)/gm;
-      let i = await fetch(`https://content.dbs.org/bibles/audio-new/${e.currentBooks.bible_folder}/timingfiles/${e.currentBook.book_id}_${o.toString().padStart(3, "0")}.txt`).then(function(d) {
+      let i = await fetch(`https://content.dbs.org/bibles/audio-davar/${e.currentBooks.bible_folder}/timingfiles/${e.currentBook.book_id}_${o.toString().padStart(3, "0")}.txt`).then(function(d) {
         return d.text();
       }).catch((d) => {
         console.error("Error:", d);
@@ -468,7 +468,7 @@ function ye(e, t) {
   const a = s("div", { className: e.class.bibleBlock.titleGroup });
   return a.appendChild(s("div", { className: e.class.bibleBlock.title, innerText: t.tt })), t.tv && t.tv !== t.tt && a.appendChild(s("div", { className: e.class.bibleBlock.vernacular, innerText: t.tv })), n.appendChild(a), n;
 }
-function P(e) {
+function j(e) {
   var n, o;
   const t = e.bookListGrid;
   t.innerHTML = "", e.resultsBooks && e.resultsBooks.length && e.query !== "" ? e.resultsBooks.forEach((a) => {
@@ -493,7 +493,7 @@ function q(e, t) {
 function A(e, t, n = 1) {
   const o = e.currentBooks.data.find((r) => r.book_id === t);
   if (!o) return;
-  D(o, n);
+  P(o, n);
   const a = new URL(window.location);
   a.searchParams.set("bookId", o.book_id), window.history.replaceState({}, "", a), e.query = "", e.chapterListContainer.style.display = "block", e.view = "chapter", e.currentBook = o, W(e), x(e, e.currentBible);
 }
@@ -578,7 +578,7 @@ function W(e) {
   }
 }
 function $(e, t, n) {
-  D(e, t, n), e.chapterSelect.value = n, e.audio.play();
+  P(e, t, n), e.chapterSelect.value = n, e.audio.play();
   const o = document.querySelector(".icon-play");
   o.innerHTML = e.audio.paused ? e.icons.play : e.icons.pause, W(e);
 }
@@ -635,7 +635,7 @@ function Me(e) {
     if (c.innerHTML = "", currentTime.textContent = v(e, e.audio.currentTime), d.textContent = v(e, e.audio.duration), e.currentChapter.timestamps && Array.isArray(e.currentChapter.timestamps)) {
       const S = e.currentChapter.timestamps.map(V).filter((m) => m >= 0 && m <= e.audio.duration).sort((m, I) => m - I), _ = 0.25;
       for (let m = 0; m < S.length - 1; m++) {
-        const I = S[m], oe = (S[m + 1] - I) / e.audio.duration * 100, ae = Math.max(0, oe - _), se = I / e.audio.duration * 100 + _ / 2, j = s("div", {
+        const I = S[m], oe = (S[m + 1] - I) / e.audio.duration * 100, ae = Math.max(0, oe - _), se = I / e.audio.duration * 100 + _ / 2, D = s("div", {
           className: e.class.progress.tickWrapper,
           style: {
             position: "absolute",
@@ -651,7 +651,7 @@ function Me(e) {
         const Z = s("div", {
           className: e.class.progress.tickLabel
         });
-        Z.textContent = `${m + 1}`, j.appendChild(O), j.appendChild(Z), c.appendChild(j);
+        Z.textContent = `${m + 1}`, D.appendChild(O), D.appendChild(Z), c.appendChild(D);
       }
     }
   }), a.append(o), a.append(r), a.append(d), n.append(a, c), n;
@@ -829,21 +829,25 @@ async function He(e, t) {
       console.log("Bible object does not contain a valid download URL");
       return;
     }
-    const n = s("dialog", { className: e.class.bibleDownloadDialog.wrapper }), o = s("div", { innerHTML: (e == null ? void 0 : e.download_text) ?? '<div class="text-sm max-w-sm"></div>' }), a = s("div", {
+    const n = s("dialog", { className: e.class.bibleDownloadDialog.wrapper }), o = s("div", {
+      innerHTML: `
+        <p class="${e.class.bibleDownloadDialog.title}">${t.tt}</p>
+        <p class="${e.class.bibleDownloadDialog.subtitle}">${t.tv}</p>`
+    }), a = s("div", { innerHTML: (e == null ? void 0 : e.download_text) ?? '<div class="text-sm max-w-sm"></div>' }), r = s("div", {
       innerHTML: `
             <p class="${e.class.bibleDownloadDialog.audio_copyright}">${t.audio_copyright}</p>
             <p class="${e.class.bibleDownloadDialog.text_copyright}">${t.text_copyright}</p>`
     });
-    n.append(o, a);
-    const r = s("button", { className: e.class.bibleDownloadDialog.button_download, textContent: `Download ${t.dl_size ?? ""}` });
-    r.addEventListener("click", () => {
-      const c = document.body.appendChild(s("a", { href: t.dl, download: "" }));
-      c.click(), c.remove(), n.close(), n.remove();
-    }), n.appendChild(r);
-    const l = s("button", { className: e.class.bibleDownloadDialog.cancel, textContent: "Cancel" });
+    n.append(o, a, r);
+    const l = s("button", { className: e.class.bibleDownloadDialog.button_download, textContent: `Download ${t.dl_size ?? ""}` });
     l.addEventListener("click", () => {
+      const i = document.body.appendChild(s("a", { href: t.dl, download: "" }));
+      i.click(), i.remove(), n.close(), n.remove();
+    }), n.appendChild(l);
+    const c = s("button", { className: e.class.bibleDownloadDialog.cancel, textContent: "Cancel" });
+    c.addEventListener("click", () => {
       n.close(), document.body.removeChild(n);
-    }), n.appendChild(l), document.body.appendChild(n), n.showModal();
+    }), n.appendChild(c), document.body.appendChild(n), n.showModal();
   } catch (n) {
     console.error("An error occurred while trying to display the dialog:", n);
   }
@@ -855,7 +859,7 @@ async function te(e, t) {
     n.searchParams.set("bibleId", t.id), window.history.replaceState({}, "", n);
   } else t.tp;
 }
-function je(e) {
+function De(e) {
   var o;
   const t = s("input", {
     type: "search",
@@ -864,10 +868,10 @@ function je(e) {
     ariaLabel: "search",
     autocomplete: "off",
     oninput: () => {
-      e.query = t.value, console.log(t.value, e.currentBooks.data), e.resultsBooks = ee(e.query, e.currentBooks.data, ["name"]), P(e);
+      e.query = t.value, console.log(t.value, e.currentBooks.data), e.resultsBooks = ee(e.query, e.currentBooks.data, ["name"]), j(e);
     }
   }), n = s("div", { className: e.class.search.inputContainer });
-  n.appendChild(t), e.bookListContainer.appendChild(n), e.bookListContainer.appendChild(e.bookListGrid = s("div", { className: e.class.bookList.grid })), P(e);
+  n.appendChild(t), e.bookListContainer.appendChild(n), e.bookListContainer.appendChild(e.bookListGrid = s("div", { className: e.class.bookList.grid })), j(e);
 }
 class ne {
   constructor(t, n) {
@@ -881,14 +885,14 @@ class ne {
     const o = new ne(t, n);
     await pe(o), o.container.innerHTML = "";
     const a = o.idPrefix, r = s("div", { id: `${a}-player-container`, className: o.class.playerContainer });
-    return o.bibleListContainer = s("div", { id: `${a}-bible-list-container`, className: o.class.bibleListContainer }), o.bookListContainer = s("div", { id: `${a}-book-list-container`, className: o.class.bookList.container }), o.chapterListContainer = s("div", { id: `${a}-chapter-list-container`, className: o.class.chapterList.container }), o.copyrightContainer = s("div", { id: `${a}-copyright-container`, className: o.class.copyright.container }), o.bibleBlock = s("div", { id: `${a}-bible-block`, className: o.class.bibleBlock.wrapper }), o.player = Pe(o), o.player.prepend(o.bibleBlock), r.append(o.audio, o.player), je(o), r.append(o.bookListContainer, o.chapterListContainer, o.bibleListContainer, o.copyrightContainer), o.container.appendChild(r), console.log(o), this.setDefaultView(o), o;
+    return o.bibleListContainer = s("div", { id: `${a}-bible-list-container`, className: o.class.bibleListContainer }), o.bookListContainer = s("div", { id: `${a}-book-list-container`, className: o.class.bookList.container }), o.chapterListContainer = s("div", { id: `${a}-chapter-list-container`, className: o.class.chapterList.container }), o.copyrightContainer = s("div", { id: `${a}-copyright-container`, className: o.class.copyright.container }), o.bibleBlock = s("div", { id: `${a}-bible-block`, className: o.class.bibleBlock.wrapper }), o.player = je(o), o.player.prepend(o.bibleBlock), r.append(o.audio, o.player), De(o), r.append(o.bookListContainer, o.chapterListContainer, o.bibleListContainer, o.copyrightContainer), o.container.appendChild(r), console.log(o), this.setDefaultView(o), o;
   }
   static async setDefaultView(t) {
     const n = new URL(window.location);
     n.searchParams.get("bibleId") && (await te(t, t.bibles.find((o) => o.id == n.searchParams.get("bibleId"))), t.view = "book"), n.searchParams.get("bookId") && (await A(t, n.searchParams.get("bookId")), t.view = "chapter"), t.view === "bible" && X(t), Q(t);
   }
   render() {
-    this.view === "bible" ? (X(this), this.copyrightContainer.innerHTML = "") : this.view === "book" ? P(this) : this.view === "chapter" && W(this), Q(this);
+    this.view === "bible" ? (X(this), this.copyrightContainer.innerHTML = "") : this.view === "book" ? j(this) : this.view === "chapter" && W(this), Q(this);
   }
   setData(t) {
     Object.assign(this, t);
@@ -898,7 +902,7 @@ function Q(e) {
   const t = e.views[e.view] || views.bible;
   e.player.style.display = t.player, e.bibleListContainer.style.display = t.bibleListContainer, e.bookListContainer.style.display = t.bookListContainer, e.chapterListContainer.style.display = t.chapterListContainer;
 }
-function Pe(e) {
+function je(e) {
   const t = s("div", {
     id: "media-player-wrap",
     className: e.class.mediaPlayerWrap

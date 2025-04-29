@@ -23,12 +23,12 @@ export async function loadProviders(player) {
 }
 
 export async function harkList(country_id = 'all', provider = 'all') {
-    const bibles = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/index.json`).then(response => response.json());
+    const bibles = await fetch(`${BASE_CONTENT_URL}/bibles/audio-davar/index.json`).then(response => response.json());
     const output = bibles
     .map(bible => ({
         ...bible,
         tp: "hark",
-        dl: (bible.dl) ? `${BASE_CONTENT_URL}/bibles/audio-new/${bible.id}.zip` : ""
+        dl: (bible.dl) ? `${BASE_CONTENT_URL}/bibles/audio-davar/${bible.id}.zip` : ""
     }))
     .filter(bible => country_id === 'all' || bible.ci === country_id)
     .filter(bible => provider === 'all' || bible.id.includes(provider));
@@ -51,7 +51,7 @@ export async function harkSelect(id) {
         "61": "2PE", "62": "1JN", "63": "2JN", "64": "3JN", "65": "JUD", "66": "REV"
     };
 
-    const filenameRequest = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/${id}/index.txt`);
+    const filenameRequest = await fetch(`${BASE_CONTENT_URL}/bibles/audio-davar/${id}/index.txt`);
     const filenames = await filenameRequest.text();
     const booksMap = new Map();
     const filenamePattern = /^(\d+)_(\w+)_(\d+)\.mp3$/;
@@ -75,7 +75,7 @@ export async function harkSelect(id) {
     });
 
     let timingFiles = [];
-    const response = await fetch(`${BASE_CONTENT_URL}/bibles/audio-new/${id}/timingfiles/_index.txt`);
+    const response = await fetch(`${BASE_CONTENT_URL}/bibles/audio-davar/${id}/timingfiles/_index.txt`);
     if (response.ok) {
         timingFiles = (await response.text()).split("\n");
     } else {
@@ -172,7 +172,7 @@ export async function setCurrentChapter(ctx, book, chapter) {
         const padLength = (book.book_number === "19") ? 3 : 2;
 
         ctx.currentChapter = {
-            path: `https://content.dbs.org/bibles/audio-new/${ctx.currentBooks.bible_folder}/${book.book_number}_${book.name}_${safeChapter.toString().padStart(padLength, '0')}.mp3`,
+            path: `https://content.dbs.org/bibles/audio-davar/${ctx.currentBooks.bible_folder}/${book.book_number}_${book.name}_${safeChapter.toString().padStart(padLength, '0')}.mp3`,
             title: `${book.name} ${safeChapter}`,
             number: safeChapter,
             book_id: book.book_id,
@@ -186,7 +186,7 @@ export async function setCurrentChapter(ctx, book, chapter) {
 
         if (Array.isArray(ctx.currentBooks.timestamps) && ctx.currentBooks.timestamps.length > 0) {
             const timestampRegex = /Verse (\d+)	(\d+:\d+:\d+\.\d+)/gm;
-            let timestampsText = await fetch(`https://content.dbs.org/bibles/audio-new/${ctx.currentBooks.bible_folder}/timingfiles/${ctx.currentBook.book_id}_${safeChapter.toString().padStart(3, '0')}.txt`).then(function (response) {
+            let timestampsText = await fetch(`https://content.dbs.org/bibles/audio-davar/${ctx.currentBooks.bible_folder}/timingfiles/${ctx.currentBook.book_id}_${safeChapter.toString().padStart(3, '0')}.txt`).then(function (response) {
                 return response.text();
             }).catch((error) => {
                 console.error('Error:', error);
