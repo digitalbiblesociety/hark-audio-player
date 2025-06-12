@@ -1,4 +1,4 @@
-/*! tailwindcss v4.1.2 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.1.10 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -7,26 +7,26 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
-    --color-red-600: oklch(0.577 0.245 27.325);
-    --color-yellow-200: oklch(0.945 0.129 101.54);
-    --color-yellow-300: oklch(0.905 0.182 98.111);
-    --color-blue-300: oklch(0.809 0.105 251.813);
-    --color-blue-400: oklch(0.707 0.165 254.624);
-    --color-blue-500: oklch(0.623 0.214 259.815);
-    --color-blue-600: oklch(0.546 0.245 262.881);
-    --color-gray-100: oklch(0.967 0.003 264.542);
-    --color-gray-200: oklch(0.928 0.006 264.531);
-    --color-gray-900: oklch(0.21 0.034 264.665);
-    --color-neutral-50: oklch(0.985 0 0);
-    --color-stone-100: oklch(0.97 0.001 106.424);
-    --color-stone-200: oklch(0.923 0.003 48.717);
-    --color-stone-300: oklch(0.869 0.005 56.366);
-    --color-stone-400: oklch(0.709 0.01 56.259);
-    --color-stone-500: oklch(0.553 0.013 58.071);
-    --color-stone-600: oklch(0.444 0.011 73.639);
-    --color-stone-700: oklch(0.374 0.01 67.558);
-    --color-stone-800: oklch(0.268 0.007 34.298);
-    --color-stone-900: oklch(0.216 0.006 56.043);
+    --color-red-600: oklch(57.7% 0.245 27.325);
+    --color-yellow-200: oklch(94.5% 0.129 101.54);
+    --color-yellow-300: oklch(90.5% 0.182 98.111);
+    --color-blue-300: oklch(80.9% 0.105 251.813);
+    --color-blue-400: oklch(70.7% 0.165 254.624);
+    --color-blue-500: oklch(62.3% 0.214 259.815);
+    --color-blue-600: oklch(54.6% 0.245 262.881);
+    --color-gray-100: oklch(96.7% 0.003 264.542);
+    --color-gray-200: oklch(92.8% 0.006 264.531);
+    --color-gray-900: oklch(21% 0.034 264.665);
+    --color-neutral-50: oklch(98.5% 0 0);
+    --color-stone-100: oklch(97% 0.001 106.424);
+    --color-stone-200: oklch(92.3% 0.003 48.717);
+    --color-stone-300: oklch(86.9% 0.005 56.366);
+    --color-stone-400: oklch(70.9% 0.01 56.259);
+    --color-stone-500: oklch(55.3% 0.013 58.071);
+    --color-stone-600: oklch(44.4% 0.011 73.639);
+    --color-stone-700: oklch(37.4% 0.01 67.558);
+    --color-stone-800: oklch(26.8% 0.007 34.298);
+    --color-stone-900: oklch(21.6% 0.006 56.043);
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
@@ -174,9 +174,9 @@
   }
   @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {
     ::placeholder {
-      color: currentColor;
+      color: currentcolor;
       @supports (color: color-mix(in lab, red, red)) {
-        color: color-mix(in oklab, currentColor 50%, transparent);
+        color: color-mix(in oklab, currentcolor 50%, transparent);
       }
     }
   }
@@ -260,6 +260,9 @@
   }
   .right-2 {
     right: calc(var(--spacing) * 2);
+  }
+  .right-10 {
+    right: calc(var(--spacing) * 10);
   }
   .-bottom-2 {
     bottom: calc(var(--spacing) * -2);
@@ -601,7 +604,7 @@
     scale: var(--tw-scale-x) var(--tw-scale-y);
   }
   .transform {
-    transform: var(--tw-rotate-x) var(--tw-rotate-y) var(--tw-rotate-z) var(--tw-skew-x) var(--tw-skew-y);
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .cursor-pointer {
     cursor: pointer;
@@ -833,7 +836,7 @@
     background-color: var(--color-stone-100);
   }
   .bg-stone-100\/90 {
-    background-color: color-mix(in srgb, oklch(0.97 0.001 106.424) 90%, transparent);
+    background-color: color-mix(in srgb, oklch(97% 0.001 106.424) 90%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-stone-100) 90%, transparent);
     }
@@ -1382,27 +1385,22 @@
 @property --tw-rotate-x {
   syntax: "*";
   inherits: false;
-  initial-value: rotateX(0);
 }
 @property --tw-rotate-y {
   syntax: "*";
   inherits: false;
-  initial-value: rotateY(0);
 }
 @property --tw-rotate-z {
   syntax: "*";
   inherits: false;
-  initial-value: rotateZ(0);
 }
 @property --tw-skew-x {
   syntax: "*";
   inherits: false;
-  initial-value: skewX(0);
 }
 @property --tw-skew-y {
   syntax: "*";
   inherits: false;
-  initial-value: skewY(0);
 }
 @property --tw-space-x-reverse {
   syntax: "*";
@@ -1596,11 +1594,11 @@
       --tw-scale-x: 1;
       --tw-scale-y: 1;
       --tw-scale-z: 1;
-      --tw-rotate-x: rotateX(0);
-      --tw-rotate-y: rotateY(0);
-      --tw-rotate-z: rotateZ(0);
-      --tw-skew-x: skewX(0);
-      --tw-skew-y: skewY(0);
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
       --tw-space-x-reverse: 0;
       --tw-divide-y-reverse: 0;
       --tw-border-style: solid;

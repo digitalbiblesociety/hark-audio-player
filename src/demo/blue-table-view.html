@@ -92,17 +92,17 @@ const defaultClasses = {
 
 (async function() {
     const BASE_API_URL = 'https://arc.dbs.org';
-    const BASE_CONTENT_URL = 'https://content.dbs.org';
+    const BASE_CONTENT_URL = 'https://audio.dbs.org';
     const locale = 'en';
 
-    const response = await fetch(`${BASE_CONTENT_URL}/bibles/audio-davar/index.json`);
+    const response = await fetch(`${BASE_CONTENT_URL}/index.json`);
     let bibles = await response.json()
     bibles = bibles.map(bible => {
     
       return {
         ...bible,
         dl_tt: 'Download',
-        dl_url: (bible.dl) ? `https://content.dbs.org/bibles/audio-davar/${bible.id}.zip` : '',
+        dl_url: (bible.dl) ? `https://audio.dbs.org/${bible.id}.zip` : '',
         hr_tt: "Listen",
       };
     });

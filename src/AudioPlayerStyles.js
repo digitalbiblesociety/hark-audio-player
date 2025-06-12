@@ -75,7 +75,7 @@ const defaultClasses = {
     icon: "hidden",
     wrapper: "relative bg-stone-100 border border-stone-200 rounded min-h-20",
     button: "relative flex flex-row bg-stone-100 h-full w-full hover:bg-stone-200",
-    country: "absolute bottom-0 right-2 block text-sm text-stone-600",
+    country: "absolute bottom-0 right-10 block text-xs text-stone-600",
     languageWrap: "py-1 bg-stone-200 h-full w-28 flex flex-col justify-center items-center",
     language: "text-sm font-medium text-stone-900",
     iso: "truncate font-mono mt-1 text-sm text-stone-500",

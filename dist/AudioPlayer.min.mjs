@@ -136,7 +136,7 @@ const re = {
   for (const n of Object.keys(e))
     t[n] = e[n];
   return t;
-}, H = "https://content.dbs.org";
+}, H = "https://audio.dbs.org";
 async function pe(e) {
   let t = {
     hark: me,
@@ -150,10 +150,10 @@ async function pe(e) {
   }
 }
 async function me(e = "all", t = "all") {
-  return (await fetch(`${H}/bibles/audio-davar/index.json`).then((a) => a.json())).map((a) => ({
+  return (await fetch(`${H}/index.json`).then((a) => a.json())).map((a) => ({
     ...a,
     tp: "hark",
-    dl: a.dl ? `${H}/bibles/audio-davar/${a.id}.zip` : ""
+    dl: a.dl ? `${H}/${a.id}.zip` : ""
   })).filter((a) => e === "all" || a.ci === e).filter((a) => t === "all" || a.id.includes(t));
 }
 async function be(e) {
@@ -224,7 +224,7 @@ async function be(e) {
     64: "3JN",
     65: "JUD",
     66: "REV"
-  }, o = await (await fetch(`${H}/bibles/audio-davar/${e}/index.txt`)).text(), a = /* @__PURE__ */ new Map(), r = /^(\d+)_(\w+)_(\d+)\.mp3$/;
+  }, o = await (await fetch(`${H}/${e}/index.txt`)).text(), a = /* @__PURE__ */ new Map(), r = /^(\d+)_(\w+)_(\d+)\.mp3$/;
   o.split(`
 `).sort().forEach((i) => {
     const u = i.match(r);
@@ -239,7 +239,7 @@ async function be(e) {
     }
   });
   let l = [];
-  const c = await fetch(`${H}/bibles/audio-davar/${e}/timingfiles/_index.txt`);
+  const c = await fetch(`${H}/${e}/timingfiles/_index.txt`);
   c.ok ? l = (await c.text()).split(`
 `) : console.warn("timing files could not be found");
   for (const i of a.values())
@@ -280,7 +280,7 @@ async function P(e, t, n) {
   if ((a = t == null ? void 0 : t.chapters) != null && a.includes(n) || (o = 1), e.currentType === "hark") {
     const r = t.book_number === "19" ? 3 : 2;
     e.currentChapter = {
-      path: `https://content.dbs.org/bibles/audio-davar/${e.currentBooks.bible_folder}/${t.book_number}_${t.name}_${o.toString().padStart(r, "0")}.mp3`,
+      path: `https://audio.dbs.org/${e.currentBooks.bible_folder}/${t.book_number}_${t.name}_${o.toString().padStart(r, "0")}.mp3`,
       title: `${t.name} ${o}`,
       number: o,
       book_id: t.book_id,
@@ -289,7 +289,7 @@ async function P(e, t, n) {
     const l = new URL(window.location);
     if (l.searchParams.set("book", t.book_id), l.searchParams.set("c", o), Array.isArray(e.currentBooks.timestamps) && e.currentBooks.timestamps.length > 0) {
       const c = /Verse (\d+)	(\d+:\d+:\d+\.\d+)/gm;
-      let i = await fetch(`https://content.dbs.org/bibles/audio-davar/${e.currentBooks.bible_folder}/timingfiles/${e.currentBook.book_id}_${o.toString().padStart(3, "0")}.txt`).then(function(d) {
+      let i = await fetch(`https://audio.dbs.org/${e.currentBooks.bible_folder}/timingfiles/${e.currentBook.book_id}_${o.toString().padStart(3, "0")}.txt`).then(function(d) {
         return d.text();
       }).catch((d) => {
         console.error("Error:", d);
