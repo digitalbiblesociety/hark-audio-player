@@ -32,6 +32,7 @@
         th:nth-of-type(5) span {
             display: none;
         }
+        a[href=""] {display: none;}
     </style>
 </head>
 <body>
@@ -139,8 +140,7 @@ const defaultClasses = {
             { id: "tt", name: 'Title', subtitle: "ln", link: { base: `https://listen.dbs.org/src/demo/blue-theme.html?bibleId=`, id: 'id' } },
             { id: "cn", name: 'Country', icon: { base: '/src/demo/flags.svg#', id: 'ci', class: "h-5 w-5 drop-shadow-md inline-flex mr-2 float-left" } },
             { id: "tc", subtitle:"pb", name: "Copyright", class:"text-xs"},
-            { id: "", name: 'Download', 
-                link: { base:'', id: 'dl_url' },
+            { id: "", name: 'Download', link: { base:'', id: 'dl_url' },
                 icon: { base: '/src/demo/actions.svg#', id: 'dl_tt', class: "h-5 w-5 drop-shadow-md block mx-auto" } },
             { id: "", name: 'Listen', 
                 link: { base: `https://listen.dbs.org/src/demo/blue-theme.html?bibleId=`, id: 'id'},
