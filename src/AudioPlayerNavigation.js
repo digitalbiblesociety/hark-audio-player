@@ -13,14 +13,14 @@ export function createBibleBlockButtons(ctx) {
         },
         {
             condition: ctx.view === "book",
-            innerHTML: ctx.icons.books,
-            className: ctx.class.bookList.navButton,
+            innerHTML: ctx.icons.chapters,
+            className: ctx.class.chapterList.navButton,
             onclick: () => {ctx.view = 'chapter';ctx.render()}
         },
         {
             condition: ctx.view === "chapter",
-            innerHTML: ctx.icons.chapters,
-            className: ctx.class.chapterList.navButton,
+            innerHTML: ctx.icons.books,
+            className: ctx.class.bookList.navButton,
             onclick: () => {ctx.view = 'book';ctx.render()}
         }
     ];

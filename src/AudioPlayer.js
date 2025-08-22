@@ -3,7 +3,7 @@ import { loadProviders } from "./AudioPlayerProviders.js";
 import { elem } from "./AudioPlayerHelpers.js";
 import { createAudioElement } from "./AudioPlayerMedia.js";
 import { initBibleList, handleBibleButtonClick, initBookList } from "./AudioPlayerBibleList.js";
-import { chapterList, handleBookChange, updateBookList } from "./AudioPlayerChapterList.js";
+import { chapterList, handleBookChange, updateBookList, updateCurrentBibleBlock } from "./AudioPlayerChapterList.js";
 
 export default class AudioPlayer {
   constructor(containerId, options) {
@@ -78,8 +78,10 @@ export default class AudioPlayer {
       this.copyrightContainer.innerHTML = ``
     } else if (this.view === "book") {
       updateBookList(this);
+      updateCurrentBibleBlock(this, this.currentBible);
     } else if (this.view === "chapter") {
       chapterList(this);
+      updateCurrentBibleBlock(this, this.currentBible);
     }
     setView(this)
   }

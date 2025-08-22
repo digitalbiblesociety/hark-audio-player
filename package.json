@@ -1,6 +1,6 @@
 {
   "name": "hark-audio-player",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "",
   "main": "./dist/AudioPlayer.min.mjs",
   "scripts": {
