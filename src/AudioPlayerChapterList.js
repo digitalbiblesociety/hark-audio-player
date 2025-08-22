@@ -46,6 +46,7 @@ export function updateBookList(ctx) {
         }
     }
 
+    ctx.copyrightContainer.innerHTML = '';
     if(ctx.currentBible.audio_copyright) {
         ctx.copyrightContainer.appendChild(elem('div', { className: ctx.class.copyright.copyrightAudio, innerText: ctx.currentBible?.audio_copyright }));
     }
